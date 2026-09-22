@@ -439,6 +439,21 @@ main {
   }
 }
 
+/* На больших экранах основной текст (p1) читается с более широких
+   отступов — увеличиваем размер и межстрочный интервал, чтобы не
+   выглядел мельче, чем всё остальное на такой ширине. */
+@media (min-width: 1600px) {
+  :root {
+    --text-p1-primary-size: 16px;
+    --text-p1-primary-line: 24px;
+    --text-p1-secondary-size: 16px;
+    --text-p1-secondary-line: 24px;
+    --text-p1-long-size: 16px;
+    --text-p1-long-line: 24px;
+    --text-p1-selection-size: 16px;
+  }
+}
+
 /* ---- Появление блоков при скролле ---- */
 .reveal {
   filter: blur(4px);
