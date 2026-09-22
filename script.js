@@ -104,9 +104,11 @@
 })();
 
 (function () {
-  // Ряд карточек "Как я работаю" тянется мышью за ручку — как перетаскивание
-  // картинки в лайтбоксе (case-study.js). Тач и колесо уже скроллят ряд сами
-  // за счёт overflow-x:auto нативно, поэтому здесь ловим только мышь.
+  // Ряд карточек "Как я работаю" тянется за ручку мышью или пальцем — как
+  // перетаскивание картинки в лайтбоксе (case-study.js). Горизонтальный
+  // жест целиком отдан этому коду (touch-action:pan-y в components.css),
+  // поэтому пружинка/оттяжка работают одинаково и с мышью, и с тачем;
+  // вертикальный скролл страницы пальцем поверх карточек не затронут.
   var track = document.querySelector('.process-steps');
   var title = document.querySelector('.process-title');
   if (!track) return;
@@ -140,25 +142,32 @@
   var dragPointerId = null;
   var dragStartX = 0;
   var dragStartScrollLeft = 0;
+  var lastMoveTime = 0;
+  var lastRawTarget = 0;
+  var scrollVelocity = 0; // px/мс, скорость изменения scrollLeft в момент отпускания
 
-  track.addEventListener('pointerdown', function (e) {
-    if (e.pointerType !== 'mouse') return;
-    dragging = true;
-    dragPointerId = e.pointerId;
-    dragStartX = e.clientX;
-    dragStartScrollLeft = track.scrollLeft;
-    track.classList.add('is-dragging');
-    track.setPointerCapture(e.pointerId);
-  });
-
-  // Лёгкое пружинение на краях: если тянуть дальше начала/конца скролла,
+  // Пружинка — только лёгкая отдача на краях (как было изначально):
   // ряд поддаётся лишь на часть жеста (RESISTANCE) через transform, а не
   // просто упирается в стену — и плавно возвращается на место при
   // отпускании (transition ниже, снимается сразу после, чтобы не мешать
   // следующему перетаскиванию, которое должно идти без задержки за курсором).
   var RESISTANCE = 0.35;
   var MAX_OVERSHOOT = 60;
-  var SPRING_TRANSITION = 'transform 0.45s cubic-bezier(0.34, 2.2, 0.64, 1)';
+  var SPRING_TRANSITION = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
+
+  // Инерция ("ускорение"): чем резче толчок, тем быстрее и дальше едет
+  // ряд после отпускания, с постепенным замедлением — а не резкая
+  // остановка ровно там, где разжали пальцы/кнопку.
+  var MOMENTUM_DECAY = 0.998; // затухание скорости за 1мс
+  var MOMENTUM_MIN_VELOCITY = 0.02; // px/мс — ниже него считаем, что остановились
+  var momentumFrame = null;
+
+  function stopMomentum() {
+    if (momentumFrame) {
+      cancelAnimationFrame(momentumFrame);
+      momentumFrame = null;
+    }
+  }
 
   function springBack() {
     track.style.transition = SPRING_TRANSITION;
@@ -169,9 +178,66 @@
     });
   }
 
+  // Толчок фиксированной небольшой величины при ударе о край во время
+  // инерционного докатывания — та же лёгкая отдача, что и при обычном
+  // перетаскивании за край, просто без ручного жеста в моменте.
+  function bounceEdge(hitMin) {
+    var pulse = hitMin ? 14 : -14;
+    track.style.transition = 'none';
+    track.style.transform = 'translateX(' + pulse + 'px)';
+    void track.offsetWidth;
+    springBack();
+  }
+
+  function startMomentum(velocity) {
+    stopMomentum();
+    var lastT = performance.now();
+    function step(t) {
+      var dt = t - lastT;
+      lastT = t;
+      velocity *= Math.pow(MOMENTUM_DECAY, dt);
+      if (Math.abs(velocity) < MOMENTUM_MIN_VELOCITY) {
+        momentumFrame = null;
+        return;
+      }
+      var min = 0;
+      var max = track.scrollWidth - track.clientWidth;
+      var next = track.scrollLeft + velocity * dt;
+      if (next < min || next > max) {
+        track.scrollLeft = Math.max(min, Math.min(max, next));
+        momentumFrame = null;
+        bounceEdge(next < min);
+        return;
+      }
+      track.scrollLeft = next;
+      momentumFrame = requestAnimationFrame(step);
+    }
+    momentumFrame = requestAnimationFrame(step);
+  }
+
+  track.addEventListener('pointerdown', function (e) {
+    stopMomentum();
+    dragging = true;
+    dragPointerId = e.pointerId;
+    dragStartX = e.clientX;
+    dragStartScrollLeft = track.scrollLeft;
+    lastMoveTime = performance.now();
+    lastRawTarget = dragStartScrollLeft;
+    scrollVelocity = 0;
+    track.classList.add('is-dragging');
+    track.setPointerCapture(e.pointerId);
+  });
+
   track.addEventListener('pointermove', function (e) {
     if (!dragging || e.pointerId !== dragPointerId) return;
-    var target = dragStartScrollLeft - (e.clientX - dragStartX);
+    var rawTarget = dragStartScrollLeft - (e.clientX - dragStartX);
+    var now = performance.now();
+    var dt = now - lastMoveTime;
+    if (dt > 0) scrollVelocity = (rawTarget - lastRawTarget) / dt;
+    lastMoveTime = now;
+    lastRawTarget = rawTarget;
+
+    var target = rawTarget;
     var min = 0;
     var max = track.scrollWidth - track.clientWidth;
     var overshoot = 0;
@@ -196,24 +262,11 @@
     dragging = false;
     dragPointerId = null;
     track.classList.remove('is-dragging');
-    // Пружинка не только на краю: если тянули дальше границы, transform
-    // уже выставлен движением выше и просто едет обратно в 0. Если
-    // отпустили посреди обычного скролла — толчок фиксированной величины
-    // в сторону всего жеста целиком (а не последнего кадра движения: перед
-    // отпусканием курсор обычно уже почти остановлен, и скорость в
-    // последний момент около нуля — толчка почти не было видно).
-    var totalDrag = e.clientX - dragStartX;
-    if (!track.style.transform && totalDrag) {
-      var nudge = totalDrag > 0 ? 16 : -16;
-      track.style.transition = 'none';
-      track.style.transform = 'translateX(' + nudge + 'px)';
-      // Форсируем reflow — иначе постановка толчка и запуск обратного
-      // перехода в 0 (springBack ниже) происходят в одном и том же
-      // синхронном вызове, и браузер может схлопнуть оба изменения в один
-      // кадр, ни разу не отрисовав сам толчок — тогда пружинки не видно.
-      void track.offsetWidth;
+    if (track.style.transform) {
+      springBack();
+    } else if (Math.abs(scrollVelocity) > MOMENTUM_MIN_VELOCITY) {
+      startMomentum(scrollVelocity);
     }
-    if (track.style.transform) springBack();
   }
 
   track.addEventListener('pointerup', endDrag);
