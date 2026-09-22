@@ -1,0 +1,432 @@
+/* ==========================================================================
+   КОМПОНЕНТЫ
+   Переиспользуемые UI-блоки, собранные на токенах из tokens.css
+   ========================================================================== */
+
+/* ---- Кнопка: тёмная pill-кнопка со стрелкой (primary) ---- */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  height: 40px;
+  padding: var(--space-4xs) var(--space-4xs) var(--space-4xs) var(--space-xs);
+  border-radius: var(--radius-pill);
+  background: var(--bg-inversion);
+  color: var(--text-white);
+  font-family: var(--font-body);
+  font-size: var(--text-p1-primary-size);
+  font-weight: var(--text-p1-primary-weight);
+  line-height: var(--text-p1-primary-line);
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+/* Невидимый буфер вокруг кнопки: без него hover у самого края мигал —
+   при подъёме на 1px курсор у нижней границы оказывался "снаружи",
+   наведение сбрасывалось, кнопка опускалась обратно, наведение снова
+   срабатывало, и так по кругу. Буфер больше сдвига — курсор всегда
+   остаётся над кнопкой. */
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+}
+
+.btn:hover {
+  background: var(--btn-primary-bg-hover);
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  background: var(--btn-primary-bg-press);
+}
+
+.btn__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4xs);
+  border-radius: var(--radius-pill);
+  background: var(--icon-badge-bg);
+  transition: background-color 0.15s ease;
+}
+
+.btn:hover .btn__icon {
+  background: var(--btn-primary-icon-bg-hover);
+}
+
+.btn:active .btn__icon {
+  background: var(--btn-primary-icon-bg-press);
+}
+
+.btn__icon img {
+  width: 24px;
+  height: 24px;
+}
+
+/* ---- Кнопка: прозрачная ссылка-кнопка (шапка/футер) ---- */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: var(--space-3xs) 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--text-nav);
+  font-family: var(--font-body);
+  font-size: var(--text-p1-primary-size);
+  font-weight: var(--text-p1-primary-weight);
+  line-height: var(--text-p1-primary-line);
+  white-space: nowrap;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.btn-ghost:hover,
+.btn-ghost:active {
+  color: var(--btn-ghost-color-hover);
+}
+
+/* ---- Тег / чип ---- */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3xs) var(--space-xs);
+  border-radius: var(--radius-tag);
+  background: var(--bg-tag);
+  color: var(--text-tag);
+  font-family: var(--font-body);
+  font-size: var(--text-p1-secondary-size);
+  font-weight: var(--text-p1-secondary-weight);
+  line-height: var(--text-p1-secondary-line);
+  white-space: nowrap;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+/* ---- Аватар ----
+   Квадратный бокс (не 80x75, как в исходном экспорте Figma) — иначе
+   border-radius:9999px даёт не круг, а сплюснутый овал.
+   Исходное фото — портрет с большим полем фона по бокам лица, поэтому
+   поверх object-fit:cover добавлен доп. зум (transform:scale), чтобы
+   в кадре читалось лицо, а не полкадра фона. Те же значения работают
+   для маленького круга и для увеличенного квадрата в модалке. */
+.avatar {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  cursor: pointer;
+  line-height: 0;
+  transition: transform 0.2s ease-in;
+}
+
+.avatar:hover {
+  transform: scale(1.04);
+}
+
+.avatar:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+.avatar img,
+.avatar-modal__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 0%;
+  transform: scale(1.18);
+}
+
+/* ---- Модалка с фото по клику на аватар ---- */
+.avatar-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+}
+
+.avatar-modal[hidden] {
+  display: none;
+}
+
+.avatar-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(18, 20, 23, 0.72);
+  border: none;
+  cursor: pointer;
+}
+
+.avatar-modal__dialog {
+  position: relative;
+  width: min(480px, 90vw, 85vh);
+  height: min(480px, 90vw, 85vh);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+.avatar-modal__img {
+  display: block;
+}
+
+.avatar-modal__close {
+  position: absolute;
+  top: var(--space-3xs);
+  right: var(--space-3xs);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: rgba(18, 20, 23, 0.6);
+  color: var(--text-white);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---- Статистика (16 лет / 7 лет / 5+ лет) ----
+   Карточки (node 144:395): резиновые равные колонки на всю ширину
+   родителя (flex: 1 1 0), белый фон, скругление, текст по центру —
+   вместо прежних фиксированных 168px-колонок с левым бордером. */
+.stats {
+  display: flex;
+  gap: var(--space-sm);
+  width: 100%;
+}
+
+.stat {
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4xs);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: 24px;
+  background: var(--bg-content);
+  text-align: left;
+}
+
+.stat-number {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: var(--text-stat-number-size);
+  line-height: normal;
+  color: var(--text-stat-number);
+}
+
+.stat-label {
+  font-family: var(--font-body);
+  font-weight: var(--text-p1-secondary-weight);
+  font-size: var(--text-p1-secondary-size);
+  line-height: var(--text-p1-secondary-line);
+  color: var(--text-secondary);
+}
+
+/* ---- Как я работаю (процесс) ----
+   Карточки фиксированной ширины 260px (node 147:251) — при 5 штуках
+   ряд (1364px) шире стандартной ширины контента (800px). В макете ряд
+   уходит за правый край кадра, начинаясь вровень с заголовком слева.
+   Раньше это делалось через 100vw + translateX(-50%), но расчёт сбивал
+   выравнивание, так как проценты у left считаются от родителя (.process,
+   800px), а не от вьюпорта — сетка ("breakout grid") не имеет этой
+   проблемы: средняя колонка = обычная 800px-колонка контента (в неё
+   встаёт заголовок), боковые — резиновые (0 или сколько угодно места
+   больше 800px), а .process-steps растянут от начала средней колонки до
+   самого правого края — гарантированно вровень с заголовком слева. */
+.process {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, var(--content-width))
+    minmax(0, 1fr);
+  row-gap: var(--space-md);
+  width: 100%;
+}
+
+.process-title {
+  grid-column: 2;
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: var(--text-project-title-size);
+  line-height: normal;
+  color: var(--text-title);
+}
+
+.process-steps {
+  /* Растянут на всю сетку (обе резиновые колонки-отступа) — карточки
+     при скролле уходят за реальный край экрана и слева, и справа, а не
+     упираются в невидимую границу на месте края контентной колонки. */
+  grid-column: 1 / 4;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: var(--space-xs);
+  overflow-x: auto;
+  overflow-y: visible;
+  scrollbar-width: none;
+  cursor: grab;
+  /* Без этого перетаскивание мышью выделяло текст в карточках вместо
+     скролла — приходилось кликать по несколько раз, чтобы просто ухватить
+     ряд. */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.process-steps::-webkit-scrollbar {
+  display: none;
+}
+
+/* Курсор меняется на "зажато" во время перетаскивания мышью (script.js),
+   как в лайтбоксе картинок. Никакого scroll-snap — с ним карточка после
+   отпускания резко доскакивала до выравнивания, и это выглядело дёргано;
+   ряд просто плавно катится туда, куда его потянули. */
+.process-steps.is-dragging {
+  cursor: grabbing;
+}
+
+.process-step {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 0 0 260px;
+  width: 260px;
+  gap: var(--space-3xs);
+  padding: var(--space-xs) var(--space-md) 20px;
+  border-radius: 24px;
+  background: var(--bg-accent);
+  text-align: left;
+}
+
+.process-step__number {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: var(--text-stat-number-size);
+  line-height: normal;
+  color: var(--text-primary);
+}
+
+.process-step__title {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: var(--text-p1-selection-weight);
+  font-size: var(--text-p1-selection-size);
+  line-height: var(--text-p1-selection-line);
+  color: var(--text-primary);
+}
+
+.process-step__desc {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: var(--text-p1-long-weight);
+  font-size: var(--text-p1-long-size);
+  line-height: var(--text-p1-long-line);
+  color: var(--text-secondary);
+}
+
+/* ---- Карточка проекта ---- */
+.project-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-md);
+  width: 100%;
+  padding-bottom: var(--space-md);
+}
+
+.project-card__image {
+  display: block;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 720 / 444;
+  border-radius: var(--radius-illustration);
+  overflow: hidden;
+  background-color: var(--bg-tag);
+}
+
+.project-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-card__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-md);
+  width: 100%;
+  padding: 0 var(--space-lg);
+}
+
+.project-card__header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  width: 100%;
+}
+
+.project-card__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3xs);
+  width: 100%;
+}
+
+.project-meta {
+  font-family: var(--font-body);
+  font-weight: var(--text-p1-secondary-weight);
+  font-size: var(--text-p1-secondary-size);
+  line-height: var(--text-p1-secondary-line);
+  color: var(--text-meta);
+}
+
+.project-title {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: var(--text-project-title-size);
+  line-height: normal;
+  color: var(--text-title);
+}
+
+/* Кликабельный тайтл карточки (только у "Корпоративный портал") —
+   выглядит как обычный текст заголовка, без подчёркивания/смены цвета. */
+.project-title-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.project-desc {
+  font-family: var(--font-body);
+  font-weight: var(--text-p1-long-weight);
+  font-size: var(--text-p1-long-size);
+  line-height: var(--text-p1-long-line);
+  color: var(--text-desc);
+  width: 100%;
+}

@@ -1,0 +1,496 @@
+/* ==========================================================================
+   LAYOUT
+   Композиция страницы поверх tokens.css и components.css
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+body,
+h1, h2, h3, h4, h5, h6,
+p {
+  margin: 0;
+}
+
+body {
+  background: var(--bg-content);
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  /* .process-steps растянута почти до края экрана (components.css), а
+     пружинка/оттяжка при перетаскивании двигает её ещё и через
+     transform — вместе это может на пару пикселей вытолкнуть блок за
+     реальную границу окна и включить горизонтальный скролл всей
+     страницы. Настоящего контента там нет, поэтому просто обрезаем. */
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+.wrap {
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+/* ---- Шапка ---- */
+.site-header {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-sm) var(--page-padding-x);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xs);
+  width: 100%;
+  padding: 0 var(--space-4xs);
+}
+
+.brand {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: var(--text-brand-size);
+  line-height: var(--text-brand-line);
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+/* ---- Main / секции ---- */
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xl);
+  padding: 0 10px;
+}
+
+/* ---- Hero ---- */
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 40px;
+  width: 100%;
+  max-width: var(--content-width);
+  padding: var(--space-md) var(--space-lg) var(--space-lg);
+  border-radius: var(--radius-card);
+  background: var(--bg-accent);
+  overflow: hidden;
+}
+
+.hero > :not(.hero-deco) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Позиции декора взяты 1:1 из Figma (node 30:60/63/64/84),
+   в px/% относительно 800px-карточки hero. */
+.hero-deco {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Node 144:384: привязан к низу карточки (bottom), а не к верху — так он
+   остаётся рядом с кнопкой независимо от того, насколько вырастет текст
+   выше (раньше top был посчитан под старую высоту hero и с ростом
+   контента отъезжал от кнопки всё дальше). */
+.hero-deco--1 {
+  left: 175px;
+  bottom: 75.59px;
+  width: 115px;
+  height: 91.407px;
+}
+
+.hero-deco--3 {
+  left: 30px;
+  top: 18px;
+  width: 191px;
+  height: 169px;
+}
+
+/* Фигуры 2 и 4 в макете лежат в центрированном боксе и повёрнуты
+   вокруг собственного центра — контейнер задаёт положение/размер бокса,
+   внутренний img — реальный размер фигуры и поворот. */
+.hero-deco--2 {
+  left: calc(66.67% + 26.67px);
+  top: -48px;
+  width: 260.379px;
+  height: 254.182px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-deco--2 img {
+  width: 179.876px;
+  height: 196.809px;
+  transform: rotate(60deg);
+}
+
+.hero-deco--4 {
+  left: calc(50% + 50px);
+  top: -62px;
+  width: 378.226px;
+  height: 201.517px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-deco--4 img {
+  width: 370.323px;
+  height: 185.157px;
+  transform: rotate(177.44deg);
+}
+
+/* ---- Влёт декора при загрузке ----
+   Облачко (--3) влетает слева, обе петельки (--2 белая, --4 чёрная)
+   справа: из прозрачности, с небольшим ускорением (ease-in), ненавязчиво
+   и без большого смещения. */
+@keyframes decoFlyInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes decoFlyInRight {
+  from {
+    opacity: 0;
+    transform: translateX(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.hero-deco--3 {
+  animation: decoFlyInLeft 0.8s ease-in both;
+}
+
+.hero-deco--1,
+.hero-deco--2,
+.hero-deco--4 {
+  animation: decoFlyInRight 0.8s ease-in both;
+}
+
+.hero-deco--4 {
+  animation-delay: 0.08s;
+}
+
+/* Тот же приём (из прозрачности, ease-in), что у декора, но снизу вверх —
+   для содержимого hero: аватарка, заголовок, статистика, описание. */
+@keyframes heroFlyInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.avatar,
+.hero-title,
+.stat,
+.hero-text {
+  animation: heroFlyInUp 0.8s ease-in both;
+}
+
+.hero-title {
+  animation-delay: 0.08s;
+}
+
+/* Карточки статистики (node 144:395) влетают по очереди слева направо,
+   продолжая общий каскад hero (аватар → заголовок → карточки → текст). */
+.stat:nth-child(1) {
+  animation-delay: 0.16s;
+}
+
+.stat:nth-child(2) {
+  animation-delay: 0.24s;
+}
+
+.stat:nth-child(3) {
+  animation-delay: 0.32s;
+}
+
+.hero-text {
+  animation-delay: 0.4s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-deco--1,
+  .hero-deco--2,
+  .hero-deco--3,
+  .hero-deco--4,
+  .avatar,
+  .hero-title,
+  .stat,
+  .hero-text {
+    animation: none;
+  }
+}
+
+.hero-intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  width: 100%;
+}
+
+.hero-top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-xs);
+  width: 100%;
+}
+
+.hero-title {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: var(--text-hero-title-size);
+  color: var(--text-primary);
+}
+
+.hero-title span {
+  display: block;
+  line-height: 44px;
+}
+
+.hero-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.hero-text {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-xs);
+  width: 100%;
+  font-family: var(--font-body);
+  font-weight: var(--text-p1-long-weight);
+  font-size: var(--text-p1-long-size);
+  line-height: var(--text-p1-long-line);
+  color: var(--text-secondary);
+}
+
+.hero-text p {
+  flex: 1 0 0;
+  min-width: 0;
+  margin: 0;
+}
+
+/* ---- Проекты ---- */
+.projects {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xl);
+  width: 100%;
+  max-width: var(--content-width);
+}
+
+/* ---- Футер (node 130:420) ----
+   Теперь оформлен так же, как шапка: без карточки-фона, без декора,
+   переиспользует .wrap/.header-inner. Вынесен из <main> (как и <header>
+   ему не принадлежит) — иначе получал двойной боковой паддинг: свой
+   плюс паддинг <main>. margin-top компенсирует гэп, который раньше
+   давал main/.case-main между последним блоком и футером. */
+.site-footer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: var(--space-2xl);
+  padding: var(--space-sm) var(--page-padding-x);
+}
+
+/* ---- Адаптив ---- */
+@media (max-width: 900px) {
+  /* Внешний отступ страницы (node 86:352, планшетный кадр 720px) — 32px
+     и у шапки, и у <main> (через который выравниваются кейс-страницы:
+     ссылка "На главную", контент), иначе они расходятся. Футер теперь
+     устроен как шапка (node 130:420), поэтому меняется вместе с ней. */
+  main {
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+  }
+
+  .site-header,
+  .site-footer {
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+  }
+
+  :root {
+    --radius-illustration: 28px;
+  }
+}
+
+@media (max-width: 640px) {
+  .header-nav {
+    gap: var(--space-sm);
+  }
+
+  .stats {
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .stat {
+    flex-basis: auto;
+  }
+
+  .hero-text {
+    flex-direction: column;
+  }
+
+  .hero {
+    padding: var(--space-sm);
+  }
+
+  .project-card__body {
+    padding: 0 var(--space-sm);
+  }
+
+  :root {
+    --radius-illustration: 24px;
+  }
+}
+
+/* Мобильная раскладка (Figma node 109:670): единый отступ страницы 32px,
+   шапка/футер переносят nav на новую строку вместо сжатия в одну. */
+@media (max-width: 480px) {
+  main {
+    padding: 0 32px;
+  }
+
+  .site-header {
+    padding: 24px 32px;
+  }
+
+  .header-inner {
+    flex-wrap: wrap;
+    row-gap: 16px;
+  }
+
+  .site-footer {
+    padding: 24px 32px;
+  }
+
+  /* Текст карточки проекта (node 113:914) должен идти вровень с левым
+     краем картинки — на планшете (640-900px) паддинг 24px остаётся. */
+  .project-card__body {
+    padding: 0;
+  }
+
+  :root {
+    --radius-illustration: 20px;
+  }
+}
+
+@media (max-width: 360px) {
+  :root {
+    --radius-illustration: 16px;
+  }
+}
+
+/* ---- Появление блоков при скролле ---- */
+.reveal {
+  filter: blur(4px);
+  opacity: 0.6;
+  transform: scale(0.98);
+  transition: filter 0.6s ease-out, opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: filter, opacity, transform;
+}
+
+.reveal.is-visible {
+  filter: blur(0);
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Тот же приём появления при скролле, но для текстовых блоков на кейс-
+   страницах: без блюра — подъезжание снизу с прозрачностью. */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+
+.reveal-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-up {
+    transition: none;
+    filter: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Карточки "Как я работаю" (node 147:251) появляются по очереди слева
+   направо при скролле: наблюдается сам .process-steps, а не каждая
+   карточка — is-visible на контейнере включает transition у детей, у
+   каждой карточки свой transition-delay по nth-child. */
+.process-step {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.process-steps.is-visible .process-step {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.process-step:nth-child(1) { transition-delay: 0s; }
+.process-step:nth-child(2) { transition-delay: 0.08s; }
+.process-step:nth-child(3) { transition-delay: 0.16s; }
+.process-step:nth-child(4) { transition-delay: 0.24s; }
+.process-step:nth-child(5) { transition-delay: 0.32s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .process-step {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}

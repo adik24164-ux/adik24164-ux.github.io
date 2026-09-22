@@ -1,0 +1,58 @@
+/* ==========================================================================
+   CASE STUDY: УЛУЧШЕНИЕ ПЕРВОЙ ПОЛЬЗОВАТЕЛЬСКОЙ СЕССИИ (мобильный ЭДО)
+   Только то, что уникально этой странице — весь общий каркас (.case-*)
+   и видео-модалка (.video-modal) живут в case-study.css. Здесь только
+   блок "Как было до…": превью — реальный скриншот мокапа из Figma
+   (node 90:577), по клику открывается настоящая запись в модалке.
+   Источник: Figma tBQGyNSFR0DiuGFQBQuaVn, node 86:99.
+   ========================================================================== */
+
+.video-callout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  width: 100%;
+}
+
+.video-callout__preview {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 800 / 450;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: var(--radius-illustration);
+  overflow: hidden;
+}
+
+.video-callout__preview img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Позиция/размер точно поверх кружка с play, уже нарисованного в превью
+   (центр ~49.9%/49.4% ширины/высоты картинки, диаметр ~8.75% ширины) —
+   в покое незаметен поверх исходного, при наведении увеличивается сам. */
+.video-callout__play {
+  position: absolute;
+  left: 49.9%;
+  top: 49.4%;
+  transform: translate(-50%, -50%);
+  width: 8.75%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease-out;
+}
+
+.video-callout__preview:hover .video-callout__play {
+  transform: translate(-50%, -50%) scale(1.15);
+}

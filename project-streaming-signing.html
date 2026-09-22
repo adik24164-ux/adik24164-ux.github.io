@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Потоковое подписание документов — кейс — Анастасия Вискунова</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;500&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components.css">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="case-study.css">
+<link rel="stylesheet" href="project-streaming-signing.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="index.html" class="brand">Anastasiya Viskunova</a>
+    <nav class="header-nav">
+      <a href="https://t.me/A_Kid87" target="_blank" rel="noopener" class="btn-ghost">Написать мне</a>
+      <a href="https://drive.google.com/uc?export=download&id=1QcS99iipnfwIYSbTbYK9-jQPuCBYrVnY" class="btn-ghost" target="_blank" rel="noopener">Скачать CV</a>
+    </nav>
+  </div>
+</header>
+
+<main class="case-main">
+
+  <div class="case-back-wrap">
+    <a href="index.html" class="case-back">
+      <img src="assets/icon-arrow-left.svg" alt="">
+      На главную
+    </a>
+  </div>
+
+  <section class="case-intro reveal-up">
+    <div class="case-intro-heading">
+      <p class="project-meta">Senior designer &nbsp;◦&nbsp; 2023</p>
+      <h1 class="project-title">Потоковое подписание документов</h1>
+    </div>
+    <div class="tags">
+      <span class="tag">#Mobile_App</span>
+      <span class="tag">#ЭДО</span>
+      <span class="tag">#B2B</span>
+      <span class="tag">#CJM</span>
+      <span class="tag">#UX-test</span>
+    </div>
+    <p class="project-desc">
+      Сделала подписание НЭП в Nopaper прозрачным и контролируемым: убрала блокирующий
+      loader, добавила фоновый прогресс-бар и навигацию через список. Повторное
+      UX-тестирование подтвердило — 100% пользователей правильно понимают новый интерфейс.
+    </p>
+    <dl class="case-meta-list">
+      <div class="case-meta-row">
+        <dt class="case-meta-label">Моя роль:</dt>
+        <dd class="case-meta-value">Старший дизайнер продукта (единственный в команде)</dd>
+      </div>
+      <div class="case-meta-row">
+        <dt class="case-meta-label">Аудитория:</dt>
+        <dd class="case-meta-value">Руководители и другие лица, принимающие решения (ЛПР)</dd>
+      </div>
+      <div class="case-meta-row">
+        <dt class="case-meta-label">Платформа:</dt>
+        <dd class="case-meta-value">Mobile</dd>
+      </div>
+    </dl>
+    <div class="case-app-links">
+      <a href="https://www.behance.net/gallery/222635355/Cervis-mobilnogo-dokumentooborota" target="_blank" rel="noopener" class="case-app-link case-app-link--behance">
+        Смотреть на Behance
+        <img src="assets/icon-arrow-right-accent.svg" alt="">
+      </a>
+      <a href="https://apps.apple.com/ru/app/nopaper/id1537379587" target="_blank" rel="noopener" class="case-app-link case-app-link--store">
+        <img src="assets/icon-apple.svg" alt="">
+        App Store
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.abanking.nopaperlkk" target="_blank" rel="noopener" class="case-app-link case-app-link--store">
+        <img src="assets/icon-google-play.svg" alt="">
+        Google Play
+      </a>
+    </div>
+  </section>
+
+  <div class="case-macbook reveal" role="button" tabindex="0" data-lightbox-src="assets/signing-hero.png" data-lightbox-alt="Экраны потокового подписания документов в приложении Nopaper: список «На подпись», предпросмотр документа, экран «Подписываем…» с прогресс-баром и просмотр подписанного трудового договора" aria-label="Открыть иллюстрацию крупнее">
+    <img src="assets/signing-hero.png" alt="Экраны потокового подписания документов в приложении Nopaper: список «На подпись», предпросмотр документа, экран «Подписываем…» с прогресс-баром и просмотр подписанного трудового договора">
+  </div>
+
+  <div class="case-body">
+
+    <section class="case-section reveal-up">
+      <h2 class="case-section-title">Контекст и роль продукта</h2>
+      <div class="case-section-body">
+        <p class="case-p">В Nopaper доступны разные типы подписей (КЭП, УКЭП, СМС-подпись), но самый популярный и базовый — НЭП (неквалифицированная электронная подпись). Парадоксально, но именно он работал медленнее всего, поскольку вся логика проверки происходила в момент подписания.</p>
+        <p class="case-p">Если базовый сценарий тормозит, пользователь теряет доверие ко всему сервису, даже если альтернативы работают быстрее.</p>
+      </div>
+    </section>
+
+    <section class="case-section reveal-up">
+      <h2 class="case-section-title">Проблема</h2>
+      <div class="case-section-body">
+        <div class="case-image reveal" role="button" tabindex="0" data-lightbox-src="assets/signing-problem-loader.png" data-lightbox-alt="Сравнение экранов подписания: список документов на подпись слева и экран лоадера «Подписывает…» справа с блокирующим спиннером, который мог зависать до 2 минут" aria-label="Открыть иллюстрацию крупнее">
+          <img src="assets/signing-problem-loader.png" alt="Сравнение экранов подписания: список документов на подпись слева и экран лоадера «Подписывает…» справа с блокирующим спиннером, который мог зависать до 2 минут">
+        </div>
+        <p class="case-p">Экран подписания (лоадер) часто зависал на длительное время. Особенно это критично для руководителей с большим количеством документов на подпись, которые уже предварительно согласованы юристом или бухгалтером, — им нужно просто и быстро подписать документ.</p>
+        <p class="case-p">Также это влияло на бизнес-показатели: удлинение жизненного цикла документа, снижение активности пользователей из-за дискомфорта, рост оттока, снижение LTV (пожизненной ценности клиента) и ухудшение отзывов.</p>
+        <div class="case-tight-group">
+          <p class="case-label">Цель</p>
+          <ul class="case-list">
+            <li>Не блокировать пользователя во время подписания. Для этого нужно обеспечить непрерывный поток документов, реализовав возможность перехода к следующему документу без задержек.</li>
+            <li>Добавить свайп-навигацию между документами. Это даст возможность выбирать очередность подписания без необходимости возвращаться к общему списку документов</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section reveal-up">
+      <h2 class="case-section-title">Дизайн-исследование</h2>
+      <div class="case-section-body">
+
+        <p class="case-p">Я собрала кликабельный прототип, распечатала задания на листочке, и мы вместе с аналитиком отправились на коридорный UX-тест</p>
+
+        <div class="case-image reveal" role="button" tabindex="0" data-lightbox-src="assets/signing-corridor-test.png" data-lightbox-alt="Фотографии коридорного UX-тестирования: респонденты держат телефон с кликабельным прототипом рядом с распечатанным заданием, тестируя сценарий подписания документов" aria-label="Открыть иллюстрацию крупнее">
+          <img src="assets/signing-corridor-test.png" alt="Фотографии коридорного UX-тестирования: респонденты держат телефон с кликабельным прототипом рядом с распечатанным заданием, тестируя сценарий подписания документов">
+        </div>
+
+        <div class="case-tight-group">
+          <h3 class="case-subsection-title">Гипотеза первого ux-теста</h3>
+          <p class="case-p">Пользователь, нажав на «Подписать» и увидев прогресс-бар, поймёт, что первый документ подписывается, и сможет перейти к работе со следующим (с помощью свайпа) и так же его подписать</p>
+        </div>
+
+        <div class="case-tight-group">
+          <p class="case-label">Прототип 1</p>
+          <div class="case-image case-image--video reveal" role="button" tabindex="0" data-video-src="assets/video/potok1.mp4" aria-label="Смотреть видео: Прототип 1-го UX-теста">
+            <img src="assets/signing-prototype-1.png" alt="Обложка прототипа первого UX-теста «Прототип 1-го UX-теста»: скриншот экрана «Подписываем…» со свайп-навигацией между документами">
+            <span class="case-image__play" aria-hidden="true">
+              <svg width="45%" height="45%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5V18.5L19 12L8 5.5Z" fill="white"/></svg>
+            </span>
+          </div>
+        </div>
+
+        <div class="case-tight-group">
+          <p class="case-label">В тестировании приняли участие 8 респондентов:</p>
+          <ul class="case-list">
+            <li>Опытные (коллеги на работе) — 4 чел.</li>
+            <li>Новички — 4 чел.</li>
+          </ul>
+        </div>
+
+        <div class="case-tight-group">
+          <p class="case-label">Задание респондентов</p>
+          <div class="case-text-group">
+            <p class="case-p">«Представьте что вы директор IT компании, которому нужно подписать 3 документа. Его уже согласовал юрист, звонит и торопит что нужно поторопиться. Подпишите документы»</p>
+            <p class="case-p">Нужно было выполнять задание и комментировать то что происходит на экране</p>
+          </div>
+        </div>
+
+        <div class="case-tight-group">
+          <p class="case-label">Ответы респондентов подтверждающие и опровергающие гипотезу</p>
+          <div class="case-image reveal" role="button" tabindex="0" data-lightbox-src="assets/signing-test1-responses.png" data-lightbox-alt="Таблица ответов респондентов первого UX-теста по трём колонкам: подтверждают гипотезу, частично подтверждают и опровергают — с цитатами респондентов" aria-label="Открыть иллюстрацию крупнее">
+            <img src="assets/signing-test1-responses.png" alt="Таблица ответов респондентов первого UX-теста по трём колонкам: подтверждают гипотезу, частично подтверждают и опровергают — с цитатами респондентов">
+          </div>
+        </div>
+
+        <div class="case-tight-group">
+          <p class="case-label">Наблюдение за поведением</p>
+          <ul class="case-list">
+            <li>Результаты тестирования показали, что функционал свайпа вызвал у пользователей когнитивный диссонанс: большинство респондентов не поняли, что именно перелистывают — отдельные страницы документа или целые пакеты документов</li>
+            <li>Пользователи постоянно пытались вернуться к общему списку документов, чтобы сохранить контекст и чувство контроля</li>
+            <li>У опытной группы респондентов этот эффект проявлялся ещё сильнее — отсутствие навигации к списку вызывало дискомфорт</li>
+          </ul>
+          <span class="case-status-pill case-status-pill--rejected">Гипотеза не подтвердилась</span>
+        </div>
+
+        <div class="case-tight-group">
+          <p class="case-label">Вывод</p>
+          <div class="case-text-group">
+            <p class="case-p">Добавить автоматический возврат к списку документов после подписания, сохранив при этом прогресс-бар. Это позволит:</p>
+          </div>
+          <ul class="case-list">
+            <li>Дать пользователям ощущение контроля</li>
+            <li>Упростить навигацию</li>
+            <li>Сохранить визуальную информацию о прогрессе подписания</li>
+          </ul>
+        </div>
+
+        <div class="case-tight-group">
+          <h3 class="case-subsection-title">Гипотеза второго ux-теста</h3>
+          <p class="case-p">Если после подписания документа автоматически возвращать пользователя к общему списку документов, сохраняя при этом прогресс-бар подписания, то пользователи будут реже пытаться вернуться в список вручную (через кнопку «назад») и сообщать о чувстве контроля над процессом, потому что им не нужно совершать лишних действий для сохранения контекста, а прогресс-бар даёт визуальную обратную связь о статусе</p>
+        </div>
+
+        <div class="case-tight-group">
+          <p class="case-label">Прототип 2</p>
+          <div class="case-image case-image--video reveal" role="button" tabindex="0" data-video-src="assets/video/potok2.mp4" aria-label="Смотреть видео: Прототип 2-го UX-теста">
+            <img src="assets/signing-prototype-2.png" alt="Обложка прототипа второго UX-теста «Прототип 2-го UX-теста»: скриншот экрана со списком документов и автоматическим возвратом к списку после подписания">
+            <span class="case-image__play" aria-hidden="true">
+              <svg width="45%" height="45%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5V18.5L19 12L8 5.5Z" fill="white"/></svg>
+            </span>
+          </div>
+        </div>
+
+        <div class="case-tight-group">
+          <p class="case-label">В тестировании приняли участие 6 респондентов</p>
+          <ul class="case-list">
+            <li>Новички — 3 чел.</li>
+            <li>Опытные (коллеги на работе) — 3 чел.</li>
+          </ul>
+          <p class="case-p">Задание респондентов звучало точно так же как и в первом тестировании.</p>
+        </div>
+
+        <div class="case-tight-group">
+          <p class="case-label">Ответы респондентов подтверждающие и опровергающие гипотезу</p>
+          <div class="case-image reveal" role="button" tabindex="0" data-lightbox-src="assets/signing-test2-responses.png" data-lightbox-alt="Таблица ответов респондентов второго UX-теста, подтверждающих и опровергающих гипотезу об автоматическом возврате к списку документов" aria-label="Открыть иллюстрацию крупнее">
+            <img src="assets/signing-test2-responses.png" alt="Таблица ответов респондентов второго UX-теста, подтверждающих и опровергающих гипотезу об автоматическом возврате к списку документов">
+          </div>
+        </div>
+
+        <div class="case-tight-group">
+          <p class="case-label">Наблюдение за поведением</p>
+          <ul class="case-list">
+            <li>Теперь респондентам не приходилось нажимать кнопку возврата к списку, это происходило автоматически. Они корректно воспринимали процесс, правильно понимали нахождение лоадера на документе и прогресс-бар вверху экрана</li>
+            <li>Подтвердили проблему о которой давно знали. Звучит она так: «Пользователи не понимают почему из раздела «На подпись» исчезают документы, и, главное, где их потом искать»</li>
+            <li>Не все респонденты понимали что на прогресс-бар можно нажать и перейти к отчёту. В дальнейшем проработали этот момент, для кейса когда документы упали в ошибку</li>
+          </ul>
+          <span class="case-status-pill case-status-pill--confirmed">Гипотеза подтвердилась</span>
+        </div>
+
+        <div class="case-tight-group">
+          <p class="case-label">Выводы после тестирования и дополнительные инсайды, которые пойдут в будущие итерации доработок</p>
+          <div class="case-image reveal" role="button" tabindex="0" data-lightbox-src="assets/signing-test2-insights.png" data-lightbox-alt="Дополнительные инсайды второго UX-теста: наблюдения о видимости прогресс-бара и переходе к отчёту по ошибке подписания" aria-label="Открыть иллюстрацию крупнее">
+            <img src="assets/signing-test2-insights.png" alt="Дополнительные инсайды второго UX-теста: наблюдения о видимости прогресс-бара и переходе к отчёту по ошибке подписания">
+          </div>
+          <ul class="case-list">
+            <li>Теперь респондентам не приходилось нажимать кнопку возврата к списку, это происходило автоматически. Они корректно воспринимали процесс, правильно понимали нахождение лоадера на документе и прогресс-бар вверху экрана</li>
+            <li>Подтвердили проблему о которой давно знали. Звучит она так: «Пользователи не понимают почему из раздела «На подпись» исчезают документы, и, главное, где их потом искать»</li>
+            <li>Не все респонденты понимали что на прогресс-бар можно нажать и перейти к отчёту. В дальнейшем проработали этот момент, для кейса когда документы упали в ошибку</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="case-section reveal-up">
+      <h2 class="case-section-title">Метрики</h2>
+      <div class="case-section-body">
+        <div class="case-text-group">
+          <p class="case-p">Поскольку проект находился на стадии исследовательского прототипа, точные продуктовые метрики не замерялись. Однако на основе поведенческих данных и логики влияния решения, можно прогнозировать снижение времени подписания на 40–50%.</p>
+          <p class="case-p">Это гипотетические, но реалистичные цифры, основанные на логике — ниже показываю, как она раскладывается по цепочке «UX → бизнес».</p>
+        </div>
+        <p class="case-label">Прогнозные метрики (иллюстрация логики влияния, не измеренный результат)</p>
+        <div class="case-image reveal" role="button" tabindex="0" data-lightbox-src="assets/signing-metrics.png" data-lightbox-alt="Прогнозная таблица метрик: среднее число подписанных документов за сессию может вырасти с 3 до 6 (+100%), месячный отток — снизиться с 8% до 5% (−3 п.п.), среднее число сессий в неделю — вырасти с 2,5 до 3,8 (+52%), число тикетов «зависает подписание» — сократиться с 45 до 12 в месяц (−73%)" aria-label="Открыть иллюстрацию крупнее">
+          <img src="assets/signing-metrics.png" alt="Прогнозная таблица метрик: среднее число подписанных документов за сессию может вырасти с 3 до 6 (+100%), месячный отток — снизиться с 8% до 5% (−3 п.п.), среднее число сессий в неделю — вырасти с 2,5 до 3,8 (+52%), число тикетов «зависает подписание» — сократиться с 45 до 12 в месяц (−73%)">
+        </div>
+        <div class="case-tight-group">
+          <p class="case-label">Как изменения в интерфейсе повлияли на бизнес</p>
+          <div class="case-metrics">
+            <div class="case-metrics-row">
+              <p class="case-metrics-row__label">UX → Поведение</p>
+              <p class="case-metrics-row__stat">По прогнозу, среднее число подписанных документов за сессию может вырасти в 2 раза (с 3 до 6)</p>
+              <p class="case-metrics-row__desc">Автоматический возврат к списку позволяет пользователям не ждать завершения одного документа, а сразу переходить к следующему. Мы убрали блокировку и дали возможность работать в непрерывном потоке.</p>
+            </div>
+            <div class="case-metrics-row">
+              <p class="case-metrics-row__label">Поведение → Вовлеченность</p>
+              <p class="case-metrics-row__stat">По прогнозу, среднее число сессий в неделю может вырасти на 52% (с 2,5 до 3,8)</p>
+              <p class="case-metrics-row__desc">Когда пользователь видит, что процесс пошёл быстрее, он охотнее возвращается в продукт. Рост удовлетворённости напрямую конвертируется в рост активности.</p>
+            </div>
+            <div class="case-metrics-row">
+              <p class="case-metrics-row__label">Вовлеченность → Удержание</p>
+              <p class="case-metrics-row__stat">По прогнозу, количество тикетов по теме «зависает подписание» может сократиться на 73% (с 45 до 12 в месяц)</p>
+              <p class="case-metrics-row__desc">Проблема, которая раньше создавала боль и заставляла обращаться в саппорт, может перестать быть системной. Это снизит операционные расходы и повысит удовлетворённость пользователей сервисом в целом.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section reveal-up">
+      <h2 class="case-section-title">Рефлексия</h2>
+      <div class="case-section-body">
+        <div class="case-text-group">
+          <p class="case-p">Этот проект научил меня одному из самых важных уроков в дизайне: ты — не пользователь.</p>
+          <p class="case-p">Я была уверена, что свайпы между документами — удобное решение, и думала, что пользователи оценят возможность самим выбирать очерёдность подписания. Однако тестирование показало обратное: люди хотели видеть список документов и понимать, что происходит с каждым из них.</p>
+          <p class="case-p">Рабочим решением стала не новая функция, а простой сценарий: после подписания пользователь автоматически возвращается к списку и видит прогресс-бар. Меньше интерфейса — больше прозрачности и контроля.</p>
+          <p class="case-p">Теперь я исхожу из того, что любое дизайн-решение — это гипотеза, которую необходимо проверять на реальных пользователях. Даже если это означает отказ от собственных предположений и пересмотр первоначальной идеи.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <nav class="case-bottom-nav" aria-label="Навигация по кейсу">
+    <a href="index.html" class="case-nav-link">
+      <img src="assets/icon-arrow-left.svg" alt="">
+      На главную
+    </a>
+  </nav>
+
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap header-inner">
+    <a href="index.html" class="brand">Anastasiya Viskunova</a>
+    <nav class="header-nav">
+      <a href="https://t.me/A_Kid87" target="_blank" rel="noopener" class="btn-ghost">Написать мне</a>
+      <a href="https://drive.google.com/uc?export=download&id=1QcS99iipnfwIYSbTbYK9-jQPuCBYrVnY" class="btn-ghost" target="_blank" rel="noopener">Скачать CV</a>
+    </nav>
+  </div>
+</footer>
+
+<div class="lightbox" id="imgLightbox" role="dialog" aria-modal="true" aria-label="Просмотр иллюстрации" hidden>
+  <div class="lightbox__viewport" id="lightboxViewport">
+    <img class="lightbox__img" id="lightboxImg" src="" alt="">
+  </div>
+  <button type="button" class="lightbox__close" id="lightboxCloseBtn" aria-label="Закрыть">×</button>
+  <div class="lightbox__controls">
+    <button type="button" class="lightbox__zoom-btn" id="lightboxZoomOut" aria-label="Уменьшить масштаб">
+      <img src="assets/icon-zoom-out.svg" alt="">
+    </button>
+    <span class="lightbox__zoom-value" id="lightboxZoomValue">100%</span>
+    <button type="button" class="lightbox__zoom-btn" id="lightboxZoomIn" aria-label="Увеличить масштаб">
+      <img src="assets/icon-zoom-in.svg" alt="">
+    </button>
+  </div>
+</div>
+
+<div class="video-modal" id="videoModal" role="dialog" aria-modal="true" aria-label="Просмотр видео" hidden>
+  <button type="button" class="video-modal__backdrop" data-video-modal-close aria-label="Закрыть"></button>
+  <div class="video-modal__dialog">
+    <button type="button" class="video-modal__close" id="videoModalCloseBtn" data-video-modal-close aria-label="Закрыть">×</button>
+    <video class="video-modal__video" id="videoModalPlayer" controls playsinline>
+      Ваш браузер не поддерживает воспроизведение видео.
+    </video>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script src="case-study.js"></script>
+</body>
+</html>

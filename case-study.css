@@ -1,0 +1,736 @@
+/* ==========================================================================
+   CASE STUDY — общие стили (используются всеми страницами кейсов)
+   Доп. стили поверх tokens.css/components.css/styles.css.
+   Изначально писались под "Корпоративный портал" (Figma tBQGyNSFR0DiuGFQBQuaVn,
+   node 52:174), затем файл переименован в общий case-study.css/.js: страница
+   "Улучшение первой пользовательской сессии в приложении мобильного ЭДО"
+   (node 86:99) переиспользует те же .case-* классы без изменений. Страница
+   "Потоковое подписание документов" (node 99:816) тоже переиспользует всё
+   без изменений и добавляет два новых генерик-компонента: .case-status-pill
+   и .case-metrics-row (см. ниже).
+   Спейсинг местами приблизителен к оригиналу (Figma использует свою
+   шкалу 8/12/16/24/32, частично совпадающую с --space-*; там, где токена
+   нет, взято ближайшее по духу значение вместо ввода новой переменной).
+   ========================================================================== */
+
+.case-main {
+  gap: 48px;
+}
+
+/* ---- Кнопка "Назад" (node 52:313) ----
+   Свой wrap с width:100% вместо общего .wrap: у .wrap нет width:100%,
+   а тут внутри только маленькая ссылка — без этого блок сжимался по
+   контенту и центрировался вместе с ним вместо выравнивания по левому
+   краю колонки. */
+.case-back-wrap {
+  width: 100%;
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.case-back {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  gap: var(--space-3xs);
+  color: var(--btn-primary-bg-hover);
+  font-family: var(--font-body);
+  font-weight: var(--text-p1-primary-weight);
+  font-size: var(--text-p1-primary-size);
+  line-height: var(--text-p1-primary-line);
+  text-decoration: none;
+}
+
+.case-back img {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.case-back:hover {
+  opacity: 0.75;
+}
+
+/* ---- Интро проекта (node 58:426) ----
+   В Figma это два подблока по gap-24, но т.к. значение одинаковое,
+   все 4 элемента уложены в один flex-столбец с единым зазором. */
+.case-intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  width: 100%;
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.case-intro-heading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+  width: 100%;
+}
+
+.case-meta-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  width: 100%;
+}
+
+.case-meta-row {
+  display: flex;
+  gap: var(--space-3xs);
+  margin: 0;
+}
+
+.case-meta-label {
+  flex: 0 0 auto;
+  margin: 0;
+  color: var(--text-tertiary);
+  font-family: var(--font-body);
+  font-weight: var(--text-p1-secondary-weight);
+  font-size: var(--text-p1-secondary-size);
+  line-height: var(--text-p1-secondary-line);
+  white-space: nowrap;
+}
+
+/* ---- Ссылки на витрины/портфолио (Behance, App Store, Google Play) ---- */
+.case-app-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: var(--space-xl);
+  row-gap: 8px;
+  width: 100%;
+}
+
+.case-app-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  height: 40px;
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--text-p1-primary-size);
+  line-height: var(--text-p1-primary-line);
+  white-space: nowrap;
+}
+
+.case-app-link img {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.case-app-link:hover {
+  opacity: 0.75;
+}
+
+.case-app-link--behance {
+  color: var(--btn-primary-bg-press);
+}
+
+.case-app-link--store {
+  color: var(--text-tertiary);
+}
+
+.case-meta-value {
+  margin: 0;
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-weight: var(--text-p1-primary-weight);
+  font-size: var(--text-p1-primary-size);
+  line-height: var(--text-p1-primary-line);
+}
+
+/* На узких экранах описание рядом с лейблом переносится на 2 строки и
+   выглядит криво — на этой ширине (node 86:379) макет переключается на
+   лейбл сверху, описание снизу. */
+@media (max-width: 640px) {
+  .case-meta-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+/* ---- Макбук-мокап (node 59:514) ---- */
+.case-macbook {
+  width: 100%;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  border-radius: var(--radius-illustration);
+  overflow: hidden;
+  cursor: zoom-in;
+}
+
+.case-macbook img {
+  width: 100%;
+  display: block;
+}
+
+/* ---- Тело кейса (node 59:516) ---- */
+.case-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  width: 100%;
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.case-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  width: 100%;
+}
+
+.case-section-title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 24px;
+  line-height: normal;
+  color: var(--text-title);
+}
+
+.case-section-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  width: 100%;
+}
+
+/* Плотная группа "подпись + список" (m = 12px в шкале Figma) */
+.case-tight-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.case-label {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--text-primary);
+}
+
+.case-p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-weight: var(--text-p1-primary-weight);
+  font-size: var(--text-p1-primary-size);
+  line-height: var(--text-p1-primary-line);
+}
+
+.case-p--dark {
+  color: #3c3c3c;
+}
+
+/* Жирный акцентный абзац-callout (напр. цифры оттока/конверсии в тексте) —
+   в отличие от .case-p--dark меняет и насыщенность, и цвет на текст-primary. */
+.case-p--strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.case-text-group {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+
+.case-text-group--long .case-p {
+  font-weight: var(--text-p1-long-weight);
+  font-size: var(--text-p1-long-size);
+  line-height: var(--text-p1-long-line);
+}
+
+.case-text-group--tight {
+  gap: var(--space-3xs);
+}
+
+/* ---- Маркированные списки с кастомной точкой (Figma bullet-node) ---- */
+.case-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+  width: 100%;
+}
+
+.case-list li {
+  position: relative;
+  padding-left: 21px;
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-weight: var(--text-p1-primary-weight);
+  font-size: var(--text-p1-primary-size);
+  line-height: var(--text-p1-primary-line);
+}
+
+.case-list li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 8px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* ---- Анализ конкурентов ---- */
+.case-competitors {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  width: 100%;
+}
+
+.case-competitor {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.case-competitor-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+  width: 100%;
+}
+
+.case-competitor-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3xs);
+  color: #3c3c3c;
+  font-family: var(--font-body);
+  font-weight: var(--text-p1-primary-weight);
+  font-size: var(--text-p1-primary-size);
+  line-height: var(--text-p1-primary-line);
+}
+
+.case-dot {
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 6px;
+}
+
+.case-dot--pro {
+  background: #7dd03d;
+}
+
+.case-dot--con {
+  background: #ed8f68;
+}
+
+/* ---- Гипотезы: подразделы (node 59:765) ---- */
+.case-subsection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.case-subsection-title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: normal;
+  color: var(--text-primary);
+}
+
+/* Перед H3 нужно 32px, а .case-section-body/.case-section дают между
+   соседями только 24px (--space-sm) — добавляем недостающую разницу
+   именно тем блокам, что начинаются с H3, не трогая остальные отступы. */
+.case-section-body > *:has(.case-subsection-title) {
+  margin-top: calc(var(--space-md) - var(--space-sm));
+}
+
+/* Подраздел с 2 нумерованными гипотезами (Главный экран, Календарь) */
+.case-hyp-group {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.case-hypothesis {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+  width: 100%;
+}
+
+/* Подраздел с одной неявной гипотезой (Сотрудники, Отпуска) —
+   без подписи "Гипотеза N", сразу текст + метрика эффекта. */
+.case-subsection-simple {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  width: 100%;
+}
+
+.case-image {
+  width: 100%;
+  border-radius: var(--radius-illustration);
+  overflow: hidden;
+  background: var(--bg-tag);
+  cursor: zoom-in;
+}
+
+/* ---- Вариант .case-image, который запускает видео, а не лайтбокс
+   (напр. "Прототип 1/2-го UX-теста") — курсор-указательный палец вместо
+   лупы, и невидимый кружок поверх уже нарисованной в картинке кнопки
+   play (центр ~49.9%/49.4%, диаметр ~8.75% ширины — тот же приём, что
+   у .video-callout__play на странице ЭДО), который увеличивается при
+   наведении. */
+.case-image--video {
+  position: relative;
+  cursor: pointer;
+}
+
+.case-image__play {
+  position: absolute;
+  left: 49.9%;
+  top: 49.4%;
+  transform: translate(-50%, -50%);
+  width: 8.75%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease-out;
+  pointer-events: none;
+}
+
+.case-image--video:hover .case-image__play {
+  transform: translate(-50%, -50%) scale(1.15);
+}
+
+.case-image img {
+  width: 100%;
+  display: block;
+}
+
+.case-macbook:focus-visible,
+.case-image:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+/* ---- Статус-пилюля вывода UX-теста (node 107:623/107:637, страница
+   "Потоковое подписание документов") — переиспользуемый компонент. ---- */
+.case-status-pill {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  white-space: nowrap;
+}
+
+.case-status-pill--rejected {
+  background: #fff1f1;
+  color: #de2113;
+}
+
+.case-status-pill--confirmed {
+  background: #e1f3e5;
+  color: #00801c;
+}
+
+/* ---- Строка причина → следствие в блоке "Метрики" (node 103:439/449/459,
+   страница "Потоковое подписание документов") — переиспользуемый компонент.
+   3 колонки: подпись перехода / цифра / объяснение, на мобильных — в столбик. ---- */
+.case-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  width: 100%;
+}
+
+.case-metrics-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.case-metrics-row__label,
+.case-metrics-row__stat,
+.case-metrics-row__desc {
+  margin: 0;
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-weight: var(--text-p1-primary-weight);
+  font-size: var(--text-p1-primary-size);
+  line-height: var(--text-p1-primary-line);
+}
+
+.case-metrics-row__label {
+  flex: 0 0 156px;
+}
+
+.case-metrics-row__stat {
+  flex: 0 0 158px;
+}
+
+.case-metrics-row__desc {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+@media (max-width: 640px) {
+  .case-metrics-row {
+    flex-direction: column;
+    gap: var(--space-3xs);
+  }
+
+  .case-metrics-row__label,
+  .case-metrics-row__stat {
+    flex-basis: auto;
+  }
+}
+
+/* ---- Нижняя навигация кейса (node 84:88) ---- */
+.case-bottom-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  width: 100%;
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.case-nav-link {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  gap: var(--space-3xs);
+  color: var(--btn-primary-bg-hover);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--text-p1-primary-size);
+  line-height: var(--text-p1-primary-line);
+  text-decoration: none;
+}
+
+.case-nav-link img {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.case-nav-link__icon {
+  transform: scaleX(-1);
+}
+
+.case-nav-link:hover {
+  opacity: 0.75;
+}
+
+.case-nav-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(30, 32, 37, 0.15);
+}
+
+/* ---- Лайтбокс с зумом для иллюстраций ----
+   На весь экран, без скролла: картинка по умолчанию занимает всю ширину
+   окна (пропорции сохраняются, высота может быть больше вьюпорта —
+   в этом случае её перетаскивают курсором-рукой вместо прокрутки). */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(18, 20, 23, 0.94);
+}
+
+.lightbox[hidden] {
+  display: none;
+}
+
+.lightbox__viewport {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  cursor: grab;
+  touch-action: none;
+}
+
+.lightbox__viewport.is-dragging {
+  cursor: grabbing;
+}
+
+.lightbox__img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: block;
+  max-width: none;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.lightbox__controls {
+  position: absolute;
+  left: 50%;
+  bottom: var(--space-lg);
+  transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-3xs) var(--space-sm);
+  border-radius: var(--radius-pill);
+  background: rgba(18, 20, 23, 0.7);
+  backdrop-filter: blur(6px);
+}
+
+.lightbox__zoom-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.lightbox__zoom-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.lightbox__zoom-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+.lightbox__zoom-value {
+  min-width: 40px;
+  text-align: center;
+  font-family: var(--font-body);
+  font-weight: var(--text-p1-secondary-weight);
+  font-size: var(--text-p1-secondary-size);
+  color: var(--text-white);
+  font-variant-numeric: tabular-nums;
+}
+
+.lightbox__close {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: rgba(18, 20, 23, 0.7);
+  color: var(--text-white);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 640px) {
+  .lightbox__controls {
+    bottom: var(--space-sm);
+  }
+}
+
+/* ---- Модалка воспроизведения видео (переиспользуемая для всех кейсов) ---- */
+.video-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+}
+
+.video-modal[hidden] {
+  display: none;
+}
+
+.video-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(18, 20, 23, 0.85);
+  border: none;
+  cursor: pointer;
+}
+
+.video-modal__dialog {
+  position: relative;
+  z-index: 1;
+  width: min(720px, 92vw);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+.video-modal__video {
+  display: block;
+  width: 100%;
+  max-height: 85vh;
+  background: #000;
+}
+
+.video-modal__close {
+  position: absolute;
+  top: var(--space-3xs);
+  right: var(--space-3xs);
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: rgba(18, 20, 23, 0.7);
+  color: var(--text-white);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---- Адаптив (Figma node 109:670) ---- */
+@media (max-width: 480px) {
+  .case-bottom-nav {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+}

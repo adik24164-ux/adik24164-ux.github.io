@@ -1,0 +1,95 @@
+/* ==========================================================================
+   DESIGN TOKENS
+   Извлечено из Figma: pixelperfect.school, node 30:51
+   Цвета, шрифты, размеры текста, отступы, радиусы, ширины layout.
+   ========================================================================== */
+
+:root {
+
+  /* ---- Цвет / фон ---- */
+  --bg-content: #ffffff;         /* фон страницы */
+  --bg-inversion: #121417;       /* тёмная плашка (primary-кнопки) */
+  --bg-accent: #e6f1f5;          /* светло-голубой фон hero и футер-бара */
+  --bg-tag: #f3f3f3;             /* фон тега/чипа */
+
+  /* ---- Цвет / текст ---- */
+  --text-primary: #1e2025;       /* заголовки, основной текст */
+  --text-secondary: #525662;     /* подписи статистики, вторичный текст */
+  --text-tertiary: #878b92;      /* бренд-имя в футере */
+  --text-nav: #868a95;           /* ссылки в шапке/футере */
+  --text-white: #ffffff;         /* текст на тёмной кнопке */
+  --text-title: #111111;         /* заголовки карточек проектов */
+  --text-desc: #3c3c3c;          /* описание проекта */
+  --text-meta: #898989;          /* мета-строка "Senior designer · 2025" */
+  --text-tag: #3a3a3a;           /* текст тега/чипа */
+  --text-stat-number: #000000;   /* цифры в статистике */
+  --icon-badge-bg: #525662;      /* фон кружка со стрелкой в кнопке (primary/default) */
+
+  /* ---- Кнопка primary: варианты hover/press (из компонента "button", node 30:153) ---- */
+  --btn-primary-bg-hover: #ff4623;
+  --btn-primary-bg-press: #ff2b03;
+  --btn-primary-icon-bg-hover: #ff8770;
+  --btn-primary-icon-bg-press: #ff6548;
+
+  /* ---- Кнопка-ссылка (ghost nav): hover/press ----
+     В макете этот вариант — инстанс secondary/icon=off с переопределённым
+     серым цветом текста; explicit hover/press для серой версии в Figma не
+     заданы (у компонента есть только hover/press для базового оранжевого
+     secondary), поэтому здесь взято согласованное с общей палитрой
+     затемнение до text-primary. */
+  --btn-ghost-color-hover: #1e2025;
+
+  /* ---- Шрифты ---- */
+  --font-heading: 'Literata', serif;      /* заголовки: имя, hero, тайтлы карточек */
+  --font-body: 'Montserrat', sans-serif;  /* весь параграфный текст, кнопки, теги */
+
+  /* ---- Типографика (paragraph tokens) ---- */
+  --text-p1-primary-size: 14px;
+  --text-p1-primary-line: 22px;
+  --text-p1-primary-weight: 500;           /* medium — кнопки, nav */
+
+  --text-p1-secondary-size: 14px;
+  --text-p1-secondary-line: 22px;
+  --text-p1-secondary-weight: 400;         /* regular — теги, подписи статистики, мета */
+
+  --text-p1-long-size: 14px;
+  --text-p1-long-line: 22px;
+  --text-p1-long-weight: 500;              /* medium — длинные параграфы (hero-текст, описание) */
+
+  --text-brand-size: 15px;
+  --text-brand-line: 22px;                 /* Literata Medium — бренд-имя */
+
+  --text-hero-title-size: 32px;            /* Literata Medium — "Привет! Я Анастасия..." (H1) */
+  --text-stat-number-size: 24px;           /* Literata Regular — "16 лет" / номер шага "как я работаю" */
+  --text-project-title-size: 28px;         /* Literata Regular — заголовок карточки проекта / H1 кейса */
+
+  --text-p1-selection-size: 14px;          /* Montserrat SemiBold — заголовки карточек "как я работаю" */
+  --text-p1-selection-line: 20px;
+  --text-p1-selection-weight: 600;
+
+  /* ---- Отступы (spacing scale) ---- */
+  --space-4xs: 4px;
+  --space-3xs: 8px;   /* s */
+  --space-2xs: 9px;   /* зазор между тегами */
+  --space-xs: 16px;
+  --space-sm: 24px;   /* xl */
+  --space-md: 32px;
+  --space-lg: 40px;   /* 3xl */
+  --space-xl: 56px;
+  --space-2xl: 48px;
+
+  /* ---- Радиусы ---- */
+  --radius-pill: 9999px;   /* кнопки, аватар, hero-иконка */
+  --radius-tag: 30px;      /* теги/чипы */
+  --radius-card: 32px;     /* hero-блок */
+  --radius-footer: 24px;   /* футер-бар */
+  --radius-image-inner: 40px;
+  /* Скругление иллюстраций (обложки проектов, картинки кейсов, макбук,
+     видео-превью) — на маленьких экранах уменьшается шагами по 4px,
+     см. адаптив в styles.css. */
+  --radius-illustration: 32px;
+
+  /* ---- Layout ---- */
+  --content-width: 800px;      /* ширина колонки контента */
+  --page-padding-x: 107px;     /* внешние поля шапки/футера на десктопе */
+}

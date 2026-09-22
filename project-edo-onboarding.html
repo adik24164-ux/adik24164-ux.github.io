@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Улучшение первой сессии в приложении ЭДО — кейс — Анастасия Вискунова</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;500&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components.css">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="case-study.css">
+<link rel="stylesheet" href="project-edo-onboarding.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="index.html" class="brand">Anastasiya Viskunova</a>
+    <nav class="header-nav">
+      <a href="https://t.me/A_Kid87" target="_blank" rel="noopener" class="btn-ghost">Написать мне</a>
+      <a href="https://drive.google.com/uc?export=download&id=1QcS99iipnfwIYSbTbYK9-jQPuCBYrVnY" class="btn-ghost" target="_blank" rel="noopener">Скачать CV</a>
+    </nav>
+  </div>
+</header>
+
+<main class="case-main">
+
+  <div class="case-back-wrap">
+    <a href="index.html" class="case-back">
+      <img src="assets/icon-arrow-left.svg" alt="">
+      На главную
+    </a>
+  </div>
+
+  <section class="case-intro reveal-up">
+    <div class="case-intro-heading">
+      <p class="project-meta">Senior designer &nbsp;◦&nbsp; 2023</p>
+      <h1 class="project-title">Улучшение первой пользовательской сессии в приложении мобильного ЭДО</h1>
+    </div>
+    <div class="tags">
+      <span class="tag">#Mobile_App</span>
+      <span class="tag">#B2C</span>
+      <span class="tag">#B2B</span>
+      <span class="tag">#ЭДО</span>
+      <span class="tag">#CJM</span>
+      <span class="tag">#VoC</span>
+    </div>
+    <p class="project-desc">
+      Самостоятельно проанализировала воронку конверсии первой пользовательской сесии
+      на основе обращений в техподдержку, улучшила экраны выпуска электронной подписи,
+      добившись роста конверсии выпуска подписи с 20,5% до 39,7%
+    </p>
+    <dl class="case-meta-list">
+      <div class="case-meta-row">
+        <dt class="case-meta-label">Моя роль:</dt>
+        <dd class="case-meta-value">Старший дизайнер продукта (единственный в команде)</dd>
+      </div>
+      <div class="case-meta-row">
+        <dt class="case-meta-label">Аудитория:</dt>
+        <dd class="case-meta-value">Подключенный агент Альфа страхования</dd>
+      </div>
+      <div class="case-meta-row">
+        <dt class="case-meta-label">Платформа:</dt>
+        <dd class="case-meta-value">Mobile</dd>
+      </div>
+    </dl>
+    <div class="case-app-links">
+      <a href="https://www.behance.net/gallery/222635355/Cervis-mobilnogo-dokumentooborota" target="_blank" rel="noopener" class="case-app-link case-app-link--behance">
+        Смотреть на Behance
+        <img src="assets/icon-arrow-right-accent.svg" alt="">
+      </a>
+      <a href="https://apps.apple.com/ru/app/nopaper/id1537379587" target="_blank" rel="noopener" class="case-app-link case-app-link--store">
+        <img src="assets/icon-apple.svg" alt="">
+        App Store
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.abanking.nopaperlkk" target="_blank" rel="noopener" class="case-app-link case-app-link--store">
+        <img src="assets/icon-google-play.svg" alt="">
+        Google Play
+      </a>
+    </div>
+  </section>
+
+  <div class="case-macbook reveal" role="button" tabindex="0" data-lightbox-src="assets/onboarding-hero.png" data-lightbox-alt="Экраны запуска биометрии и сканирования паспорта в приложении ЭДО: интро к видео лица, захват лица в кольце, интро к фото паспорта и захват разворота паспорта" aria-label="Открыть иллюстрацию крупнее">
+    <img src="assets/onboarding-hero.png" alt="Экраны запуска биометрии и сканирования паспорта в приложении ЭДО: интро к видео лица, захват лица в кольце, интро к фото паспорта и захват разворота паспорта">
+  </div>
+
+  <div class="case-body">
+
+    <section class="case-section reveal-up">
+      <h2 class="case-section-title">Контекст и роль продукта</h2>
+      <div class="case-section-body">
+        <p class="case-p">Для выпуска НЭП сервис использует технологию Nopaper eKYC — полностью цифровую верификацию личности без визита в офис. Процесс включает: регистрацию, загрузку первого разворота паспорта, проверку по базам МВД и биометрию (liveness-test) определяющую что перед нами живой человек.</p>
+        <p class="case-p">На момент старта исследований продукт насчитывал <strong>MAU 32 000</strong>. Технология в целом работала, но имела системные UX-дефекты, которые мы выявили через поддержку.</p>
+      </div>
+    </section>
+
+    <div class="case-image reveal" role="button" tabindex="0" data-lightbox-src="assets/onboarding-flow-diagram.png" data-lightbox-alt="Воронка выпуска электронной подписи: Регистрация 11423 человека, Выпуск подписи 9462, Добавление компании 1945, Добавление документа 1180, Добавление участника 524, Отправка и подписание 443" aria-label="Открыть иллюстрацию крупнее">
+      <img src="assets/onboarding-flow-diagram.png" alt="Воронка выпуска электронной подписи: Регистрация 11423 человека, Выпуск подписи 9462, Добавление компании 1945, Добавление документа 1180, Добавление участника 524, Отправка и подписание 443">
+    </div>
+
+    <div class="video-callout">
+      <button type="button" class="video-callout__preview" data-video-src="assets/video/vypusk-podpisi-do-mockup.mp4" aria-label="Смотреть видео: как было до — запись старого сценария выпуска подписи">
+        <img src="assets/onboarding-before-video-preview.png" alt="Превью видео «Как было до»: экран приложения на телефоне до редизайна">
+        <span class="video-callout__play" aria-hidden="true">
+          <svg width="45%" height="45%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5V18.5L19 12L8 5.5Z" fill="white"/></svg>
+        </span>
+      </button>
+    </div>
+
+    <section class="case-section reveal-up">
+      <h2 class="case-section-title">Проблема</h2>
+      <div class="case-section-body">
+        <p class="case-p">После проверки паспорта и этапа биометрии, система часто выдавала общую ошибку «повторите попытку». Один и тот же сценарий мог повторяться несколько раз подряд. Пользователь не получал четкие инструкции что ему сделать чтобы решить проблему и дойти до цели.</p>
+        <p class="case-p case-p--strong">Около 30% всех обращений в поддержку касались именно сценария выпуска НЭП. При этом выпуск подписи — критический шаг для получения ценности от приложения, напрямую влияющий на Activation Rate.</p>
+        <p class="case-p case-p--strong">Доля оттока на этапе выпуска подписи достигла 79,45%. Конверсия в выпуск подписи 20,5%</p>
+        <p class="case-p">Для бизнеса это влекло завышенные операционные расходы на техподдержку, скрытую потерю клиентов, которые не пишут и не звонят, а просто удаляют приложение, и главное последствие — потеря дохода.</p>
+      </div>
+    </section>
+
+    <section class="case-section reveal-up">
+      <h2 class="case-section-title">Дизайн-исследование</h2>
+      <div class="case-section-body">
+
+        <div class="case-tight-group">
+          <p class="case-label">Источники данных</p>
+          <ul class="case-list">
+            <li>Обращения в техподдержку. Коллеги выгрузили из CRM сотни обращений от пользователей клиентов Альфа-страхования (за период с 3 ноября 2023 по 19 января 2024), самого многочисленного нашего клиента.</li>
+            <li>Построение User-Generated Mapping (UGM) — карты типовых сценариев сбоев.</li>
+          </ul>
+        </div>
+
+        <div class="case-image reveal" role="button" tabindex="0" data-lightbox-src="assets/onboarding-support-log.png" data-lightbox-alt="Фрагмент выгрузки обращений в техподдержку из CRM с датами, именами пользователей и текстами жалоб, использованный для классификации проблем" aria-label="Открыть иллюстрацию крупнее">
+          <img src="assets/onboarding-support-log.png" alt="Фрагмент выгрузки обращений в техподдержку из CRM с датами, именами пользователей и текстами жалоб, использованный для классификации проблем">
+        </div>
+
+        <p class="case-p">Я использовала ChatGPT для классификации текстов обращений и выявления наиболее частотных проблем. Это позволило быстро перейти от «много жалоб» к конкретным паттернам.</p>
+
+        <div class="case-tight-group">
+          <p class="case-label">Проблемы при сканировании лица</p>
+          <ul class="case-list">
+            <li>Очки или головной убор</li>
+            <li>Слабое / слишком яркое освещение</li>
+            <li>Блики или нечёткие участки на лице</li>
+          </ul>
+        </div>
+
+        <div class="case-tight-group">
+          <p class="case-label">Проблемы при сканировании паспорта</p>
+          <ul class="case-list">
+            <li>Рукописное заполнение, заломы, потёртости</li>
+            <li>Пользователи фотографируют отдельные страницы, а не разворот целиком</li>
+          </ul>
+        </div>
+
+        <div class="case-tight-group">
+          <p class="case-label">Анализ пользовательского опыта внутри приложения (UJM)</p>
+          <div class="case-image reveal" role="button" tabindex="0" data-lightbox-src="assets/onboarding-ujm-analysis.png" data-lightbox-alt="Таблица анализа пользовательского опыта (UJM) по экранам приложения: скриншот экрана, что видит пользователь, проблема и рекомендация для каждого шага" aria-label="Открыть иллюстрацию крупнее">
+            <img src="assets/onboarding-ujm-analysis.png" alt="Таблица анализа пользовательского опыта (UJM) по экранам приложения: скриншот экрана, что видит пользователь, проблема и рекомендация для каждого шага">
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="case-section reveal-up">
+      <h2 class="case-section-title">Ограничения</h2>
+      <div class="case-section-body">
+        <p class="case-p">Мы не можем менять сам модуль сканирования лица и паспорта (сторонняя технология). Вся дизайн-работа сфокусирована на предшествующих экранах — там, где формируются ожидания пользователя и принимается решение «идти дальше или выйти».</p>
+      </div>
+    </section>
+
+    <section class="case-section reveal-up">
+      <h2 class="case-section-title">Гипотезы</h2>
+      <div class="case-section-body">
+        <p class="case-p">Опираясь на UJM и собственную экспертизу я вывела следующие гипотезы:</p>
+        <ul class="case-list">
+          <li>Если заменить общую фразу «следуйте инструкциям» на конкретный сценарий и действиями, то пользователи будут реже закрывать экран до завершения, потому что снижается тревожность и неопределённость</li>
+          <li>Если добавить иллюстрацию вызывающую что произойдет на следующем шаге то снизится когнитивная нагрузка, потому что графическая информация воспринимается легче чем текстовая</li>
+          <li>Если заменить кнопку «Далее» на конкретное действие, то вовлечённость вырастет, потому что пользователь чувствует себя действующим лицом, а не объектом, и у него возникает ощущение контроля над процессом.</li>
+          <li>Если точку входа в техподдержку разместить на самих экранах, то пользователь сможет получить консультацию в нужный ему момент и успешно дойдет до цели</li>
+        </ul>
+        <div class="case-image reveal" role="button" tabindex="0" data-lightbox-src="assets/onboarding-hypotheses-screens.png" data-lightbox-alt="Сравнение экранов «Было / Стало» для интро сканирования лица и паспорта: конкретные инструкции, иллюстрация действия, кнопка с явным действием и точка входа в поддержку" aria-label="Открыть иллюстрацию крупнее">
+          <img src="assets/onboarding-hypotheses-screens.png" alt="Сравнение экранов «Было / Стало» для интро сканирования лица и паспорта: конкретные инструкции, иллюстрация действия, кнопка с явным действием и точка входа в поддержку">
+        </div>
+        <p class="case-p">Еще проработала экраны ошибок, попросила аналитиков прислать все возможное виды ошибок и продумала для каждой свою инструкцию с поэтапностью действий</p>
+        <div class="case-image reveal" role="button" tabindex="0" data-lightbox-src="assets/onboarding-error-screens.png" data-lightbox-alt="Сравнение экранов ошибок «Было / Стало»: вместо общего экрана ошибки идентификации — конкретные причины и пошаговая инструкция для верификации паспорта и снилса" aria-label="Открыть иллюстрацию крупнее">
+          <img src="assets/onboarding-error-screens.png" alt="Сравнение экранов ошибок «Было / Стало»: вместо общего экрана ошибки идентификации — конкретные причины и пошаговая инструкция для верификации паспорта и снилса">
+        </div>
+        <p class="case-p">Из-за ограничений по срокам мы сознательно пошли на риск — пропустили этап пользовательского тестирования, опираясь на данные UJM-анализа и собственную экспертизу, и отправили макет в разработку. Единственный доступный способ оценить результат — отследить динамику конверсии через 6 месяцев после релиза.</p>
+      </div>
+    </section>
+
+    <section class="case-section reveal-up">
+      <h2 class="case-section-title">Метрики</h2>
+      <div class="case-section-body">
+        <p class="case-p">Примерно, через полгода после релиза мы снова проанализировали воронку, количество переходов и обращения в поддержку. За этот период в сценарий выпуска подписи не вносилось других значимых изменений — это единственная переменная, которая менялась, что повышает уверенность в атрибуции роста именно редизайну.</p>
+        <div class="case-image reveal" role="button" tabindex="0" data-lightbox-src="assets/onboarding-metrics-table.png" data-lightbox-alt="Таблицы метрик до и после редизайна: отток на этапе выпуска НЭП снизился с 79,5% до 60,5%, конверсия выросла с 20,5% до 39,7%, количество пользователей с подписью выросло на 93%" aria-label="Открыть иллюстрацию крупнее">
+          <img src="assets/onboarding-metrics-table.png" alt="Таблицы метрик до и после редизайна: отток на этапе выпуска НЭП снизился с 79,5% до 60,5%, конверсия выросла с 20,5% до 39,7%, количество пользователей с подписью выросло на 93%">
+        </div>
+        <p class="case-p">Конверсия заметно выросла, но число обращений в поддержку (Contact Rate) не снизилось, а среднемесячный показатель даже слегка увеличился. Предполагаю, что это связано с добавлением точек входа в техподдержку на пре-сканировочных экранах — они сделали помощь более доступной.</p>
+      </div>
+    </section>
+
+    <section class="case-section reveal-up">
+      <h2 class="case-section-title">Рефлексия</h2>
+      <div class="case-section-body">
+        <div class="case-text-group">
+          <p class="case-p">Несмотря на значительное улучшение ключевых метрик, доля оттока остаётся высокой — почти 6 из 10 пользователей всё ещё не доходят до выпуска подписи.</p>
+          <p class="case-p">Анализ результатов показал, что основная проблема сохраняется на двух этапах сценария: сканирование лица и сканирование паспорта. Эти процессы очень зависят от внешних факторов: освещения, очков, ракурса, наличия документа под рукой, его физического состояния (заломы, потёртости, рукописный текст) и условий съёмки.</p>
+          <p class="case-p">Даже с улучшенными инструкциями, иллюстрациями и конкретной обратной связью мы не можем устранить саму необходимость сканирования.</p>
+        </div>
+        <div class="case-tight-group">
+          <p class="case-label">Вывод</p>
+          <p class="case-p">Моя работа была направлена на смягчение последствий, а не на устранение причины. Я сделала процесс более понятным и дружелюбным, но сам по себе процесс остался сложным для пользователя.</p>
+        </div>
+        <div class="case-tight-group">
+          <p class="case-label">Следующий шаг</p>
+          <p class="case-p">В следующей итерации мы планируем заменить сканирование на технологию МТС ID — пользователь сможет просто ввести серию и номер паспорта вручную. Это уберёт саму причину ошибок и упростит сценарий до одного действия.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <nav class="case-bottom-nav" aria-label="Навигация по кейсу">
+    <a href="index.html" class="case-nav-link">
+      <img src="assets/icon-arrow-left.svg" alt="">
+      На главную
+    </a>
+    <span class="case-nav-divider" aria-hidden="true"></span>
+    <a href="project-streaming-signing.html" class="case-nav-link case-nav-link--next">
+      К следующему кейсу
+      <img src="assets/icon-arrow-left.svg" alt="" class="case-nav-link__icon">
+    </a>
+  </nav>
+
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap header-inner">
+    <a href="index.html" class="brand">Anastasiya Viskunova</a>
+    <nav class="header-nav">
+      <a href="https://t.me/A_Kid87" target="_blank" rel="noopener" class="btn-ghost">Написать мне</a>
+      <a href="https://drive.google.com/uc?export=download&id=1QcS99iipnfwIYSbTbYK9-jQPuCBYrVnY" class="btn-ghost" target="_blank" rel="noopener">Скачать CV</a>
+    </nav>
+  </div>
+</footer>
+
+<div class="lightbox" id="imgLightbox" role="dialog" aria-modal="true" aria-label="Просмотр иллюстрации" hidden>
+  <div class="lightbox__viewport" id="lightboxViewport">
+    <img class="lightbox__img" id="lightboxImg" src="" alt="">
+  </div>
+  <button type="button" class="lightbox__close" id="lightboxCloseBtn" aria-label="Закрыть">×</button>
+  <div class="lightbox__controls">
+    <button type="button" class="lightbox__zoom-btn" id="lightboxZoomOut" aria-label="Уменьшить масштаб">
+      <img src="assets/icon-zoom-out.svg" alt="">
+    </button>
+    <span class="lightbox__zoom-value" id="lightboxZoomValue">100%</span>
+    <button type="button" class="lightbox__zoom-btn" id="lightboxZoomIn" aria-label="Увеличить масштаб">
+      <img src="assets/icon-zoom-in.svg" alt="">
+    </button>
+  </div>
+</div>
+
+<div class="video-modal" id="videoModal" role="dialog" aria-modal="true" aria-label="Просмотр видео" hidden>
+  <button type="button" class="video-modal__backdrop" data-video-modal-close aria-label="Закрыть"></button>
+  <div class="video-modal__dialog">
+    <button type="button" class="video-modal__close" id="videoModalCloseBtn" data-video-modal-close aria-label="Закрыть">×</button>
+    <video class="video-modal__video" id="videoModalPlayer" controls playsinline>
+      Ваш браузер не поддерживает воспроизведение видео.
+    </video>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script src="case-study.js"></script>
+</body>
+</html>
