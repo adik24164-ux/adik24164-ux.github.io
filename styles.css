@@ -303,7 +303,7 @@ main {
   font-family: var(--font-body);
   font-weight: var(--text-p1-long-weight);
   font-size: var(--text-p1-long-size);
-  line-height: var(--text-p1-paragraph-line);
+  line-height: var(--text-p1-long-line);
   color: var(--text-secondary);
 }
 
@@ -451,7 +451,6 @@ main {
     --text-p1-long-size: 16px;
     --text-p1-long-line: 24px;
     --text-p1-selection-size: 16px;
-    --text-p1-paragraph-line: 28px;
   }
 }
 
