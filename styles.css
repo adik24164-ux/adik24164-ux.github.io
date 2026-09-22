@@ -86,7 +86,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 40px;
+  gap: var(--space-sm);
   width: 100%;
   max-width: var(--content-width);
   padding: var(--space-md) var(--space-lg) var(--space-lg);
@@ -259,7 +259,7 @@ main {
 .hero-intro {
   display: flex;
   flex-direction: column;
-  gap: var(--space-lg);
+  gap: var(--space-sm);
   width: 100%;
 }
 
@@ -303,7 +303,7 @@ main {
   font-family: var(--font-body);
   font-weight: var(--text-p1-long-weight);
   font-size: var(--text-p1-long-size);
-  line-height: var(--text-p1-long-line);
+  line-height: var(--text-p1-paragraph-line);
   color: var(--text-secondary);
 }
 
@@ -451,6 +451,7 @@ main {
     --text-p1-long-size: 16px;
     --text-p1-long-line: 24px;
     --text-p1-selection-size: 16px;
+    --text-p1-paragraph-line: 28px;
   }
 }
 

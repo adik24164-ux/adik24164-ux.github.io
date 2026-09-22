@@ -56,6 +56,10 @@
   --text-p1-long-line: 22px;
   --text-p1-long-weight: 500;              /* medium — длинные параграфы (hero-текст, описание) */
 
+  --text-p1-paragraph-line: 26px;          /* межстрочный интервал именно текстовых абзацев
+                                               (.case-p, .project-desc, .hero-text p) — крупнее,
+                                               чем у общих p1-элементов (кнопки, теги, лейблы) */
+
   --text-brand-size: 15px;
   --text-brand-line: 22px;                 /* Literata Medium — бренд-имя */
 
