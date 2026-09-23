@@ -174,7 +174,7 @@
 .case-body {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xl);
+  gap: var(--space-2xl);
   width: 100%;
   max-width: var(--content-width);
   margin: 0 auto;
@@ -192,7 +192,7 @@
   font-family: var(--font-heading);
   font-weight: 400;
   font-size: 24px;
-  line-height: normal;
+  line-height: 32px;
   color: var(--text-title);
 }
 
@@ -203,12 +203,18 @@
   width: 100%;
 }
 
-/* Плотная группа "подпись + список" (m = 12px в шкале Figma) */
+/* Плотная группа "подпись + список" — отступ после подписи (p1-selection) */
 .case-tight-group {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--space-xs);
   width: 100%;
+}
+
+/* Точечно больше воздуха именно перед таблицей метрик "UX → бизнес" —
+   не трогая общее правило .case-tight-group выше. */
+.case-tight-group:has(> .case-metrics) {
+  gap: var(--space-sm);
 }
 
 .case-label {
@@ -218,6 +224,25 @@
   font-size: var(--text-p1-primary-size);
   line-height: var(--text-p1-primary-line);
   color: var(--text-primary);
+}
+
+/* Перед каждым блоком, начинающимся с .case-label (p1-selection),
+   нужно минимум 32px — там, где родительский gap меньше, добираем
+   разницу через margin-top у второго и последующих блоков в ряду
+   (первый блок в секции получает отступ от H2/H3, это отдельная зона
+   ответственности). */
+.case-section-body > .case-tight-group:not(:first-child),
+.case-section-body > .case-competitors:not(:first-child) {
+  margin-top: calc(32px - var(--space-sm));    /* 24 → 32 */
+}
+
+.case-competitor + .case-competitor,
+.case-competitor + .case-tight-group {
+  margin-top: calc(32px - var(--space-sm));    /* 24 → 32 */
+}
+
+.case-hypothesis + .case-hypothesis {
+  margin-top: 12px;                            /* 20 → 32 */
 }
 
 .case-p {
@@ -322,7 +347,7 @@
 .case-competitor {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--space-xs);
   width: 100%;
 }
 
@@ -376,8 +401,20 @@
   font-family: var(--font-heading);
   font-weight: 500;
   font-size: 20px;
-  line-height: normal;
+  line-height: 26px;
   color: var(--text-primary);
+}
+
+/* Отступ после H3 (20px) — минимум 24px. H3 всегда первый ребёнок в
+   своём контейнере, а у контейнеров разный gap (20/16/16), поэтому
+   добираем разницу отдельно для каждого — как и с p1-selection выше. */
+.case-hyp-group > .case-subsection-title + * {
+  margin-top: 4px;                              /* 20 → 24 */
+}
+
+.case-subsection-simple > .case-subsection-title + *,
+.case-tight-group > .case-subsection-title + * {
+  margin-top: calc(24px - var(--space-xs));     /* 16 → 24 */
 }
 
 /* Перед H3 нужно 32px, а .case-section-body/.case-section дают между
@@ -398,7 +435,7 @@
 .case-hypothesis {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3xs);
+  gap: var(--space-xs);
   width: 100%;
 }
 

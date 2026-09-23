@@ -213,7 +213,7 @@
    вместо прежних фиксированных 168px-колонок с левым бордером. */
 .stats {
   display: flex;
-  gap: var(--space-sm);
+  gap: var(--space-xs);
   width: 100%;
 }
 
@@ -224,7 +224,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-4xs);
-  padding: var(--space-xs) var(--space-sm);
+  padding: 12px var(--space-sm) var(--space-xs);
   border-radius: 24px;
   background: var(--bg-content);
   text-align: left;
@@ -258,6 +258,7 @@
    больше 800px), а .process-steps растянут от начала средней колонки до
    самого правого края — гарантированно вровень с заголовком слева. */
 .process {
+  position: relative;
   display: grid;
   grid-template-columns:
     minmax(0, 1fr)
@@ -273,7 +274,7 @@
   font-family: var(--font-heading);
   font-weight: 400;
   font-size: var(--text-project-title-size);
-  line-height: normal;
+  line-height: 38px;
   color: var(--text-title);
 }
 
@@ -282,10 +283,6 @@
      при скролле уходят за реальный край экрана и слева, и справа, а не
      упираются в невидимую границу на месте края контентной колонки. */
   grid-column: 1 / 4;
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: stretch;
-  gap: var(--space-xs);
   overflow-x: auto;
   overflow-y: visible;
   scrollbar-width: none;
@@ -306,6 +303,35 @@
   display: none;
 }
 
+/* Сама лента карточек (без учёта padding-left/right, которые script.js
+   добавляет на .process-steps для выравнивания с краями hero-блока) —
+   именно в этой системе координат (0..1364px) размещена соединяющая
+   линия со стрелкой (node 162:338), поэтому линия — child этого блока,
+   а не .process-steps, чей padding иначе сдвинул бы её. */
+.process-steps__track {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: var(--space-xs);
+  /* Явная ширина по контенту, а не "по умолчанию как у блока" (100% от
+     .process-steps) — карточки всё равно не сжимаются (flex:0 0 260px)
+     и физически шире, но нечёткая ширина трека сбивала расчёт scrollWidth
+     в script.js, от которого зависит точка выравнивания в конце скролла. */
+  width: max-content;
+}
+
+.process-line {
+  position: absolute;
+  left: 66px;
+  top: 10px;
+  width: 1261px;
+  max-width: none;
+  height: auto;
+  pointer-events: none;
+  z-index: 1;
+}
+
 /* Курсор меняется на "зажато" во время перетаскивания мышью (script.js),
    как в лайтбоксе картинок. Никакого scroll-snap — с ним карточка после
    отпускания резко доскакивала до выравнивания, и это выглядело дёргано;
@@ -320,23 +346,26 @@
   align-items: flex-start;
   flex: 0 0 260px;
   width: 260px;
-  gap: var(--space-3xs);
-  padding: var(--space-xs) var(--space-md) 20px;
+  padding: var(--space-xs) var(--space-md) var(--space-sm);
   border-radius: 24px;
   background: var(--bg-accent);
   text-align: left;
 }
 
+/* Между номером и заголовком+описанием — 16px, между заголовком и
+   описанием — 8px (node 147:251): два разных отступа, поэтому не общий
+   gap у .process-step, а margin-bottom у каждого элемента отдельно. */
 .process-step__number {
   font-family: var(--font-heading);
   font-weight: 400;
   font-size: var(--text-stat-number-size);
   line-height: normal;
   color: var(--text-primary);
+  margin-bottom: var(--space-xs);
 }
 
 .process-step__title {
-  margin: 0;
+  margin: 0 0 var(--space-3xs);
   font-family: var(--font-body);
   font-weight: var(--text-p1-selection-weight);
   font-size: var(--text-p1-selection-size);
@@ -377,6 +406,11 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.3s ease-out;
+}
+
+.project-card__image:hover img {
+  transform: scale(1.05);
 }
 
 .project-card__body {
@@ -416,7 +450,7 @@
   font-family: var(--font-heading);
   font-weight: 400;
   font-size: var(--text-project-title-size);
-  line-height: normal;
+  line-height: 38px;
   color: var(--text-title);
 }
 

@@ -68,7 +68,7 @@ a {
 .header-nav {
   display: flex;
   align-items: center;
-  gap: var(--space-md);
+  gap: var(--space-xl);
 }
 
 /* ---- Main / секции ---- */
@@ -378,7 +378,7 @@ main {
 
   .stats {
     flex-direction: column;
-    gap: var(--space-xs);
+    gap: var(--space-3xs);
   }
 
   .stat {
@@ -496,26 +496,32 @@ main {
 /* Карточки "Как я работаю" (node 147:251) появляются по очереди слева
    направо при скролле: наблюдается сам .process-steps, а не каждая
    карточка — is-visible на контейнере включает transition у детей, у
-   каждой карточки свой transition-delay по nth-child. */
-.process-step {
+   каждой карточки свой transition-delay. nth-of-type, а не nth-child —
+   в ряду первым ребёнком стоит картинка линии (.process-line), и обычный
+   nth-child сдвинул бы нумерацию карточек на один. Линия едет вместе с
+   ними без собственной задержки — тот же подъезд снизу, что и у блока. */
+.process-step,
+.process-line {
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
-.process-steps.is-visible .process-step {
+.process-steps.is-visible .process-step,
+.process-steps.is-visible .process-line {
   opacity: 1;
   transform: translateY(0);
 }
 
-.process-step:nth-child(1) { transition-delay: 0s; }
-.process-step:nth-child(2) { transition-delay: 0.08s; }
-.process-step:nth-child(3) { transition-delay: 0.16s; }
-.process-step:nth-child(4) { transition-delay: 0.24s; }
-.process-step:nth-child(5) { transition-delay: 0.32s; }
+.process-step:nth-of-type(1) { transition-delay: 0s; }
+.process-step:nth-of-type(2) { transition-delay: 0.08s; }
+.process-step:nth-of-type(3) { transition-delay: 0.16s; }
+.process-step:nth-of-type(4) { transition-delay: 0.24s; }
+.process-step:nth-of-type(5) { transition-delay: 0.32s; }
 
 @media (prefers-reduced-motion: reduce) {
-  .process-step {
+  .process-step,
+  .process-line {
     transition: none;
     opacity: 1;
     transform: none;
