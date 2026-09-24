@@ -83,9 +83,22 @@
   // выше этой линии, а не сразу у самого края экрана). Без этого запаса
   // сверху граница показа и скрытия совпадали бы в одной точке (y=0) —
   // это и вызывало мигание при остановке рядом с верхним краем экрана.
+  //
+  // Обратный вход тоже обрабатываем здесь: у двух наблюдателей разные
+  // области, и блок, нижний край которого застрял в верхней полосе 10%
+  // (там hideObserver уже убрал is-visible, а showObserver всё ещё считает
+  // блок видимым и повторно не срабатывает), при скролле обратно вверх
+  // навсегда оставался прозрачным — на странице появлялась пустая дыра.
+  // Поэтому, когда блок возвращается в область hideObserver'а и его верх
+  // выше нижней границы показа (той же 90%-линии showObserver'а), снова
+  // включаем is-visible.
   var hideObserver = REVERSE && new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
-      if (!entry.isIntersecting) entry.target.classList.remove('is-visible');
+      if (!entry.isIntersecting) {
+        entry.target.classList.remove('is-visible');
+      } else if (entry.boundingClientRect.top < window.innerHeight * 0.9) {
+        entry.target.classList.add('is-visible');
+      }
     });
   }, {
     root: null,

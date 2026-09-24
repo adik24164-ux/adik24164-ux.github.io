@@ -70,12 +70,84 @@
   width: 100%;
 }
 
+/* ---- Ключевые цифры в интро кейса ----
+   Крупные цифры сразу под описанием — чтобы результат читался до того, как
+   человек долистает до блока "Метрики". Три карточки в ряд (на мобильных —
+   в столбик), под ними короткая пометка, откуда цифры (замер / прогноз). */
+.case-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  width: 100%;
+}
+
+.case-highlights__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.case-highlight {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+  min-width: 0;
+  padding: var(--space-sm);
+  border-radius: 24px;
+  background: var(--bg-accent);
+}
+
+.case-highlight__value {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: var(--text-stat-number-size);
+  line-height: 32px;
+  color: var(--text-stat-number);
+  white-space: nowrap;
+}
+
+.case-highlight__label {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: var(--text-p1-primary-weight);
+  font-size: var(--text-p1-primary-size);
+  line-height: var(--text-p1-primary-line);
+  color: var(--text-secondary);
+}
+
+.case-highlights__note {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: var(--text-p1-secondary-weight);
+  font-size: var(--text-p1-secondary-size);
+  line-height: var(--text-p1-secondary-line);
+  color: var(--text-tertiary);
+}
+
+@media (max-width: 640px) {
+  .case-highlights__list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .case-highlight {
+    padding: var(--space-xs) var(--space-sm);
+  }
+}
+
+/* Блок роли/платформы/аудитории стоит под иллюстрацией (node 200:373), прямым
+   ребёнком .case-main: тот же 800px-столбец, что и у интро, а расстояние до
+   иллюстрации и до тела кейса задаёт gap .case-main (48px). */
 .case-meta-list {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin: 0;
+  margin: 0 auto;
   width: 100%;
+  max-width: var(--content-width);
 }
 
 .case-meta-row {
@@ -103,6 +175,16 @@
   column-gap: var(--space-xl);
   row-gap: 8px;
   width: 100%;
+}
+
+/* Ссылки на сторы всегда идут парой: при нехватке места на узком экране
+   переносится вся пара целиком (а не App Store с одной строки, а Google Play
+   с другой). */
+.case-app-links__stores {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  column-gap: var(--space-xl);
 }
 
 .case-app-link {
@@ -471,20 +553,22 @@
   position: absolute;
   left: 49.9%;
   top: 49.4%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, calc(-50% - 32px));
   width: 8.75%;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   background: #000;
+  opacity: 0.8;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.2s ease-out;
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
   pointer-events: none;
 }
 
 .case-image--video:hover .case-image__play {
-  transform: translate(-50%, -50%) scale(1.15);
+  transform: translate(-50%, calc(-50% - 32px)) scale(1.15);
+  opacity: 0.9;
 }
 
 .case-image img {

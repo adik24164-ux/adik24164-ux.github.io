@@ -1,0 +1,10 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="36.667" height="19.5594" viewBox="0 0 36.667 19.5594" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="&#208;&#183;&#208;&#189;&#208;&#176;&#208;&#186;">
+<foreignObject x="-0.526755" y="0.98846" width="41.2147" height="22.5919"><div xmlns="http://www.w3.org/1999/xhtml" style="backdrop-filter:blur(2.01px);clip-path:url(#bgblur_0_0_35_clip_path);height:100%;width:100%"></div></foreignObject><path id="Vector" data-figma-bg-blur-radius="4.02095" d="M18.6591 5.0102H35.5992C36.4883 5.0102 36.9048 5.43552 36.5283 5.9758L23.7724 18.5913C23.1055 19.2536 22.3083 19.592 21.4976 19.557H4.55754C3.67644 19.557 3.25991 19.1201 3.62838 18.5913L16.3843 6.03327C17.0458 5.34911 17.8438 4.99023 18.6591 5.0102Z" fill="#2457FF"/>
+<foreignObject x="-4.02095" y="-4.02095" width="41.2147" height="22.6422"><div xmlns="http://www.w3.org/1999/xhtml" style="backdrop-filter:blur(2.01px);clip-path:url(#bgblur_1_0_35_clip_path);height:100%;width:100%"></div></foreignObject><path id="Vector_2" data-figma-bg-blur-radius="4.02095" d="M33.0235 1.04502L19.6767 13.558C18.9593 14.2725 18.1007 14.6369 17.2279 14.5974H1.14465C0.196179 14.5974 -0.252188 14.1272 0.144445 13.558L13.4913 1.04502C14.2087 0.330493 15.0672 -0.0339284 15.9401 0.00559674H32.0233C32.9804 -0.0562739 33.4288 0.401568 33.0235 1.04502Z" fill="#2BA2FF" fill-opacity="0.6"/>
+</g>
+<defs>
+<clipPath id="bgblur_0_0_35_clip_path" transform="translate(0.526755 -0.98846)"><path d="M18.6591 5.0102H35.5992C36.4883 5.0102 36.9048 5.43552 36.5283 5.9758L23.7724 18.5913C23.1055 19.2536 22.3083 19.592 21.4976 19.557H4.55754C3.67644 19.557 3.25991 19.1201 3.62838 18.5913L16.3843 6.03327C17.0458 5.34911 17.8438 4.99023 18.6591 5.0102Z"/>
+</clipPath><clipPath id="bgblur_1_0_35_clip_path" transform="translate(4.02095 4.02095)"><path d="M33.0235 1.04502L19.6767 13.558C18.9593 14.2725 18.1007 14.6369 17.2279 14.5974H1.14465C0.196179 14.5974 -0.252188 14.1272 0.144445 13.558L13.4913 1.04502C14.2087 0.330493 15.0672 -0.0339284 15.9401 0.00559674H32.0233C32.9804 -0.0562739 33.4288 0.401568 33.0235 1.04502Z"/>
+</clipPath></defs>
+</svg>

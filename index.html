@@ -26,54 +26,69 @@
 <main>
 
   <section class="hero reveal">
-    <img class="hero-deco hero-deco--3" src="assets/deco-shape-3.svg" alt="" aria-hidden="true">
-    <div class="hero-deco hero-deco--2" aria-hidden="true">
-      <img src="assets/deco-shape-2.svg" alt="">
-    </div>
-    <div class="hero-deco hero-deco--4" aria-hidden="true">
-      <img src="assets/deco-shape-4.svg" alt="">
-    </div>
-    <img class="hero-deco hero-deco--1" src="assets/deco-shape-1.svg" alt="" aria-hidden="true">
-
-    <div class="hero-intro">
-      <div class="hero-top">
-        <span class="avatar" id="avatarTrigger" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Открыть фото крупнее">
-          <img src="assets/avatar.png" alt="Анастасия Вискунова">
-        </span>
-        <h1 class="hero-title">
-          <span>Привет!</span>
-          <span>Я Анастасия, продуктовый дизайнер</span>
-        </h1>
-      </div>
-
-      <div class="stats">
-        <div class="stat">
-          <span class="stat-number">16 лет</span>
-          <span class="stat-label">В дизайне</span>
-        </div>
-        <div class="stat">
-          <span class="stat-number">9 лет</span>
-          <span class="stat-label">в ux/ui разработке</span>
-        </div>
-        <div class="stat">
-          <span class="stat-number">5+ лет</span>
-          <span class="stat-label">в продукте</span>
-        </div>
-      </div>
+    <img class="hero-deco hero-deco--group" src="assets/hero-deco-group.svg" alt="" aria-hidden="true">
+    <div class="hero-deco hero-deco--arrow" aria-hidden="true">
+      <img src="assets/hero-deco-arrow.svg" alt="">
     </div>
 
-    <div class="hero-body">
-      <div class="hero-text">
-        <p>
-          Специализируюсь на сложных финансовых продуктах: 5 лет в сфере юридически значимого
-          документооборота (ЭДО/КЭДО, Nopaper), 1,5 года корпоративный портал для внутренних
-          пользователей, 4 года в B2C и B2B-финтехе (банки «Россия», «Союз», Abanking).
-        </p>
-        <p>
-          Провожу полный цикл Discovery, проектирую кросс-платформенные решения (Web + Mobile).
-          Имею практический опыт построения дизайн-систем с нуля, что позволяет ускорять
-          разработку и поддерживать единый UX на всех платформах.
-        </p>
+    <div class="hero-inner">
+      <div class="hero-main">
+        <div class="hero-intro">
+          <div class="hero-top">
+            <span class="avatar" id="avatarTrigger" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Открыть фото крупнее">
+              <img src="assets/avatar.png" alt="Анастасия Вискунова">
+            </span>
+            <h1 class="hero-title">
+              <span>Привет!</span>
+              <span>Я Анастасия, продуктовый дизайнер</span>
+            </h1>
+          </div>
+
+          <p class="hero-summary">Проектирую сложные B2B-продукты: электронный документооборот <br>(ЭДО/КЭДО), корпоративные порталы и дизайн-системы для Web и Mobile. <br>Веду полный цикл от Discovery и гипотез до тестов и метрик</p>
+        </div>
+
+        <div class="hero-experience">
+          <div class="hero-experience__card">
+            <div class="hero-experience__top">
+              <span class="hero-experience__icon"><img src="assets/hero-icon-nopaper.png" alt="" aria-hidden="true"></span>
+              <p class="hero-experience__name">Nopaper</p>
+            </div>
+            <div class="hero-experience__info">
+              <p class="hero-experience__desc">Юридически значимый документооборот,<br>ЭДО/КЭДО</p>
+              <p class="hero-experience__dates">2020 - 2026</p>
+            </div>
+          </div>
+          <div class="hero-experience__card">
+            <div class="hero-experience__top">
+              <span class="hero-experience__icon"><img src="assets/hero-icon-artsofte.png" alt="" aria-hidden="true"></span>
+              <p class="hero-experience__name">Artsofte</p>
+            </div>
+            <div class="hero-experience__info">
+              <p class="hero-experience__desc">Корпоративный портал для внутренних пользователей</p>
+              <p class="hero-experience__dates">2024 - 2026</p>
+            </div>
+          </div>
+          <div class="hero-experience__card">
+            <div class="hero-experience__top">
+              <span class="hero-experience__icon hero-experience__icon--abanking"><img src="assets/hero-icon-abanking.svg" alt="" aria-hidden="true"></span>
+              <p class="hero-experience__name">Дизайн-система Abanking</p>
+            </div>
+            <div class="hero-experience__info">
+              <p class="hero-experience__desc">Desktop и mobile версии</p>
+              <p class="hero-experience__dates">2019 - 2026</p>
+            </div>
+          </div>
+          <div class="hero-experience__card">
+            <div class="hero-experience__top">
+              <span class="hero-experience__icon hero-experience__icon--banks"><img src="assets/hero-icon-banks.png" alt="" aria-hidden="true"></span>
+              <p class="hero-experience__name">Банки: Россия, Союз, Abanking</p>
+            </div>
+            <div class="hero-experience__info">
+              <p class="hero-experience__desc">B2C и B2B-финтех</p>
+              <p class="hero-experience__dates">2017 - 2020</p>
+            </div>
+          </div>
+        </div>
       </div>
 
       <a href="https://t.me/A_Kid87" target="_blank" rel="noopener" class="btn">
@@ -81,6 +96,7 @@
         <span class="btn__icon"><img src="assets/icon-arrow-right.svg" alt=""></span>
       </a>
     </div>
+
   </section>
 
   <section class="process">

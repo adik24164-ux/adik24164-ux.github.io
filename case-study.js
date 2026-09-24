@@ -80,6 +80,9 @@
   }
 
   function closeLightbox() {
+    pointers.clear();
+    dragging = false;
+    viewport.classList.remove('is-dragging');
     lightbox.hidden = true;
     document.body.style.overflow = '';
     img.removeAttribute('src');
@@ -121,9 +124,33 @@
     applyTransform();
   });
 
-  // Перетаскивание картинки вместо скролла, когда она больше окна
-  viewport.addEventListener('pointerdown', function (e) {
-    if (!naturalWidth) return;
+  // Перетаскивание одним пальцем/мышью вместо скролла, когда картинка больше
+  // окна, и щипок двумя пальцами для масштаба (в дополнение к кнопкам лупы).
+  // Все активные касания хранятся в pointers; два касания — режим щипка.
+  var pointers = new Map();
+  var pinchStartDist = 0;
+  var pinchStartScale = 1;
+  // Точка картинки (в её натуральных координатах относительно центра),
+  // которая в начале щипка была под серединой между пальцами, — её и
+  // удерживаем под пальцами, пока масштаб меняется.
+  var pinchAnchorX = 0;
+  var pinchAnchorY = 0;
+
+  function pointerDistance() {
+    var pts = Array.from(pointers.values());
+    return Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+  }
+
+  function pointerMidpoint() {
+    var pts = Array.from(pointers.values());
+    var rect = viewport.getBoundingClientRect();
+    return {
+      x: (pts[0].x + pts[1].x) / 2 - rect.left - viewport.clientWidth / 2,
+      y: (pts[0].y + pts[1].y) / 2 - rect.top - viewport.clientHeight / 2
+    };
+  }
+
+  function startDragFrom(e) {
     dragging = true;
     dragPointerId = e.pointerId;
     dragStartX = e.clientX;
@@ -131,10 +158,42 @@
     dragStartPanX = panX;
     dragStartPanY = panY;
     viewport.classList.add('is-dragging');
+  }
+
+  function startPinch() {
+    dragging = false;
+    dragPointerId = null;
+    var mid = pointerMidpoint();
+    pinchStartDist = pointerDistance() || 1;
+    pinchStartScale = scale;
+    pinchAnchorX = (mid.x - panX) / scale;
+    pinchAnchorY = (mid.y - panY) / scale;
+  }
+
+  viewport.addEventListener('pointerdown', function (e) {
+    if (!naturalWidth) return;
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
     viewport.setPointerCapture(e.pointerId);
+    if (pointers.size === 2) {
+      startPinch();
+    } else if (pointers.size === 1) {
+      startDragFrom(e);
+    }
   });
 
   viewport.addEventListener('pointermove', function (e) {
+    if (!pointers.has(e.pointerId)) return;
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+    if (pointers.size >= 2) {
+      scale = clamp(pinchStartScale * pointerDistance() / pinchStartDist, minScale, maxScale);
+      var mid = pointerMidpoint();
+      panX = mid.x - pinchAnchorX * scale;
+      panY = mid.y - pinchAnchorY * scale;
+      applyTransform();
+      return;
+    }
+
     if (!dragging || e.pointerId !== dragPointerId) return;
     panX = dragStartPanX + (e.clientX - dragStartX);
     panY = dragStartPanY + (e.clientY - dragStartY);
@@ -142,10 +201,20 @@
   });
 
   function endDrag(e) {
-    if (!dragging || e.pointerId !== dragPointerId) return;
-    dragging = false;
-    dragPointerId = null;
-    viewport.classList.remove('is-dragging');
+    if (!pointers.has(e.pointerId)) return;
+    pointers.delete(e.pointerId);
+
+    if (pointers.size === 1) {
+      // Один палец отпустили после щипка — оставшимся продолжаем
+      // перетаскивание без рывка (стартовая точка — его текущая позиция).
+      var id = pointers.keys().next().value;
+      var pt = pointers.get(id);
+      startDragFrom({ pointerId: id, clientX: pt.x, clientY: pt.y });
+    } else if (pointers.size === 0) {
+      dragging = false;
+      dragPointerId = null;
+      viewport.classList.remove('is-dragging');
+    }
   }
 
   viewport.addEventListener('pointerup', endDrag);

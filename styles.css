@@ -80,19 +80,29 @@ main {
   padding: 0 10px;
 }
 
-/* ---- Hero ---- */
+/* ---- Hero ----
+   Node 172:538: карточка стала шире стандартной контентной колонки
+   (800px), но должна останавливаться ровно в 20px от истинного края
+   экрана — независимо от паддинга main (10px десктоп, 32px на ≤900px).
+   width/margin пересчитывают эту разницу для каждого брейкпоинта main;
+   сам 800px-контент центрируется внутри уже через .hero-inner. */
 .hero {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-sm);
-  width: 100%;
-  max-width: var(--content-width);
-  padding: var(--space-md) var(--space-lg) var(--space-lg);
+  width: calc(100% - 20px);
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: var(--space-2xl) 20px;
   border-radius: var(--radius-card);
   background: var(--bg-accent);
   overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    width: calc(100% + 2 * (var(--space-md) - 20px));
+    margin-left: calc(20px - var(--space-md));
+    margin-right: calc(20px - var(--space-md));
+  }
 }
 
 .hero > :not(.hero-deco) {
@@ -100,71 +110,77 @@ main {
   z-index: 1;
 }
 
-/* Позиции декора взяты 1:1 из Figma (node 30:60/63/64/84),
-   в px/% относительно 800px-карточки hero. */
+/* Контентная колонка (800px) центрируется внутри уже расширенной карточки
+   hero — снаружи неё остаётся декоративный фон карточки. */
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-lg);
+  width: 100%;
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+/* Node 172:508: шапка, резюме и карточки — одной группой с зазором 32px,
+   а до кнопки — 40px (gap у .hero-inner). */
+.hero-main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+/* Позиции декора — node 172:502, в % от ширины уже расширенной карточки
+   hero (масштабируются вместе с ней на широких экранах), формулы 1:1 из
+   Figma. Loop и line вращаются вокруг своего центра через центрирующую
+   обёртку — контейнер задаёт положение/размер бокса, внутренний элемент —
+   реальный размер фигуры и поворот. Arrow — без вращения, обёртка не
+   нужна. */
 .hero-deco {
   position: absolute;
   z-index: 0;
   pointer-events: none;
 }
 
-/* Node 144:384: привязан к низу карточки (bottom), а не к верху — так он
-   остаётся рядом с кнопкой независимо от того, насколько вырастет текст
-   выше (раньше top был посчитан под старую высоту hero и с ростом
-   контента отъезжал от кнопки всё дальше). */
-.hero-deco--1 {
-  left: 175px;
-  bottom: 75.59px;
-  width: 115px;
-  height: 91.407px;
+/* Node 172:538: два декоративных элемента. Group — готовая композиция
+   (чёрная петля + белая закорючка) в правом нижнем углу карточки, без
+   вращения. Arrow — белая стрелка, её SVG шире номинального бокса макета
+   (штрих выходит за границы — в Figma inset с отрицательными %), поэтому
+   img растянут ровно на эти вылеты. */
+.hero-deco--group {
+  left: calc(83.33% - 128.27px);
+  /* Node 172:538: завитушка в правом верхнем углу, выступает за верх на 41px
+     (аватар теперь над заголовком, hero стал выше — 1086px). */
+  top: -41px;
+  width: 400.833px;
+  height: 429.182px;
+  max-width: none;
 }
 
-.hero-deco--3 {
-  left: 30px;
-  top: 18px;
-  width: 191px;
-  height: 169px;
+.hero-deco--arrow {
+  left: calc(33.33% + 2.33px);
+  /* Node 172:538: hero 1084px, стрелка y=1001 при высоте 92.88px — выходит за
+     низ блока на ~10px (обрезается overflow:hidden). */
+  bottom: -9.88px;
+  width: 152.59px;
+  height: 92.881px;
 }
 
-/* Фигуры 2 и 4 в макете лежат в центрированном боксе и повёрнуты
-   вокруг собственного центра — контейнер задаёт положение/размер бокса,
-   внутренний img — реальный размер фигуры и поворот. */
-.hero-deco--2 {
-  left: calc(66.67% + 26.67px);
-  top: -48px;
-  width: 260.379px;
-  height: 254.182px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hero-deco--2 img {
-  width: 179.876px;
-  height: 196.809px;
-  transform: rotate(60deg);
-}
-
-.hero-deco--4 {
-  left: calc(50% + 50px);
-  top: -62px;
-  width: 378.226px;
-  height: 201.517px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hero-deco--4 img {
-  width: 370.323px;
-  height: 185.157px;
-  transform: rotate(177.44deg);
+.hero-deco--arrow img {
+  position: absolute;
+  top: -9.3%;
+  left: 0;
+  width: 107.21%;
+  height: 118.29%;
+  max-width: none;
 }
 
 /* ---- Влёт декора при загрузке ----
-   Облачко (--3) влетает слева, обе петельки (--2 белая, --4 чёрная)
-   справа: из прозрачности, с небольшим ускорением (ease-in), ненавязчиво
-   и без большого смещения. */
+   Облачко влетает слева, петелька и чёрная линия — справа: из
+   прозрачности, с небольшим ускорением (ease-in), ненавязчиво и без
+   большого смещения. */
 @keyframes decoFlyInLeft {
   from {
     opacity: 0;
@@ -187,22 +203,16 @@ main {
   }
 }
 
-.hero-deco--3 {
+.hero-deco--arrow {
   animation: decoFlyInLeft 0.8s ease-in both;
 }
 
-.hero-deco--1,
-.hero-deco--2,
-.hero-deco--4 {
+.hero-deco--group {
   animation: decoFlyInRight 0.8s ease-in both;
 }
 
-.hero-deco--4 {
-  animation-delay: 0.08s;
-}
-
 /* Тот же приём (из прозрачности, ease-in), что у декора, но снизу вверх —
-   для содержимого hero: аватарка, заголовок, статистика, описание. */
+   для содержимого hero: аватарка, заголовок, резюме, карточки опыта. */
 @keyframes heroFlyInUp {
   from {
     opacity: 0;
@@ -216,8 +226,8 @@ main {
 
 .avatar,
 .hero-title,
-.stat,
-.hero-text {
+.hero-summary,
+.hero-experience__card {
   animation: heroFlyInUp 0.8s ease-in both;
 }
 
@@ -225,92 +235,200 @@ main {
   animation-delay: 0.08s;
 }
 
-/* Карточки статистики (node 144:395) влетают по очереди слева направо,
-   продолжая общий каскад hero (аватар → заголовок → карточки → текст). */
-.stat:nth-child(1) {
+.hero-summary {
   animation-delay: 0.16s;
 }
 
-.stat:nth-child(2) {
+/* Карточки опыта (node 172:538) влетают по очереди слева направо,
+   продолжая общий каскад hero (аватар → заголовок → резюме → карточки). */
+.hero-experience__card:nth-child(1) {
   animation-delay: 0.24s;
 }
 
-.stat:nth-child(3) {
+.hero-experience__card:nth-child(2) {
   animation-delay: 0.32s;
 }
 
-.hero-text {
+.hero-experience__card:nth-child(3) {
   animation-delay: 0.4s;
 }
 
+.hero-experience__card:nth-child(4) {
+  animation-delay: 0.48s;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .hero-deco--1,
-  .hero-deco--2,
-  .hero-deco--3,
-  .hero-deco--4,
+  .hero-deco--group,
+  .hero-deco--arrow,
   .avatar,
   .hero-title,
-  .stat,
-  .hero-text {
+  .hero-summary,
+  .hero-experience__card {
     animation: none;
   }
 }
 
+/* Node 204:630: аватар, заголовок и резюме — отдельная группа с зазором 24px
+   (между группой и карточками — 32px, это gap у .hero-main). */
 .hero-intro {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: var(--space-sm);
   width: 100%;
 }
 
+/* Node 172:509: аватар над заголовком (в строку на планшетах выходила
+   некрасивая ступенька из текста), зазор 24px. */
 .hero-top {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--space-xs);
+  gap: var(--space-sm);
   width: 100%;
 }
 
+.hero-top .avatar {
+  flex: none;
+}
+
+/* Node 172:511: обе строки одного размера (32/40, Literata Medium), на всю ширину колонки. */
 .hero-title {
   display: flex;
+  flex: none;
+  width: 100%;
+  min-width: 0;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--space-3xs);
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 500;
   font-size: var(--text-hero-title-size);
+  line-height: 40px;
   color: var(--text-primary);
 }
 
 .hero-title span {
   display: block;
-  line-height: 44px;
 }
 
-.hero-body {
+/* Node 172:538: обобщающий абзац под шапкой — Literata Regular 20px, строка
+   32px (как в макете). Переносы строк заданы в
+   макете (br), на узком экране они снимаются — см. адаптив. */
+.hero-summary {
+  margin: 0;
+  width: 100%;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 32px;
+  color: var(--text-primary);
+}
+
+/* ---- Карточки опыта (node 172:538) ----
+   Сетка 2×2 (в макете — две карточки по 392px в ряду + две гибких),
+   высота 264px: сверху иконка и крупное название, снизу описание и даты —
+   группы разведены к верхнему и нижнему краю (space-between), а 40px —
+   минимум между ними, если название займёт две строки. */
+.hero-experience {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-xs);
+  width: 100%;
+}
+
+.hero-experience__card {
+  display: flex;
+  min-width: 0;
+  min-height: 264px;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  padding: var(--space-sm);
+  border-radius: 24px;
+  background: var(--bg-content);
+}
+
+.hero-experience__top {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--space-md);
+  gap: 12px;
   width: 100%;
 }
 
-.hero-text {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-xs);
+.hero-experience__icon {
+  display: block;
+  flex: none;
+  width: 48px;
+  height: 48px;
+}
+
+.hero-experience__icon img {
   width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.hero-experience__icon--banks {
+  width: auto;
+}
+
+.hero-experience__icon--banks img {
+  width: auto;
+  height: 100%;
+}
+
+/* Логотип Abanking — не картинка целиком, а знак внутри CSS-кружка (как в
+   макете: круг #e4f3ff с белой обводкой 2px). */
+.hero-experience__icon--abanking {
+  position: relative;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: #e4f3ff;
+}
+
+.hero-experience__icon--abanking img {
+  position: absolute;
+  left: 11.81%;
+  top: 29.17%;
+  width: 76.39%;
+  height: 40.75%;
+  object-fit: fill;
+}
+
+.hero-experience__info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.hero-experience__name {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 32px;
+  color: var(--text-primary);
+}
+
+.hero-experience__desc {
+  margin: 0;
   font-family: var(--font-body);
-  font-weight: var(--text-p1-long-weight);
-  font-size: var(--text-p1-long-size);
-  line-height: var(--text-p1-long-line);
+  font-weight: var(--text-p1-primary-weight);
+  font-size: var(--text-p1-primary-size);
+  line-height: var(--text-p1-primary-line);
   color: var(--text-secondary);
 }
 
-.hero-text p {
-  flex: 1 0 0;
-  min-width: 0;
+.hero-experience__dates {
   margin: 0;
+  font-family: var(--font-body);
+  font-weight: var(--text-p1-secondary-weight);
+  font-size: var(--text-p1-secondary-size);
+  line-height: var(--text-p1-secondary-line);
+  color: var(--text-tertiary);
 }
 
 /* ---- Проекты ---- */
@@ -356,14 +474,12 @@ main {
 
   /* На этой ширине у сетки .process нет своих резиновых зазоров (контент
      и так занимает всё место между паддингами main), поэтому пробивать
-     через grid-column нечего — ряд карточек упирался бы в паддинг main,
-     а не в реальный край экрана. Отрицательный margin, равный этому
-     паддингу, компенсирует его именно для .process-steps, растягивая
-     ряд вплотную к границам окна, как и на десктопе через резиновые
-     колонки сетки. */
+     через grid-column нечего — ряд карточек упирался бы в паддинг main
+     (32px). Отрицательный margin доводит границу до тех же 20px от края
+     экрана, что и у карточки hero (node 172:550). */
   .process-steps {
-    margin-left: calc(-1 * var(--space-md));
-    margin-right: calc(-1 * var(--space-md));
+    margin-left: calc(20px - var(--space-md));
+    margin-right: calc(20px - var(--space-md));
   }
 
   :root {
@@ -376,17 +492,15 @@ main {
     gap: var(--space-sm);
   }
 
-  .stats {
-    flex-direction: column;
-    gap: var(--space-3xs);
+  .hero-experience {
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .stat {
-    flex-basis: auto;
-  }
-
-  .hero-text {
-    flex-direction: column;
+  /* В макете шапка только десктопная (аватар слева от текста); на узком
+     экране 100px аватара + 24px зазора оставляли бы заголовку ~130px —
+     слова 32px-размера не влезали бы, поэтому снова друг под другом. */
+  .hero-summary br {
+    display: none;
   }
 
   .hero {
@@ -451,20 +565,36 @@ main {
     --text-p1-long-size: 16px;
     --text-p1-long-line: 24px;
     --text-p1-selection-size: 16px;
+    --text-brand-size: 17px;   /* бренд-имя в хэдере/футере вместе с p1 */
+  }
+}
+
+/* На смартфонах 14px выглядит очень мелко (экран держат близко к глазам,
+   а колонка занимает всю ширину) — те же 16/24, что и на широких экранах;
+   у selection строка пропорционально 20 → 22. */
+@media (max-width: 640px) {
+  :root {
+    --text-p1-primary-size: 16px;
+    --text-p1-primary-line: 24px;
+    --text-p1-secondary-size: 16px;
+    --text-p1-secondary-line: 24px;
+    --text-p1-long-size: 16px;
+    --text-p1-long-line: 24px;
+    --text-p1-selection-size: 16px;
+    --text-p1-selection-line: 22px;
+    --text-brand-size: 17px;
   }
 }
 
 /* ---- Появление блоков при скролле ---- */
 .reveal {
-  filter: blur(4px);
   opacity: 0.6;
   transform: scale(0.98);
-  transition: filter 0.6s ease-out, opacity 0.6s ease-out, transform 0.6s ease-out;
-  will-change: filter, opacity, transform;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform;
 }
 
 .reveal.is-visible {
-  filter: blur(0);
   opacity: 1;
   transform: scale(1);
 }
@@ -487,7 +617,6 @@ main {
   .reveal,
   .reveal-up {
     transition: none;
-    filter: none;
     opacity: 1;
     transform: none;
   }

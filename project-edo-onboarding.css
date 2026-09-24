@@ -42,17 +42,19 @@
   position: absolute;
   left: 49.9%;
   top: 49.4%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, calc(-50% - 32px));
   width: 8.75%;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   background: #000;
+  opacity: 0.8;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.2s ease-out;
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
 }
 
 .video-callout__preview:hover .video-callout__play {
-  transform: translate(-50%, -50%) scale(1.15);
+  transform: translate(-50%, calc(-50% - 32px)) scale(1.15);
+  opacity: 0.9;
 }

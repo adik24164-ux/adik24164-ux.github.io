@@ -94,6 +94,25 @@
   color: var(--btn-ghost-color-hover);
 }
 
+/* На смартфонах (≤640px) кнопки выше — 48px вместо 40px, чтобы удобнее
+   попадать пальцем; внутренние отступы растут пропорционально (×1.2):
+   primary — отступы 4 → 6px (иконка-бейдж 32 → 36px), левый 16 → 20px;
+   ghost — вертикальные 8 → 12px (строка 24px + 24px = 48px). */
+@media (max-width: 640px) {
+  .btn {
+    height: 48px;
+    padding: 6px 6px 6px 20px;
+  }
+
+  .btn__icon {
+    padding: 6px;
+  }
+
+  .btn-ghost {
+    height: 48px;
+    padding: 12px 0;
+  }
+}
 /* ---- Тег / чип ---- */
 .tag {
   display: inline-flex;
@@ -207,45 +226,6 @@
   justify-content: center;
 }
 
-/* ---- Статистика (16 лет / 7 лет / 5+ лет) ----
-   Карточки (node 144:395): резиновые равные колонки на всю ширину
-   родителя (flex: 1 1 0), белый фон, скругление, текст по центру —
-   вместо прежних фиксированных 168px-колонок с левым бордером. */
-.stats {
-  display: flex;
-  gap: var(--space-xs);
-  width: 100%;
-}
-
-.stat {
-  display: flex;
-  flex: 1 1 0;
-  min-width: 0;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-4xs);
-  padding: 12px var(--space-sm) var(--space-xs);
-  border-radius: 24px;
-  background: var(--bg-content);
-  text-align: left;
-}
-
-.stat-number {
-  font-family: var(--font-heading);
-  font-weight: 400;
-  font-size: var(--text-stat-number-size);
-  line-height: normal;
-  color: var(--text-stat-number);
-}
-
-.stat-label {
-  font-family: var(--font-body);
-  font-weight: var(--text-p1-secondary-weight);
-  font-size: var(--text-p1-secondary-size);
-  line-height: var(--text-p1-secondary-line);
-  color: var(--text-secondary);
-}
-
 /* ---- Как я работаю (процесс) ----
    Карточки фиксированной ширины 260px (node 147:251) — при 5 штуках
    ряд (1364px) шире стандартной ширины контента (800px). В макете ряд
@@ -283,6 +263,12 @@
      при скролле уходят за реальный край экрана и слева, и справа, а не
      упираются в невидимую границу на месте края контентной колонки. */
   grid-column: 1 / 4;
+  /* Ряд обрезается на том же расстоянии от края экрана, что и карточка
+     hero (node 172:550) — 20px, а не по самому краю. Паддинг main на
+     десктопе 10px, поэтому не хватает ещё 10px; на ≤900px (там паддинг
+     32px) margin отрицательный — см. styles.css. */
+  margin-left: 10px;
+  margin-right: 10px;
   overflow-x: auto;
   overflow-y: visible;
   scrollbar-width: none;
@@ -359,7 +345,7 @@
   font-family: var(--font-heading);
   font-weight: 400;
   font-size: var(--text-stat-number-size);
-  line-height: normal;
+  line-height: 32px;
   color: var(--text-primary);
   margin-bottom: var(--space-xs);
 }
