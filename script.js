@@ -155,9 +155,15 @@
   var dragPointerId = null;
   var dragStartX = 0;
   var dragStartScrollLeft = 0;
-  var lastMoveTime = 0;
-  var lastRawTarget = 0;
-  var scrollVelocity = 0; // px/мс, скорость изменения scrollLeft в момент отпускания
+  // Скорость отпускания считаем по окну последних ~100мс движения, а не по
+  // двум последним событиям: pointermove у пальца приходит пачками с почти
+  // нулевым dt между событиями, и мгновенная скорость по паре точек давала
+  // случайные всплески — ряд после отпускания то замирал, то срывался в
+  // бег. Если палец перед отпусканием постоял на месте, инерции нет.
+  var VELOCITY_WINDOW = 100;   // мс — по какому окну считаем скорость
+  var VELOCITY_STALE = 60;     // мс — дольше стоял на месте → не бросаем
+  var MAX_VELOCITY = 3;        // px/мс — потолок, чтобы не улетало за край сразу
+  var samples = [];            // { t, pos } — pos это scrollLeft без ограничений
 
   // Пружинка — только лёгкая отдача на краях (как было изначально):
   // ряд поддаётся лишь на часть жеста (RESISTANCE) через transform, а не
@@ -234,9 +240,7 @@
     dragPointerId = e.pointerId;
     dragStartX = e.clientX;
     dragStartScrollLeft = track.scrollLeft;
-    lastMoveTime = performance.now();
-    lastRawTarget = dragStartScrollLeft;
-    scrollVelocity = 0;
+    samples = [{ t: e.timeStamp, pos: dragStartScrollLeft }];
     track.classList.add('is-dragging');
     track.setPointerCapture(e.pointerId);
   });
@@ -244,11 +248,8 @@
   track.addEventListener('pointermove', function (e) {
     if (!dragging || e.pointerId !== dragPointerId) return;
     var rawTarget = dragStartScrollLeft - (e.clientX - dragStartX);
-    var now = performance.now();
-    var dt = now - lastMoveTime;
-    if (dt > 0) scrollVelocity = (rawTarget - lastRawTarget) / dt;
-    lastMoveTime = now;
-    lastRawTarget = rawTarget;
+    samples.push({ t: e.timeStamp, pos: rawTarget });
+    while (samples.length > 2 && e.timeStamp - samples[0].t > VELOCITY_WINDOW) samples.shift();
 
     var target = rawTarget;
     var min = 0;
@@ -265,10 +266,20 @@
     if (overshoot) {
       var shift = Math.max(-MAX_OVERSHOOT, Math.min(MAX_OVERSHOOT, -overshoot * RESISTANCE));
       track.style.transform = 'translateX(' + shift.toFixed(2) + 'px)';
-    } else {
+    } else if (track.style.transform) {
       track.style.transform = '';
     }
   });
+
+  function releaseVelocity(now) {
+    var last = samples[samples.length - 1];
+    var first = samples[0];
+    if (!last || now - last.t > VELOCITY_STALE) return 0;
+    var dt = last.t - first.t;
+    if (dt < 16) return 0;
+    var v = (last.pos - first.pos) / dt;
+    return Math.max(-MAX_VELOCITY, Math.min(MAX_VELOCITY, v));
+  }
 
   function endDrag(e) {
     if (!dragging || e.pointerId !== dragPointerId) return;
@@ -277,13 +288,19 @@
     track.classList.remove('is-dragging');
     if (track.style.transform) {
       springBack();
-    } else if (Math.abs(scrollVelocity) > MOMENTUM_MIN_VELOCITY) {
-      startMomentum(scrollVelocity);
+    } else {
+      var velocity = releaseVelocity(e.timeStamp);
+      if (Math.abs(velocity) > MOMENTUM_MIN_VELOCITY) startMomentum(velocity);
     }
   }
 
   track.addEventListener('pointerup', endDrag);
-  track.addEventListener('pointercancel', endDrag);
+  // pointercancel — браузер забрал жест себе (палец пошёл вертикально и
+  // началась прокрутка страницы): инерцию по горизонтали не запускаем.
+  track.addEventListener('pointercancel', function (e) {
+    samples = [];
+    endDrag(e);
+  });
 })();
 
 (function () {
