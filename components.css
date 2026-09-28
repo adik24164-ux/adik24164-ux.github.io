@@ -248,14 +248,11 @@
   width: 100%;
 }
 
+/* Node 248:470/257:842: заголовки разделов набраны тем же стилем, что и
+   приветствие в hero ("Привет! Я Анастасия...") — переиспользуем
+   .hero-title, а не заводим отдельный класс под то же самое. */
 .process-title {
   grid-column: 2;
-  margin: 0;
-  font-family: var(--font-heading);
-  font-weight: 400;
-  font-size: var(--text-project-title-size);
-  line-height: 38px;
-  color: var(--text-title);
 }
 
 .process-steps {
@@ -345,18 +342,23 @@
   align-items: flex-start;
   flex: 0 0 300px;
   width: 300px;
-  gap: 20px;
+  gap: var(--space-xs);
   text-align: left;
 }
 
+/* Node 248:473: заголовок шага сменился с крупного Literata на маленький
+   прописной "лейбл" — Montserrat SemiBold, разрядка, серый (text/tertiary),
+   как рубрика над карточками, а не как подзаголовок. */
 .process-step__title {
   margin: 0;
   width: 100%;
-  font-family: var(--font-heading);
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 26px;
-  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 20px;
+  letter-spacing: 1.92px;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
 }
 
 .process-step__variants {
