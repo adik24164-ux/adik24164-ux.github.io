@@ -92,13 +92,62 @@
   // Поэтому, когда блок возвращается в область hideObserver'а и его верх
   // выше нижней границы показа (той же 90%-линии showObserver'а), снова
   // включаем is-visible.
+  //
+  // REVEAL_SETTLE — короткая пауза после ЛЮБОГО переключения class'а:
+  // сам переход opacity/transform на 0.6s (styles.css) двигает блок ровно
+  // настолько, что может тут же вытолкнуть его через ту же границу
+  // hideObserver'а обратно — тот получает новое срабатывание, снова
+  // переключает класс, снова двигает блок, и так по кругу (видимое
+  // мигание). Пока блок ещё "оседает" после своего же переключения, новое
+  // срабатывание hideObserver'а не применяем сразу, а откладываем на конец
+  // паузы (а не просто игнорируем — иначе при быстрой прокрутке настоящий
+  // повторный вход блока в кадр мог потеряться совсем, и блок навсегда
+  // оставался невидимым, снова та же пустая дыра). К концу паузы transform
+  // уже осел, и решение по свежей геометрии принимается один раз, без
+  // дёрганья.
+  var REVEAL_SETTLE = 700; // мс, больше длительности transition (0.6s)
+  var settleUntil = new WeakMap();
+  var pendingRecheck = new WeakMap();
+
+  function isSettling(el) {
+    var until = settleUntil.get(el);
+    return until !== undefined && performance.now() < until;
+  }
+
+  function scheduleSettle(el) {
+    settleUntil.set(el, performance.now() + REVEAL_SETTLE);
+  }
+
+  function applyHideDecision(el, isIntersecting, top) {
+    if (!isIntersecting) {
+      el.classList.remove('is-visible');
+      scheduleSettle(el);
+    } else if (top < window.innerHeight * 0.9) {
+      el.classList.add('is-visible');
+      scheduleSettle(el);
+    }
+  }
+
+  function recheckAfterSettle(el) {
+    // Та же граница, что и у hideObserver'а (rootMargin '-10% 0px 0px 0px'):
+    // пересекает её, если хоть часть блока ниже верхних 10% экрана.
+    var rect = el.getBoundingClientRect();
+    var isIntersecting = rect.bottom > window.innerHeight * 0.1 && rect.top < window.innerHeight;
+    applyHideDecision(el, isIntersecting, rect.top);
+  }
+
   var hideObserver = REVERSE && new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
-      if (!entry.isIntersecting) {
-        entry.target.classList.remove('is-visible');
-      } else if (entry.boundingClientRect.top < window.innerHeight * 0.9) {
-        entry.target.classList.add('is-visible');
+      var el = entry.target;
+      if (isSettling(el)) {
+        clearTimeout(pendingRecheck.get(el));
+        var until = settleUntil.get(el);
+        pendingRecheck.set(el, setTimeout(function () {
+          recheckAfterSettle(el);
+        }, Math.max(0, until - performance.now())));
+        return;
       }
+      applyHideDecision(el, entry.isIntersecting, entry.boundingClientRect.top);
     });
   }, {
     root: null,

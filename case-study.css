@@ -386,6 +386,35 @@
   gap: var(--space-3xs);
 }
 
+/* ---- Карточка-колбаут (node 230:382, "Положительные моменты" в UX-тесте) ----
+   Светло-голубой фон (тот же, что у hero), скруглённая на 32px, с декоративной
+   белой завитушкой в углу — overflow:hidden срезает её край так же, как у
+   hero-блока. */
+.case-callout {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 20px 24px;
+  border-radius: var(--radius-card);
+  background: var(--bg-accent);
+  overflow: hidden;
+}
+
+.case-callout__deco {
+  position: absolute;
+  right: 56px;
+  top: 35px;
+  width: 174px;
+  height: 165px;
+  pointer-events: none;
+}
+
+.case-callout > :not(.case-callout__deco) {
+  position: relative;
+}
+
 /* ---- Маркированные списки с кастомной точкой (Figma bullet-node) ---- */
 .case-list {
   list-style: none;

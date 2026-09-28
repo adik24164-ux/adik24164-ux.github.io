@@ -27,6 +27,12 @@
 
   <section class="hero reveal">
     <img class="hero-deco hero-deco--group" src="assets/hero-deco-group.svg" alt="" aria-hidden="true">
+    <img class="hero-deco hero-deco--group-left" src="assets/hero-deco-group-left-wide.svg" alt="" aria-hidden="true">
+    <!-- Node 219:2322: на экранах от 1600px завитки крупнее и по-другому
+         скомпонованы (не просто увеличенная копия) — отдельные картинки,
+         переключаются с обычными через display в styles.css. -->
+    <img class="hero-deco hero-deco--group-wide" src="assets/hero-deco-group-wide.svg" alt="" aria-hidden="true">
+    <img class="hero-deco hero-deco--group-left-wide" src="assets/hero-deco-group-left-wide.svg" alt="" aria-hidden="true">
     <div class="hero-deco hero-deco--arrow" aria-hidden="true">
       <img src="assets/hero-deco-arrow.svg" alt="">
     </div>
@@ -40,11 +46,11 @@
             </span>
             <h1 class="hero-title">
               <span>Привет!</span>
-              <span>Я Анастасия, продуктовый дизайнер</span>
+              <span>Я Анастасия, продуктовый дизайнер</span>
             </h1>
           </div>
 
-          <p class="hero-summary">Проектирую сложные B2B-продукты: электронный документооборот <br>(ЭДО/КЭДО), корпоративные порталы и дизайн-системы для Web и Mobile. <br>Веду полный цикл от Discovery и гипотез до тестов и метрик</p>
+          <p class="hero-summary">Проектирую сложные B2B-продукты: электронный документооборот <br>(ЭДО/КЭДО), корпоративные порталы и дизайн-системы для Web и Mobile. <br>Веду полный цикл от Discovery и гипотез до тестов и метрик</p>
         </div>
 
         <div class="hero-experience">
@@ -64,7 +70,7 @@
               <p class="hero-experience__name">Artsofte</p>
             </div>
             <div class="hero-experience__info">
-              <p class="hero-experience__desc">Корпоративный портал для внутренних пользователей</p>
+              <p class="hero-experience__desc">Корпоративный портал для внутренних пользователей</p>
               <p class="hero-experience__dates">2024 - 2026</p>
             </div>
           </div>
@@ -74,7 +80,7 @@
               <p class="hero-experience__name">Дизайн-система Abanking</p>
             </div>
             <div class="hero-experience__info">
-              <p class="hero-experience__desc">Desktop и mobile версии</p>
+              <p class="hero-experience__desc">Desktop и mobile версии</p>
               <p class="hero-experience__dates">2019 - 2026</p>
             </div>
           </div>
@@ -84,7 +90,7 @@
               <p class="hero-experience__name">Банки: Россия, Союз, Abanking</p>
             </div>
             <div class="hero-experience__info">
-              <p class="hero-experience__desc">B2C и B2B-финтех</p>
+              <p class="hero-experience__desc">B2C и B2B-финтех</p>
               <p class="hero-experience__dates">2017 - 2020</p>
             </div>
           </div>
@@ -100,34 +106,59 @@
   </section>
 
   <section class="process">
-    <h2 class="process-title">Как я работаю</h2>
+    <h2 class="process-title">Как я работаю</h2>
     <div class="process-steps">
       <div class="process-steps__track">
         <img class="process-line" src="assets/deco-process-line.svg" alt="" aria-hidden="true">
         <div class="process-step">
-          <span class="process-step__number">01</span>
-          <h3 class="process-step__title">Погружаюсь в контекст</h3>
-          <p class="process-step__desc">Изучаю бизнес-задачу через данные: обращения в поддержку, воронки, интервью со стейкхолдерами. Ищу то, что реально мешает бизнесу и пользователю.</p>
+          <h3 class="process-step__title">Погружаюсь в контекст</h3>
+          <div class="process-step__variants">
+            <div class="process-step__card">
+              <p class="process-step__label">Новый продукт</p>
+              <p class="process-step__desc">При помощи AI-агента (Claude Code + Figma MCP): делаю сбор требований, анализ конкурентов, UX-аудит, приоритизацию фич и упаковку в PRD</p>
+            </div>
+            <div class="process-step__card">
+              <p class="process-step__label">Улучшение зрелого продукта</p>
+              <p class="process-step__desc">Изучаю бизнес-задачу через данные: обращения в поддержку, воронки, интервью со стейкхолдерами. Ищу то, что реально мешает бизнесу и пользователю.</p>
+            </div>
+          </div>
         </div>
         <div class="process-step">
-          <span class="process-step__number">02</span>
-          <h3 class="process-step__title">Исследую и формулирую гипотезы</h3>
-          <p class="process-step__desc">Анализирую данные, конкурентов, строю CJM/UJM и формулирую гипотезы с измеримым прогнозом эффекта.</p>
+          <h3 class="process-step__title">Исследую</h3>
+          <div class="process-step__variants">
+            <div class="process-step__card">
+              <p class="process-step__desc">Анализирую данные, конкурентов, строю CJM/UJM и формулирую гипотезы с измеримым прогнозом эффекта.</p>
+            </div>
+          </div>
         </div>
         <div class="process-step">
-          <span class="process-step__number">03</span>
-          <h3 class="process-step__title">Проектирую и тестирую</h3>
-          <p class="process-step__desc">Собираю кликабельные прототипы и проверяю гипотезы на реальных пользователях. Опровержение гипотезы это тоже результат, а не провал.</p>
+          <h3 class="process-step__title">Проектирую и тестирую</h3>
+          <div class="process-step__variants">
+            <div class="process-step__card">
+              <p class="process-step__label">Новый продукт</p>
+              <p class="process-step__desc">Claude Code + Figma MCP: sitemap, wireframes, экраны и ДС. Собираю живой прототип и проверяю гипотезы</p>
+            </div>
+            <div class="process-step__card">
+              <p class="process-step__label">Улучшение зрелого продукта</p>
+              <p class="process-step__desc">Собираю кликабельные прототипы (Claude Code + Figma MCP), провожу UX-тесты, проверяю гипотезы</p>
+            </div>
+          </div>
         </div>
         <div class="process-step">
-          <span class="process-step__number">04</span>
-          <h3 class="process-step__title">Запускаю и измеряю</h3>
-          <p class="process-step__desc">После релиза возвращаюсь к метрикам, сравниваю «было/стало» и смотрю, что реально сработало.</p>
+          <h3 class="process-step__title">Запускаю и измеряю</h3>
+          <div class="process-step__variants">
+            <div class="process-step__card">
+              <p class="process-step__desc">После релиза возвращаюсь к метрикам, сравниваю «было/стало» и смотрю, что реально сработало</p>
+            </div>
+          </div>
         </div>
         <div class="process-step">
-          <span class="process-step__number">05</span>
-          <h3 class="process-step__title">Рефлексирую и итерирую</h3>
-          <p class="process-step__desc">Честно фиксирую, что получилось, а что нет. Любое решение — гипотеза, которую можно и нужно пересмотреть.</p>
+          <h3 class="process-step__title">Рефлексирую и итерирую</h3>
+          <div class="process-step__variants">
+            <div class="process-step__card">
+              <p class="process-step__desc">Фиксирую, что получилось, а что нет. Любое решение — гипотеза, которую можно и нужно пересмотреть</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -146,19 +177,19 @@
             <h2 class="project-title"><a href="project-corporate-portal.html" class="project-title-link">Корпоративный портал</a></h2>
           </div>
           <div class="tags">
-            <span class="tag">#Decktop</span>
+            <span class="tag">#Desktop</span>
             <span class="tag">#Mobile_App</span>
             <span class="tag">#B2E</span>
             <span class="tag">#MVP</span>
             <span class="tag">#Lowcode</span>
           </div>
           <p class="project-desc">
-            Разработала MVP корпоративного портала на low-code платформе, который заменил
-            громоздкий Bitrix24 и решил проблемы неактуальных данных, функциональной
-            избыточности и несоответствия бизнес-процессам. Проект включает desktop-версию
-            и отдельное мобильное приложение. Целевой эффект: снижение количества
-            переключений между разделами на 20–30%, согласование отпусков — с нескольких
-            дней до нескольких часов.
+            Разработала MVP корпоративного портала на low-code платформе, который заменил
+            громоздкий Bitrix24 и решил проблемы неактуальных данных, функциональной
+            избыточности и несоответствия бизнес-процессам. Проект включает desktop-версию
+            и отдельное мобильное приложение. Целевой эффект: снижение количества
+            переключений между разделами на 20–30%, согласование отпусков — с нескольких
+            дней до нескольких часов.
           </p>
         </div>
         <a href="project-corporate-portal.html" class="btn">
@@ -176,7 +207,7 @@
         <div class="project-card__header">
           <div class="project-card__heading">
             <p class="project-meta">Senior designer &nbsp;◦&nbsp; 2023</p>
-            <h2 class="project-title"><a href="project-edo-onboarding.html" class="project-title-link">Улучшение первой пользовательской сессии в приложении мобильного ЭДО</a></h2>
+            <h2 class="project-title"><a href="project-edo-onboarding.html" class="project-title-link">Улучшение первой пользовательской сессии в приложении мобильного ЭДО</a></h2>
           </div>
           <div class="tags">
             <span class="tag">#Mobile_App</span>
@@ -187,9 +218,9 @@
             <span class="tag">#VoC</span>
           </div>
           <p class="project-desc">
-            Самостоятельно проанализировала воронку конверсии первой пользовательской сесии
-            на основе обращений в техподдержку, улучшила экраны выпуска электронной подписи,
-            добившись роста конверсии выпуска подписи с 20,5% до 39,7%
+            Самостоятельно проанализировала воронку конверсии первой пользовательской сессии
+            на основе обращений в техподдержку, улучшила экраны выпуска электронной подписи,
+            добившись роста конверсии выпуска подписи с 20,5% до 39,7%
           </p>
         </div>
         <a href="project-edo-onboarding.html" class="btn">
@@ -217,8 +248,8 @@
             <span class="tag">#UX-test</span>
           </div>
           <p class="project-desc">
-            Сделала подписание НЭП в Nopaper прозрачным и контролируемым: убрала блокирующий
-            loader, добавила фоновый прогресс-бар и навигацию через список. Повторное
+            Сделала подписание НЭП в Nopaper прозрачным и контролируемым: убрала блокирующий
+            loader, добавила фоновый прогресс-бар и навигацию через список. Повторное
             UX-тестирование подтвердило — 100% пользователей правильно понимают новый интерфейс
           </p>
         </div>

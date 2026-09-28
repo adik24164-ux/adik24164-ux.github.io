@@ -292,31 +292,35 @@
 
 /* Сама лента карточек (без учёта padding-left/right, которые script.js
    добавляет на .process-steps для выравнивания с краями hero-блока) —
-   именно в этой системе координат (0..1364px) размещена соединяющая
-   линия со стрелкой (node 162:338), поэтому линия — child этого блока,
-   а не .process-steps, чей padding иначе сдвинул бы её. */
+   именно в этой системе координат размещена соединяющая линия со
+   стрелками (node 249:644), поэтому линия — child этого блока, а не
+   .process-steps, чей padding иначе сдвинул бы её. */
 .process-steps__track {
   position: relative;
   display: flex;
   flex-wrap: nowrap;
-  align-items: stretch;
+  align-items: flex-start;
   gap: var(--space-xs);
   /* Явная ширина по контенту, а не "по умолчанию как у блока" (100% от
-     .process-steps) — карточки всё равно не сжимаются (flex:0 0 260px)
+     .process-steps) — карточки всё равно не сжимаются (flex:0 0 300px)
      и физически шире, но нечёткая ширина трека сбивала расчёт scrollWidth
      в script.js, от которого зависит точка выравнивания в конце скролла. */
   width: max-content;
 }
 
+/* Координаты 1:1 из Figma (node 249:644), в той же системе координат,
+   что и колонки (0/316/632/948/1264 — считает script.js через реальные
+   позиции). z-index поднимает линию над карточками (без него, как
+   первый ребёнок трека с z-index:auto, она рисовалась бы под ними). */
 .process-line {
   position: absolute;
-  left: 66px;
-  top: 10px;
-  width: 1261px;
+  z-index: 2;
+  left: 300px;
+  top: 99px;
+  width: 1099px;
+  height: 169.5px;
   max-width: none;
-  height: auto;
   pointer-events: none;
-  z-index: 1;
 }
 
 /* Курсор меняется на "зажато" во время перетаскивания мышью (script.js),
@@ -327,32 +331,55 @@
   cursor: grabbing;
 }
 
+/* ---- Шаг процесса (node 248:468) ----
+   Раньше каждый шаг был одной голубой карточкой с номером; теперь номер
+   убран, а заголовок стоит НАД карточкой(-ами) — колонка сама без фона,
+   фон и скругление только у вложенных .process-step__card. У "Погружаюсь
+   в контекст" и "Проектирую и тестирую" внутри по две карточки (сценарий
+   для нового продукта и для улучшения существующего), у остальных — одна;
+   высоты колонок из-за этого разные, поэтому ряд выравнивается по верху
+   (align-items:flex-start у трека), а не растягивается. */
 .process-step {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  flex: 0 0 260px;
-  width: 260px;
-  padding: var(--space-xs) var(--space-md) var(--space-sm);
-  border-radius: 24px;
-  background: var(--bg-accent);
+  flex: 0 0 300px;
+  width: 300px;
+  gap: 20px;
   text-align: left;
 }
 
-/* Между номером и заголовком+описанием — 16px, между заголовком и
-   описанием — 8px (node 147:251): два разных отступа, поэтому не общий
-   gap у .process-step, а margin-bottom у каждого элемента отдельно. */
-.process-step__number {
+.process-step__title {
+  margin: 0;
+  width: 100%;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: var(--text-stat-number-size);
-  line-height: 32px;
+  font-size: 20px;
+  line-height: 26px;
   color: var(--text-primary);
-  margin-bottom: var(--space-xs);
 }
 
-.process-step__title {
-  margin: 0 0 var(--space-3xs);
+.process-step__variants {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  width: 100%;
+}
+
+.process-step__card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3xs);
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: 24px;
+  background: var(--bg-accent);
+}
+
+.process-step__label {
+  margin: 0;
+  width: 100%;
   font-family: var(--font-body);
   font-weight: var(--text-p1-selection-weight);
   font-size: var(--text-p1-selection-size);
@@ -362,6 +389,7 @@
 
 .process-step__desc {
   margin: 0;
+  width: 100%;
   font-family: var(--font-body);
   font-weight: var(--text-p1-long-weight);
   font-size: var(--text-p1-long-size);
