@@ -1,25 +1,36 @@
 /* ==========================================================================
-   РЕЗЮМЕ — отдельная страница с текстом резюме (Figma tBQGyNSFR0DiuGFQBQuaVn,
-   node 252:654 "Резюме Вискунова А.А.Designer").
-   Каркас страницы и типографика — общие с кейсами (.case-back, .case-p,
-   .case-label, .case-list, .case-subsection-title, .tag); здесь только то,
-   что специфично для резюме: шапка с фото, строка контактов через точку,
-   строка "компания · роль · даты" у мест работы.
-   ========================================================================== */
+   РЕЗЮМЕ — отдельная, самостоятельная страница (без шапки/футера сайта),
+   повторяющая макет Figma tBQGyNSFR0DiuGFQBQuaVn, node 252:654 "Резюме
+   Вискунова А.А.Designer". Макет свёрстан под A4 (10px тело текста) — на
+   экране это мелко, поэтому все размеры и отступы взяты из макета и
+   пропорционально увеличены в 1.4 раза (10px → 14px и т.д.), пропорции
+   между элементами сохранены как в оригинале.
+   Цвета и шрифты — из tokens.css (те же переменные, что у остального
+   сайта), пиксели типографики — свои, локальные для страницы. */
+
+body {
+  background: #fff;
+}
+
+.resume-page {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 67px 28px;
+}
 
 .resume {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2xl);
+  gap: 45px;
   width: 100%;
-  max-width: var(--content-width);
-  margin: 0 auto;
+  max-width: 654px;
 }
 
-/* ---- Шапка: имя/контакты слева, фото справа ---- */
+/* ---- Шапка: имя/контакты слева, фото справа (node 252:656) ---- */
 .resume-header {
   display: flex;
-  gap: var(--space-md);
+  gap: 34px;
   align-items: flex-start;
   width: 100%;
 }
@@ -29,7 +40,23 @@
   flex: 1 1 0;
   min-width: 0;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: 28px;
+}
+
+.resume-name-block {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  width: 100%;
+}
+
+.resume-name-block__top {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  padding-bottom: 11px;
+  border-bottom: 1px solid var(--bg-tag);
 }
 
 .resume-name {
@@ -42,31 +69,45 @@
 }
 
 .resume-role {
-  margin: var(--space-3xs) 0 0;
+  margin: 0;
   font-family: var(--font-body);
   font-weight: 500;
-  font-size: var(--text-p1-primary-size);
-  line-height: var(--text-p1-primary-line);
+  font-size: 14px;
+  line-height: 22px;
   color: var(--text-primary);
 }
 
 .resume-tags-inline {
-  margin: var(--space-3xs) 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 6px;
+  width: 100%;
   font-family: var(--font-body);
   font-weight: 400;
-  font-size: var(--text-p1-secondary-size);
-  line-height: var(--text-p1-secondary-line);
+  font-size: 14px;
+  line-height: 26px;
   color: var(--text-secondary);
+}
+
+.resume-tags-inline__sep {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--text-tertiary);
+  flex: none;
 }
 
 .resume-contact-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-4xs) var(--space-3xs);
+  gap: 0 6px;
+  width: 100%;
   font-family: var(--font-body);
-  font-size: var(--text-p1-secondary-size);
-  line-height: var(--text-p1-secondary-line);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 26px;
   color: var(--text-secondary);
 }
 
@@ -75,33 +116,45 @@
   text-decoration: none;
 }
 
-.resume-contact-row a:hover {
-  text-decoration: underline;
-}
-
 .resume-contact-row__sep {
-  color: var(--text-tertiary);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--text-tertiary);
+  flex: none;
 }
 
-.resume-format-tags,
-.resume-skill-tags {
+.resume-format-tags {
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3xs);
+  gap: 6px;
 }
 
+.resume-format-tags span {
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--bg-tag);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 17px;
+  color: var(--text-secondary);
+}
+
+/* ---- Ссылки Telegram / Портфолио (node 252:699) ---- */
 .resume-links {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-md);
+  align-items: center;
+  gap: 11px 28px;
+  width: 100%;
 }
 
 .resume-links a {
   color: var(--btn-primary-bg-hover);
   font-family: var(--font-body);
-  font-weight: 500;
-  font-size: var(--text-p1-primary-size);
-  line-height: var(--text-p1-primary-line);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
   text-decoration: none;
 }
 
@@ -111,9 +164,9 @@
 
 .resume-photo {
   flex: none;
-  width: 160px;
-  height: 160px;
-  border-radius: 24px;
+  width: 255px;
+  height: 255px;
+  border-radius: 34px;
   overflow: hidden;
 }
 
@@ -123,60 +176,130 @@
   object-fit: cover;
 }
 
-/* ---- Тело резюме: секции с тем же вертикальным ритмом, что у кейсов ---- */
+/* ---- Тело резюме: секции (node 252:711) ---- */
 .resume-body {
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
+  gap: 45px;
   width: 100%;
 }
 
 .resume-section {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+  gap: 22px;
   width: 100%;
+}
+
+.resume-section-title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 25px;
+  color: var(--text-primary);
+}
+
+.resume-p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--text-secondary);
+}
+
+.resume-list {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+
+.resume-list li {
+  position: relative;
+  padding-left: 17px;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--text-secondary);
+}
+
+.resume-list li::before {
+  content: "";
+  position: absolute;
+  left: 1px;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.resume-list a {
+  color: var(--btn-primary-bg-hover);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.resume-list a:hover {
+  text-decoration: underline;
 }
 
 .resume-jobs {
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: 34px;
   width: 100%;
 }
 
 .resume-job {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3xs);
+  gap: 22px;
   width: 100%;
 }
 
-/* "Artsofte · Product Designer · 2020 – н.в." — чуть крупнее обычного
-   текста, как мини-подзаголовок места работы. */
+/* "Artsofte · Product Designer · 2020 – н.в." (node 252:720) */
 .resume-job__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 22px;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 25px;
   color: var(--text-primary);
 }
 
-.resume-job__meta span {
-  color: var(--text-tertiary);
-  margin: 0 var(--space-4xs);
+.resume-job__meta-sep {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--text-tertiary);
+  flex: none;
 }
 
-/* Название проекта внутри места работы — либо ссылка на кейс (оранжевая,
-   полужирная), либо простой текст, если кейса на сайте нет. */
+.resume-job__entry {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
 .resume-job__project {
-  margin: var(--space-3xs) 0 0;
+  margin: 0;
   font-family: var(--font-body);
   font-weight: 600;
-  font-size: var(--text-p1-primary-size);
-  line-height: var(--text-p1-primary-line);
-  color: var(--text-primary);
+  font-size: 14px;
+  line-height: 22px;
 }
 
 .resume-job__project a {
@@ -188,16 +311,20 @@
   text-decoration: underline;
 }
 
+.resume-job__project--plain {
+  color: var(--text-primary);
+}
+
 .resume-job__links {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-3xs);
-  margin: 0;
+  gap: 6px;
+  margin: 4px 0 0;
   font-family: var(--font-body);
   font-weight: 500;
-  font-size: var(--text-p1-primary-size);
-  line-height: var(--text-p1-primary-line);
+  font-size: 14px;
+  line-height: 22px;
 }
 
 .resume-job__links a {
@@ -209,20 +336,56 @@
   text-decoration: underline;
 }
 
-.resume-job__links span {
-  color: var(--text-tertiary);
+.resume-job__links-sep {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--text-tertiary);
+  flex: none;
 }
 
-/* Ссылки на кейсы прямо внутри маркированного списка (case-list) —
-   тот же оранжевый акцент, что и у остальных ссылок резюме. */
-.resume-body .case-list a {
-  color: var(--btn-primary-bg-hover);
+/* ---- Теги-скиллы (node 252:790) ---- */
+.resume-skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 11px;
+  width: 100%;
+}
+
+.resume-skill-tags span {
+  padding: 3px 11px;
+  border-radius: 45px;
+  background: var(--bg-tag);
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--text-primary);
+}
+
+/* ---- Образование (node 252:836) ---- */
+.resume-edu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  width: 100%;
+}
+
+.resume-edu-row {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.resume-edu-row strong {
   font-weight: 600;
-  text-decoration: none;
+  color: var(--text-primary);
 }
 
-.resume-body .case-list a:hover {
-  text-decoration: underline;
+.resume-edu-row span {
+  font-weight: 400;
+  color: var(--text-secondary);
 }
 
 .resume-footnote {
@@ -230,19 +393,23 @@
   font-family: var(--font-body);
   font-style: italic;
   font-weight: 400;
-  font-size: var(--text-p1-secondary-size);
-  line-height: var(--text-p1-secondary-line);
+  font-size: 14px;
+  line-height: 22px;
   color: var(--text-secondary);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 720px) {
+  .resume-page {
+    padding: 45px 22px;
+  }
+
   .resume-header {
     flex-direction: column-reverse;
-    gap: var(--space-sm);
+    gap: 22px;
   }
 
   .resume-photo {
-    width: 120px;
-    height: 120px;
+    width: 196px;
+    height: 196px;
   }
 }
