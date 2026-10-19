@@ -3,81 +3,60 @@
    Переиспользуемые UI-блоки, собранные на токенах из tokens.css
    ========================================================================== */
 
-/* ---- Кнопка: тёмная pill-кнопка со стрелкой (primary) ---- */
+/* ---- Кнопка: белая pill-кнопка с тёмной обводкой (primary) ----
+   Актуальный компонент (30:158/194/200, Default/hover/press): во всех
+   трёх состояниях ОДИН и тот же шрифт — Montserrat Medium 14/22
+   (p1-primary), вес больше нигде не переключается. Паддинг 9/16 во всех
+   состояниях, и в метаданных Figma рамка Default (136×40) и заливка
+   hover/press без рамки (тоже 136×40) — одного размера: рамка не влияет
+   на габариты компонента. Поэтому рамка сделана через outline с
+   отрицательным offset (не border) — outline никогда не участвует в
+   box-модели, так что паддинг/ширина/высота идентичны во всех
+   состояниях и ничего не дёргается. Из-за того, что вес текста теперь
+   не меняется, старый трюк с дублированием текста (.btn__ghost/.btn__label)
+   для резервирования ширины больше не нужен — один обычный текстовый узел. */
 .btn {
-  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: var(--space-3xs);
-  height: 40px;
-  padding: var(--space-4xs) var(--space-4xs) var(--space-4xs) var(--space-xs);
+  justify-content: center;
+  padding: 9px 16px;
   border-radius: var(--radius-pill);
-  background: var(--bg-inversion);
-  color: var(--text-white);
+  background: var(--bg-content);
+  color: var(--text-primary);
   font-family: var(--font-body);
   font-size: var(--text-p1-primary-size);
   font-weight: var(--text-p1-primary-weight);
   line-height: var(--text-p1-primary-line);
   white-space: nowrap;
-  border: none;
+  outline: 2px solid #000;
+  outline-offset: -2px;
   cursor: pointer;
   text-decoration: none;
-  transition: background-color 0.25s ease, transform 0.25s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, outline-color 0.2s ease;
 }
 
-/* Невидимый буфер вокруг кнопки: без него hover у самого края мигал —
-   при подъёме на 1px курсор у нижней границы оказывался "снаружи",
-   наведение сбрасывалось, кнопка опускалась обратно, наведение снова
-   срабатывало, и так по кругу. Буфер больше сдвига — курсор всегда
-   остаётся над кнопкой. */
-.btn::before {
-  content: "";
-  position: absolute;
-  inset: -6px;
-}
-
-.btn:hover {
-  background: var(--btn-primary-bg-hover);
-  transform: translateY(-1px);
-}
-
+.btn:hover,
 .btn:active {
-  background: var(--btn-primary-bg-press);
+  background: var(--bg-inversion);
+  color: var(--text-white);
+  outline-color: var(--bg-inversion);
 }
 
-.btn__icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-4xs);
-  border-radius: var(--radius-pill);
-  background: var(--icon-badge-bg);
-  transition: background-color 0.15s ease;
-}
-
-.btn:hover .btn__icon {
-  background: var(--btn-primary-icon-bg-hover);
-}
-
-.btn:active .btn__icon {
-  background: var(--btn-primary-icon-bg-press);
-}
-
-.btn__icon img {
-  width: 24px;
-  height: 24px;
-}
-
-/* ---- Кнопка: прозрачная ссылка-кнопка (шапка/футер) ---- */
+/* ---- Кнопка: прозрачная ссылка-кнопка (шапка/футер) ----
+   Node 30:153, "type=secondary, icon=off": тот же шрифт, что и у
+   primary-кнопки — Montserrat Medium 14/22 (p1-primary), не SemiBold
+   14/20 (p1-selection), как было раньше. Паддинг только вертикальный,
+   9px (буквально py-[9px] из макета, не токен --space-3xs=8px). Цвет в
+   покое — text/tertiary (#878b92, node 30:168), на hover/press —
+   text/primary (#1e2025, node 30:178/188). */
 .btn-ghost {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 40px;
-  padding: var(--space-3xs) 0;
+  padding: 9px 0;
   border-radius: var(--radius-pill);
   background: transparent;
-  color: var(--text-nav);
+  color: var(--text-tertiary);
   font-family: var(--font-body);
   font-size: var(--text-p1-primary-size);
   font-weight: var(--text-p1-primary-weight);
@@ -94,22 +73,16 @@
   color: var(--btn-ghost-color-hover);
 }
 
-/* На смартфонах (≤640px) кнопки выше — 48px вместо 40px, чтобы удобнее
-   попадать пальцем; внутренние отступы растут пропорционально (×1.2):
-   primary — отступы 4 → 6px (иконка-бейдж 32 → 36px), левый 16 → 20px;
-   ghost — вертикальные 8 → 12px (строка 24px + 24px = 48px). */
+/* На смартфонах (≤640px) кнопки выше, чтобы удобнее попадать пальцем —
+   паддинг пропорционально больше (наше решение для touch-target,
+   в макете мобильной версии кнопки нет). Высота нигде не задаётся явно,
+   считается из паддинга + line-height. */
 @media (max-width: 640px) {
   .btn {
-    height: 48px;
-    padding: 6px 6px 6px 20px;
-  }
-
-  .btn__icon {
-    padding: 6px;
+    padding: 12px 20px;
   }
 
   .btn-ghost {
-    height: 48px;
     padding: 12px 0;
   }
 }
@@ -145,12 +118,13 @@
    для маленького круга и для увеличенного квадрата в модалке. */
 .avatar {
   display: inline-block;
-  width: 100px;
-  height: 100px;
+  width: 48px;
+  height: 48px;
   border-radius: var(--radius-pill);
   overflow: hidden;
   cursor: pointer;
   line-height: 0;
+  flex: none;
   transition: transform 0.2s ease-in;
 }
 
@@ -399,12 +373,14 @@
   color: var(--text-secondary);
 }
 
-/* ---- Карточка проекта ---- */
+/* ---- Карточка проекта ----
+   Node 66286:577: обложка → текст 24px, снизу паддинг 32px. Кнопки
+   «Узнать больше» в карточке больше нет — ведут обложка и заголовок. */
 .project-card {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--space-md);
+  gap: var(--space-sm);
   width: 100%;
   padding-bottom: var(--space-md);
 }
@@ -442,8 +418,9 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--space-sm);
+  gap: 20px;
   width: 100%;
+  padding-inline: var(--space-3xs);
 }
 
 .project-card__heading {
@@ -462,12 +439,15 @@
   color: var(--text-meta);
 }
 
+/* Заголовок вверху страницы кейса (<h1 class="project-title">) — стиль H1
+   из UI Kit: Literata Medium 26/34, text/primary (node 285:651). На главной
+   у карточек кейсов свой размер — см. .projects .project-title в styles.css. */
 .project-title {
   font-family: var(--font-heading);
-  font-weight: 400;
-  font-size: var(--text-project-title-size);
-  line-height: 38px;
-  color: var(--text-title);
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 34px;
+  color: var(--text-primary);
 }
 
 /* Кликабельный тайтл карточки (только у "Корпоративный портал") —

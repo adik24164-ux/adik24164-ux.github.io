@@ -150,7 +150,7 @@ body {
 }
 
 .resume-links a {
-  color: var(--btn-primary-bg-hover);
+  color: var(--text-tertiary); /* серые, как ссылки на сайте (Ghost из UI Kit), оранжевого больше нет */
   font-family: var(--font-body);
   font-weight: 400;
   font-size: 14px;
@@ -159,6 +159,7 @@ body {
 }
 
 .resume-links a:hover {
+  color: var(--btn-ghost-color-hover);
   text-decoration: underline;
 }
 
@@ -242,12 +243,13 @@ body {
 }
 
 .resume-list a {
-  color: var(--btn-primary-bg-hover);
+  color: var(--text-tertiary); /* серые, как ссылки на сайте (Ghost из UI Kit), оранжевого больше нет */
   font-weight: 500;
   text-decoration: none;
 }
 
 .resume-list a:hover {
+  color: var(--btn-ghost-color-hover);
   text-decoration: underline;
 }
 
@@ -303,11 +305,12 @@ body {
 }
 
 .resume-job__project a {
-  color: var(--btn-primary-bg-hover);
+  color: var(--text-tertiary); /* серые, как ссылки на сайте (Ghost из UI Kit), оранжевого больше нет */
   text-decoration: none;
 }
 
 .resume-job__project a:hover {
+  color: var(--btn-ghost-color-hover);
   text-decoration: underline;
 }
 
@@ -328,11 +331,12 @@ body {
 }
 
 .resume-job__links a {
-  color: var(--btn-primary-bg-hover);
+  color: var(--text-tertiary); /* серые, как ссылки на сайте (Ghost из UI Kit), оранжевого больше нет */
   text-decoration: none;
 }
 
 .resume-job__links a:hover {
+  color: var(--btn-ghost-color-hover);
   text-decoration: underline;
 }
 

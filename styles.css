@@ -40,11 +40,50 @@ a {
   margin: 0 auto;
 }
 
-/* ---- Шапка ---- */
+/* ---- Шапка ----
+   Зафиксирована у верхней границы экрана при скролле (на всех страницах,
+   где есть .site-header: главная и кейсы) — иначе бургер-меню и аватар
+   были бы недоступны ниже по скроллу. position:sticky, а не fixed:
+   элемент остаётся в потоке документа, не нужно компенсировать его
+   высоту отступом у контента под ним. */
+/* Node 66314:718 "Header start" / 66338:506 "Header scroll": в начале
+   страницы паддинг 32px и подпись 120×64 (высота 128), после прокрутки —
+   плавно 16px и подпись 57×30 (высота 72). Класс .is-scrolled ставит
+   script.js. Шапка fixed, а не sticky: sticky занимает место в потоке, и
+   при сжатии весь контент под ней дёргался бы вверх. Место под шапку
+   держит отступ у <main> (--header-h — высота шапки в начальном
+   состоянии, её меряет script.js; 128px — запасное значение). */
 .site-header {
+  --header-py: 32px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 90;
   display: flex;
   justify-content: center;
-  padding: var(--space-sm) var(--page-padding-x);
+  padding: var(--header-py) var(--page-padding-x);
+  transition: padding 0.3s ease;
+  /* Node 66314:718: полупрозрачный белый с размытием — контент под шапкой
+     просвечивает при скролле. */
+  background: rgba(255, 255, 255, 0.5);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.site-header.is-scrolled {
+  --header-py: 16px;
+}
+
+.site-header + main {
+  margin-top: var(--header-h, 128px);
+}
+
+/* Пока script.js перемеряет высоту (resize в сжатом состоянии), переходы
+   выключены, чтобы замер не попал на середину анимации. */
+.site-header.is-measuring,
+.site-header.is-measuring * {
+  transition: none !important;
 }
 
 .header-inner {
@@ -53,6 +92,7 @@ a {
   justify-content: space-between;
   gap: var(--space-xs);
   width: 100%;
+  max-width: var(--content-width); /* node 66314:719: колонка шапки = колонке контента, 800px */
   padding: 0 var(--space-4xs);
 }
 
@@ -65,10 +105,244 @@ a {
   text-decoration: none;
 }
 
+/* Node 219:2316: на главной вместо текстового брендинга — аватар + подпись
+   (SVG-росчерк), в шапке и в футере (там же .avatar-trigger открывает
+   модалку с фото — см. hero, откуда аватар переехал сюда). */
+.brand-mark {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* Подпись: бокс 120×64 → 57×30 при прокрутке (node 66314:721 / 66338:509).
+   SVG встроен прямо в разметку, а не через <img>: картинку браузер при
+   сжатии масштабировал готовым растром (ступеньки), а линия у левого края
+   выходила за рамку рисунка и обрезалась. Встроенный SVG перерисовывается
+   вектором на каждом кадре, overflow:visible не даёт обрезать края.
+   viewBox = габарит самой кривой из Figma (120×64), линия 2px в любом
+   размере (vector-effect: non-scaling-stroke). */
+.brand-signature-link {
+  display: block;
+  flex: none;
+  width: 120px;
+  height: 64px;
+  line-height: 0;
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+.site-header.is-scrolled .brand-signature-link {
+  width: 57px;
+  height: 30px;
+}
+
+.brand-signature {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  color: #000;
+}
+
+/* Пока script.js не подготовил анимацию «письма» подписи, линию не
+   показываем — иначе она на миг мелькнула бы целиком. */
+.sig-intro .brand-signature path {
+  opacity: 0;
+}
+
+/* Node 66314:727: в шапке действия — обычные primary-кнопки (.btn) с
+   зазором 24px, а не текстовые ссылки, как в футере. */
+.header-nav.header-nav--buttons {
+  gap: var(--space-sm);
+}
+
 .header-nav {
   display: flex;
   align-items: center;
   gap: var(--space-xl);
+}
+
+/* Node 66332:433: футер — слева ссылки на разделы, справа «Написать мне» /
+   «Скачать CV», зазор 56px. Ссылки — Ghost-кнопки из UI Kit (.btn-ghost):
+   text/tertiary в покое, text/primary на hover/press. */
+.footer-nav {
+  flex-wrap: wrap;
+  row-gap: var(--space-3xs);
+}
+
+/* Планшет (node 66354:969): та же строка, зазор между ссылками 32px. */
+@media (max-width: 900px) {
+  .site-footer .footer-nav {
+    gap: var(--space-md);
+  }
+}
+
+/* Телефон (node 66354:984): две колонки — разделы слева, контакты справа,
+   ссылки в каждой колонке друг под другом вплотную (высота ссылки 40px).
+   Колонки не переносятся под друг друга, как в шапке. Паддинг ссылок —
+   9px из макета, а не увеличенные 12px из общего правила .btn-ghost для
+   телефона. Порог 700px: уже около 650px пять ссылок в одну строку не
+   помещаются и переносятся вразнобой, поэтому колонки включаются чуть
+   раньше. */
+@media (max-width: 700px) {
+  .site-footer .header-inner {
+    flex-wrap: nowrap;
+    align-items: flex-start;
+  }
+
+  .site-footer .footer-nav {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    gap: 0;
+  }
+
+  .site-footer .footer-nav .btn-ghost {
+    padding: 9px 0;
+  }
+}
+
+/* Node 66300:444 "Burger menu": иконка 24×24 рядом с аватаркой (шапка,
+   node 66286:486). В макете нет состояния "открыто" — список ссылок и
+   поведение дропдауна спроектированы самостоятельно. Набор пунктов
+   одинаковый на всех страницах (главная и кейсы): якоря на
+   разделы главной (index.html#…), чтобы меню не менялось от страницы. */
+.menu-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Иконка нарисована тремя полосками (геометрия 1:1 с icon-burger-menu.svg:
+   18×2 на x=3, центры по y=6/12/18), а не картинкой, чтобы её можно было
+   морфить. Сдвиг полосок — через top, а не translate: translate
+   оставлял их на дробных пикселях, и крайние выглядели толще средней.
+   will-change: каждая полоска рисуется своим слоем, иначе при масштабе
+   экрана 125%/175% браузер округлял их до 3/2/3 точек. Открыто (aria-expanded="true") — крестик: крайние полоски
+   съезжают к центру, затем поворачиваются на ±45°, средняя исчезает.
+   Закрытие — тот же путь в обратном порядке: сначала выпрямляются, потом
+   расходятся. Раздельные top/rotate дают каждому шагу свою задержку. */
+.menu-toggle__icon {
+  position: relative;
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+/* --bar-h / --bar-step (толщина и шаг полосок) script.js пересчитывает под
+   devicePixelRatio так, чтобы они были целым числом точек экрана: при
+   масштабе 125%/150% иначе 2px/6px превращаются в 2,5/7,5 точки, и браузер
+   округляет полоски и зазоры по-разному. По умолчанию — 2px/6px, как в макете. */
+.menu-toggle__icon {
+  --bar-h: 2px;
+  --bar-step: 6px;
+  --bar-mid: calc(12px - var(--bar-h) / 2);
+}
+
+.menu-toggle__bar {
+  position: absolute;
+  left: 3px;
+  top: var(--bar-mid);
+  width: 18px;
+  height: var(--bar-h);
+  background: var(--text-primary);
+  will-change: transform;
+  transition:
+    top 0.2s ease 0.2s,
+    rotate 0.2s ease 0s,
+    opacity 0.15s ease 0.2s;
+}
+
+.menu-toggle__bar:nth-child(1) {
+  top: calc(var(--bar-mid) - var(--bar-step));
+}
+
+.menu-toggle__bar:nth-child(3) {
+  top: calc(var(--bar-mid) + var(--bar-step));
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle__bar {
+  top: var(--bar-mid);
+  transition:
+    top 0.2s ease 0s,
+    rotate 0.2s ease 0.2s,
+    opacity 0.15s ease 0.05s;
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle__bar:nth-child(1) {
+  rotate: 45deg;
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle__bar:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle__bar:nth-child(3) {
+  rotate: -45deg;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-toggle__bar,
+  .menu-toggle[aria-expanded="true"] .menu-toggle__bar {
+    transition: none;
+  }
+}
+
+.site-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 220px;
+  padding: var(--space-3xs);
+  background: var(--bg-content);
+  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+}
+
+.site-menu[hidden] {
+  display: none;
+}
+
+.site-menu__link {
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-p1-primary-size);
+  font-weight: var(--text-p1-primary-weight);
+  line-height: var(--text-p1-primary-line);
+  white-space: nowrap;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+/* Как ссылки в футере (Ghost из UI Kit): пока курсор (или фокус с
+   клавиатуры) на одном пункте, он остаётся тёмным, а остальные гаснут
+   до text/tertiary. Без наведения все пункты тёмные. Голубой подложки
+   под пунктом больше нет. :has — чтобы пункты не гасли, когда курсор
+   просто в зазоре между ними. */
+.site-menu:has(.site-menu__link:hover) .site-menu__link:not(:hover),
+.site-menu:has(.site-menu__link:focus-visible) .site-menu__link:not(:focus-visible) {
+  color: var(--text-tertiary);
+}
+
+/* Якоря бургер-меню: компенсация высоты sticky-шапки (при переходе по якорю страница уже прокручена, шапка сжата:
+   72px = кнопка 40px + паддинг 16px сверху/снизу), иначе при переходе по ссылке
+   раздел подъезжает ровно под шапку и верх обрезан. */
+#experience,
+#projects,
+#process {
+  scroll-margin-top: 112px;
 }
 
 /* ---- Main / секции ---- */
@@ -76,229 +350,55 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-2xl);
+  gap: 64px; /* node 66286:485: между блоками главной (hero, кейсы, процесс) 64px; у кейсов свой gap в .case-main */
   padding: 0 10px;
 }
 
 /* ---- Hero ----
-   Node 172:538: карточка стала шире стандартной контентной колонки
-   (800px), но должна останавливаться ровно в 20px от истинного края
-   экрана — независимо от паддинга main (10px десктоп, 32px на ≤900px).
-   width/margin пересчитывают эту разницу для каждого брейкпоинта main;
-   сам 800px-контент центрируется внутри уже через .hero-inner. */
+   Node 66286:485: больше не отдельная карточка с фоном/декором —
+   просто первая секция контента, как .process/.projects. Декоративные
+   завитушки (hero-deco-*) и CTA-кнопка под карточками опыта из макета
+   убраны. */
+/* От шапки до "Привет!" — 64px (node 66309:504: шапка 0–88, блок с y=152;
+   раньше было 40px). */
 .hero {
-  position: relative;
-  width: calc(100% - 20px);
-  margin-left: 10px;
-  margin-right: 10px;
-  /* По бокам минимум 32px до контента (на широких экранах колонка 800px всё
-     равно центрируется и отступ не виден). */
-  padding: var(--space-2xl) var(--space-md);
-  border-radius: var(--radius-card);
-  background: var(--bg-accent);
-  overflow: hidden;
+  width: 100%;
+  padding-top: 64px;
 }
 
-@media (max-width: 900px) {
-  .hero {
-    width: calc(100% + 2 * (var(--space-md) - 20px));
-    margin-left: calc(20px - var(--space-md));
-    margin-right: calc(20px - var(--space-md));
-  }
-}
-
-.hero > :not(.hero-deco) {
-  position: relative;
-  z-index: 1;
-}
-
-/* Контентная колонка (800px) центрируется внутри уже расширенной карточки
-   hero — снаружи неё остаётся декоративный фон карточки. */
 .hero-inner {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--space-lg);
   width: 100%;
   max-width: var(--content-width);
   margin: 0 auto;
 }
 
-/* Node 172:508: шапка, резюме и карточки — одной группой с зазором 32px,
-   а до кнопки — 40px (gap у .hero-inner). */
+/* Node 66286:696: заголовок+резюме и блок "Опыт в проектах" — одной
+   группой с зазором 64px (node 66309:504). */
 .hero-main {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--space-md);
+  gap: 64px;
   width: 100%;
 }
 
-/* Позиции декора — node 172:502, в % от ширины уже расширенной карточки
-   hero (масштабируются вместе с ней на широких экранах), формулы 1:1 из
-   Figma. Loop и line вращаются вокруг своего центра через центрирующую
-   обёртку — контейнер задаёт положение/размер бокса, внутренний элемент —
-   реальный размер фигуры и поворот. Arrow — без вращения, обёртка не
-   нужна. */
-.hero-deco {
-  position: absolute;
-  z-index: 0;
-  pointer-events: none;
+/* Node 66286:641/788/576: общий заголовок секции — "Как я работаю",
+   "Опыт в проектах", "Кейсы". Literata Medium 26/34 (node 66309:519) (раньше был общий
+   с .hero-title на 28/38 — теперь они разного размера/начертания). */
+.section-title {
+  margin: 0;
+  width: 100%;
+  font-family: var(--font-heading);
+  font-weight: 500; /* node 66309:519: Literata Medium 26/34 */
+  font-size: 26px;
+  line-height: 34px;
+  color: var(--text-primary);
 }
 
-/* Node 219:2103: три декоративных элемента. Оба Group — готовые композиции
-   (чёрная петля + белая закорючка), без вращения: одна в правом верхнем
-   углу, вторая — в левой части, ближе к низу (чтобы на широких экранах
-   слева не пустовало). Arrow — белая стрелка, её SVG шире номинального
-   бокса макета (штрих выходит за границы — в Figma inset с отрицательными
-   %), поэтому img растянут ровно на эти вылеты. */
-.hero-deco--group {
-  left: calc(83.33% - 128.27px);
-  /* Node 172:538: завитушка в правом верхнем углу, выступает за верх на 41px
-     (аватар теперь над заголовком, hero стал выше — 1086px). */
-  top: -41px;
-  width: 400.833px;
-  height: 429.182px;
-  max-width: none;
-}
-
-/* Node 219:2103: вторая, левая завитушка — левый край карточки (частично
-   уходит за него), низ вплотную к ряду карточек опыта. Не в процентах:
-   привязана к левому краю, а не масштабируется вместе с шириной блока
-   (в отличие от правой, которая держится ближе к правому краю).
-   Картинка (hero-deco-group-left-wide.svg) — та же, что и у широкой версии
-   ниже, в размере 1:1 из макета, без уменьшения (у прежней компактной формы
-   чёрная линия сама себя пересекала, а в этой — только ломается; уменьшенная
-   версия той же картинки выглядела мельче, чем в макете). Из-за этого низ
-   уходит за границу карточки — обрезается через overflow:hidden у .hero,
-   как и другой декор. */
-.hero-deco--group-left {
-  left: -217px;
-  top: 502.65px;
-  width: 790.338px;
-  height: 872.516px;
-  max-width: none;
-}
-
-.hero-deco--arrow {
-  /* Node 219:2103: стрелка переехала в левый нижний угол карточки (была
-     ближе к центру). left — не фиксированный -11px (это верно только
-     ровно при ширине блока 1160px, как в макете): формула привязывает
-     стрелку к левому краю центрированной 800px-колонки с контентом
-     (.hero-inner), а не к краю самого блока — тот же принцип, что и у
-     колонки (50% - 400px), только с постоянным отступом ещё на 191px
-     левее. На более узких, чем 1160px, экранах отступ до колонки
-     схлопывался, и стрелка заезжала под кнопку. */
-  left: calc(50% - 591px);
-  bottom: 60.12px;
-  width: 152.59px;
-  height: 92.881px;
-}
-
-/* Node 219:2322: на широких экранах завитушки не просто масштабированы —
-   это другая, более крупная раскладка тех же фигур, с другой формой
-   чёрного росчерка у левой. Поэтому здесь отдельные картинки
-   (hero-deco-group-wide.svg, hero-deco-group-left-wide.svg), а не
-   растянутые прежние — обычные и широкие версии переключаются через
-   display. Правая привязана к правому краю (right), а не к левому — так
-   она остаётся в углу независимо от реальной ширины экрана.
-   Порог 1440px, а не 1920 (макет сделан на 1920) и не 1600 (как у
-   типографики p1 чуть ниже) — при масштабе экрана в Windows выше 100%
-   (обычная настройка на мониторах 1920×1080 и выше) реальная CSS-ширина
-   меньше физической: 1920px-монитор с масштабом 125% даёт всего 1536px,
-   и порог 1600 их бы не задел. */
-.hero-deco--group-wide,
-.hero-deco--group-left-wide {
-  display: none;
-}
-
-@media (min-width: 1440px) {
-  .hero-deco--group,
-  .hero-deco--group-left {
-    display: none;
-  }
-
-  .hero-deco--group-wide {
-    display: block;
-    left: auto;
-    right: -296.63px;
-    top: -113px;
-    width: 842.733px;
-    height: 804px;
-    max-width: none;
-    animation: decoFlyInRight 0.8s ease-in both;
-  }
-
-  .hero-deco--group-left-wide {
-    display: block;
-    left: -132.74px;
-    top: 94px;
-    width: 790.338px;
-    height: 872.516px;
-    max-width: none;
-    animation: decoFlyInLeft 0.8s ease-in both;
-  }
-
-  /* Левая завитушка на широких экранах ушла выше и левее, стрелка под ней
-     сдвинута соответственно — тот же 60px от низа, что и на обычных
-     экранах. Не 209px (координата из макета 1920): при ширине как раз
-     чуть выше порога (1440–1500px) кнопка ещё не отъехала от левого края
-     настолько же, насколько отъезжает на 1920, и стрелка заезжала под
-     неё — сдвинуто дополнительно влево с запасом на этот случай. */
-  .hero-deco--arrow {
-    left: 160px;
-  }
-}
-
-.hero-deco--arrow img {
-  position: absolute;
-  top: -9.3%;
-  left: 0;
-  width: 107.21%;
-  height: 118.29%;
-  max-width: none;
-}
-
-/* ---- Влёт декора при загрузке ----
-   Облачко влетает слева, петелька и чёрная линия — справа: из
-   прозрачности, с небольшим ускорением (ease-in), ненавязчиво и без
-   большого смещения. */
-@keyframes decoFlyInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-32px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes decoFlyInRight {
-  from {
-    opacity: 0;
-    transform: translateX(32px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.hero-deco--arrow {
-  animation: decoFlyInLeft 0.8s ease-in both;
-}
-
-.hero-deco--group {
-  animation: decoFlyInRight 0.8s ease-in both;
-}
-
-.hero-deco--group-left {
-  animation: decoFlyInLeft 0.8s ease-in both;
-}
-
-/* Тот же приём (из прозрачности, ease-in), что у декора, но снизу вверх —
-   для содержимого hero: аватарка, заголовок, резюме, карточки опыта. */
+/* Влёт контента hero снизу вверх при загрузке. */
 @keyframes heroFlyInUp {
   from {
     opacity: 0;
@@ -310,9 +410,9 @@ main {
   }
 }
 
-.avatar,
 .hero-title,
 .hero-summary,
+.hero-experience-block .section-title,
 .hero-experience__card {
   animation: heroFlyInUp 0.8s ease-in both;
 }
@@ -325,123 +425,322 @@ main {
   animation-delay: 0.16s;
 }
 
-/* Карточки опыта (node 172:538) влетают по очереди слева направо,
-   продолжая общий каскад hero (аватар → заголовок → резюме → карточки). */
-.hero-experience__card:nth-child(1) {
+/* Заголовок "Опыт в проектах" — в той же цепочке, между резюме и карточками
+   (раньше стоял статично, пока всё вокруг влетало). */
+.hero-experience-block .section-title {
   animation-delay: 0.24s;
 }
 
-.hero-experience__card:nth-child(2) {
+/* Карточки опыта влетают по очереди слева направо. */
+.hero-experience__card:nth-child(1) {
   animation-delay: 0.32s;
 }
 
-.hero-experience__card:nth-child(3) {
+.hero-experience__card:nth-child(2) {
   animation-delay: 0.4s;
 }
 
-.hero-experience__card:nth-child(4) {
+.hero-experience__card:nth-child(3) {
   animation-delay: 0.48s;
 }
 
+.hero-experience__card:nth-child(4) {
+  animation-delay: 0.56s;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .hero-deco--group,
-  .hero-deco--group-left,
-  .hero-deco--group-wide,
-  .hero-deco--group-left-wide,
-  .hero-deco--arrow,
-  .avatar,
   .hero-title,
   .hero-summary,
+  .hero-experience-block .section-title,
   .hero-experience__card {
     animation: none;
   }
 }
 
-/* Node 204:630: аватар, заголовок и резюме — отдельная группа с зазором 24px
-   (между группой и карточками — 32px, это gap у .hero-main). */
+/* Node 66309:505: строка «заголовок + фото» и резюме под ней — зазор 24px,
+   паддинг 8px по бокам. */
 .hero-intro {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-sm);
   width: 100%;
+  padding: 0 var(--space-3xs);
 }
 
-/* Node 172:509: аватар над заголовком (в строку на планшетах выходила
-   некрасивая ступенька из текста), зазор 24px. */
-.hero-top {
+/* Node 66324:734: заголовок слева (тянется), фото справа, зазор 24px,
+   выравнивание по верху. */
+.hero-intro-row {
   display: flex;
-  flex-direction: column;
   align-items: flex-start;
   gap: var(--space-sm);
   width: 100%;
 }
 
-.hero-top .avatar {
-  flex: none;
+.hero-intro-row .hero-title {
+  flex: 1 1 0;
+  min-width: 0;
 }
 
-/* Node 172:511: обе строки одного размера (32/40, Literata Medium), на всю ширину колонки. */
+/* Node 66322:733 / 66309:595: круглое фото 88px в рамке-паддинге 8px.
+   Тот же .avatar-trigger, что и в футере, — открывает модалку с фото. */
+.hero-avatar-wrap {
+  flex: none;
+  padding: var(--space-3xs);
+  line-height: 0;
+}
+
+.avatar.hero-avatar {
+  width: 88px;
+  height: 88px;
+}
+
+.avatar.hero-avatar img {
+  transform: none;
+}
+
+/* Node 66286:698: "Привет!" и строка с именем — зазор 4px (node 66309:506), Literata
+   Medium 32/40 (крупнее общего заголовка секций — см. .section-title). */
 .hero-title {
   display: flex;
-  flex: none;
-  width: 100%;
-  min-width: 0;
   flex-direction: column;
-  gap: var(--space-3xs);
+  align-items: flex-start;
+  gap: var(--space-4xs);
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 500;
-  font-size: var(--text-hero-title-size);
+  font-size: 32px;
   line-height: 40px;
   color: var(--text-primary);
 }
 
-.hero-title span {
-  display: block;
+/* Node 66309:507: «Привет!» — Literata Medium Italic. */
+.hero-title__hello {
+  font-style: italic;
 }
 
-/* Node 172:538: обобщающий абзац под шапкой — Literata Regular 20px, строка
-   32px (как в макете). Переносы строк заданы в
-   макете (br), на узком экране они снимаются — см. адаптив. */
+/* Node 66286:833: имя + теги "продукта"/"UX/UI" в одной строке, перенос
+   на узких экранах. */
+.hero-title__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3xs);
+}
+
+/* Node 66290:836: у самого имени свой автолейаут — паддинг 2px сверху/
+   10px снизу (буквально из Figma), выравнивает его по той же линии,
+   что и соседние бейджи. */
+.hero-title__name {
+  display: inline-block;
+  padding-top: 2px;
+  padding-bottom: 10px;
+}
+
+/* Node 66309:512: текст бейджа — стиль H0 (Literata Medium 32/40), как
+   и вся строка заголовка (раньше был Regular).
+   цвет — обычный text-primary (пробовали оранжевый и синий, в макете
+   вернули тёмный), line-height снова полный 40px (как у остального
+   текста строки, не "сплющенный" под вектор). */
+.hero-title__badge {
+  display: inline-block;
+  flex: none;
+  font-weight: 500;
+  color: var(--text-primary);
+  border-radius: var(--radius-card);
+  background: var(--bg-accent);
+}
+
+/* Единственный бейдж вместо двух — "продукта" и "UX/UI" по очереди
+   проявляются/исчезают друг на друге (не в макете, по просьбе
+   пользователя, по образцу React-компонента TextFlip). Размер — по
+   более широкой пилюле "продукта" из инспектора Figma (195×50), чтобы
+   пилюля не "прыгала" при смене слова; паддинг — у каждого слова свой
+   (буквально из Figma), т.к. они не совпадают. */
+.hero-title__badge--flip {
+  position: relative;
+  height: 50px;
+  overflow: hidden;
+  animation: hero-badge-width 6s ease-in-out infinite;
+}
+
+/* Ширина пилюли плавно подтягивается под слово — 195px у "продукта",
+   141px у "UX/UI" (node 66309:512/514, H0) (буквально из Figma) — переход идёт в те же точки
+   0-45/50-95/100%, что и у затухания текста, чтобы пилюля двигалась
+   ровно тогда, когда слово и так полупрозрачно. */
+@keyframes hero-badge-width {
+  0%, 45% {
+    width: 195px;
+  }
+  50%, 95% {
+    width: 141px;
+  }
+  100% {
+    width: 195px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-title__badge--flip {
+    animation: none;
+    width: 195px;
+  }
+}
+
+.hero-title__badge-word {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  padding-right: 20px;
+  padding-left: 20px;
+  opacity: 0;
+  animation: hero-badge-flip 6s ease-in-out infinite;
+}
+
+.hero-title__badge-word--1 {
+  padding-top: 0;
+  padding-bottom: 10px;
+  animation-delay: 0s;
+}
+
+.hero-title__badge-word--2 {
+  padding-top: 4px;
+  padding-bottom: 6px;
+  animation-delay: 3s;
+}
+
+@keyframes hero-badge-flip {
+  0%, 45% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  50%, 95% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-title__badge-word {
+    animation: none;
+    opacity: 1;
+  }
+
+  .hero-title__badge-word--2 {
+    display: none;
+  }
+}
+
+/* Node 66309:516: резюме — Literata Regular 22/32, text-primary, два абзаца
+   с зазором 12px (раньше Montserrat Medium 14/22, серый). */
 .hero-summary {
-  margin: 0;
   width: 100%;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: 20px;
+  font-size: 22px;
   line-height: 32px;
   color: var(--text-primary);
 }
 
-/* ---- Карточки опыта (node 172:538) ----
-   Сетка 2×2 (в макете — две карточки по 392px в ряду + две гибких),
-   отступы 32px, высота по содержимому (268px в первом ряду, 280px во втором):
-   сверху иконка и крупное название, снизу описание и даты — группы разведены
-   к верхнему и нижнему краю (space-between), а 40px — минимум между ними. */
+.hero-summary p {
+  margin: 0;
+}
+
+.hero-summary p + p {
+  margin-top: 12px;
+}
+
+/* Node 66286:790: блок "Опыт в проектах" — заголовок и сетка карточек,
+   зазор 32px (node 66309:517). Кнопки «Написать мне» под карточками больше нет. */
+.hero-experience-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+/* Node 66309:518: у заголовка "Опыт в проектах" паддинг 8px по бокам. */
+.hero-experience-block .section-title {
+  padding: 0 var(--space-3xs);
+}
+
+/* ---- Карточки опыта (node 66286:702) ----
+   Сетка 2×2, отступы 24px (node 66309:590). Общей карточки-подложки у hero больше нет —
+   фон (--bg-accent) теперь у каждой карточки свой. */
 .hero-experience {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-xs);
+  gap: var(--space-sm);
   width: 100%;
 }
 
 .hero-experience__card {
+  position: relative;
   display: flex;
   min-width: 0;
   flex-direction: column;
   justify-content: space-between;
   gap: var(--space-lg);
   padding: var(--space-md);
-  border-radius: 24px;
-  background: var(--bg-content);
+  border-radius: var(--radius-card); /* node 66309:521: 32px */
+  background: var(--bg-accent);
+  overflow: hidden;
+}
+
+/* Node 66286:770/786: декоративные закорючки — только в карточках
+   Artsofte и Abanking, за содержимым (первые в разметке, обрезаны
+   overflow:hidden карточки). */
+.hero-experience__deco-wrap {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.hero-experience__deco {
+  max-width: none;
+}
+
+/* Внешний бокс по размеру/позиции 1:1 из Figma, сама фигура (452.922×377.143,
+   повёрнута на 60deg) центрируется внутри него — так же, как в макете, а не
+   вручную пересчитанными координатами. */
+.hero-experience__card--artsofte .hero-experience__deco-wrap {
+  left: 80px;
+  top: -240px;
+  width: 553.077px;
+  height: 580.814px;
+}
+
+.hero-experience__card--artsofte .hero-experience__deco {
+  width: 452.922px;
+  height: 377.143px;
+  transform: rotate(60deg);
+}
+
+.hero-experience__card--abanking .hero-experience__deco-wrap {
+  left: 236px;
+  top: 164px;
+  width: 273.38px;
+  height: 174.863px;
+}
+
+.hero-experience__card--abanking .hero-experience__deco {
+  width: 253.101px;
+  height: 126.547px;
+  transform: rotate(-168.4deg) scaleY(-1);
 }
 
 .hero-experience__top {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 12px;
+  gap: 16px;
   width: 100%;
 }
 
@@ -458,25 +757,79 @@ main {
   object-fit: contain;
 }
 
-.hero-experience__icon--banks {
-  width: auto;
-}
-
-.hero-experience__icon--banks img {
-  width: auto;
-  height: 100%;
-}
-
-/* Логотип Abanking — не картинка целиком, а знак внутри CSS-кружка (как в
-   макете: круг #e4f3ff с белой обводкой 2px). */
+/* Логотип Abanking в своей карточке (node 66286:725) — белый кружок без
+   обводки, внутри только "знак" (та же SVG, что и в кластере "Банки"
+   ниже, но без цветного фона/рамки — там это отдельный вариант). */
 .hero-experience__icon--abanking {
   position: relative;
-  border: 2px solid #fff;
   border-radius: 50%;
-  background: #e4f3ff;
+  background: #fff;
 }
 
 .hero-experience__icon--abanking img {
+  position: absolute;
+  left: 11.81%;
+  top: 29.17%;
+  width: 76.39%;
+  height: 40.75%;
+  object-fit: fill;
+}
+
+/* Node 66286:735: кластер из трёх перекрывающихся кружков в карточке
+   "Банки" — глобус (со своей белой обводкой уже внутри SVG, 56×56),
+   оранжевый кружок со "знаком" Nopaper и голубой кружок со "знаком"
+   Abanking (тот же компонент, что и выше, но с заливкой/обводкой —
+   здесь это нужно для разделения кружков). Нахлёст — отступ -8px
+   между соседними кружками, 1:1 из Figma. */
+.hero-experience__icon--banks {
+  display: flex;
+  align-items: flex-start;
+  width: auto;
+}
+
+.hero-experience__icon-item {
+  position: relative;
+  flex: none;
+  width: 48px;
+  height: 48px;
+  margin-right: -8px;
+}
+
+.hero-experience__icon-item:last-child {
+  margin-right: 0;
+}
+
+.hero-experience__icon-item--globe img {
+  position: absolute;
+  inset: -4px;
+  width: 56px;
+  height: 56px;
+  max-width: none;
+}
+
+.hero-experience__icon-item--union {
+  border-radius: 50%;
+  background: #ffece0;
+  border: 4px solid #fff;
+  overflow: hidden;
+}
+
+.hero-experience__icon-item--union img {
+  position: absolute;
+  left: 32.64%;
+  top: 18.75%;
+  width: 33.54%;
+  height: 63.42%;
+  object-fit: fill;
+}
+
+.hero-experience__icon-item--abanking {
+  border-radius: 50%;
+  background: #e4f3ff;
+  border: 4px solid #fff;
+}
+
+.hero-experience__icon-item--abanking img {
   position: absolute;
   left: 11.81%;
   top: 29.17%;
@@ -492,11 +845,12 @@ main {
   width: 100%;
 }
 
+/* Node 66309:525: название карточки — Literata Regular 22/32 (было 20/26). */
 .hero-experience__name {
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: 24px;
+  font-size: 22px;
   line-height: 32px;
   color: var(--text-primary);
 }
@@ -524,15 +878,29 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-2xl);
+  gap: var(--space-lg); /* между карточками 40px (+ их паддинг 32px): по просьбе +8px к макету (node 66286:575: 32px) */
   width: 100%;
   max-width: var(--content-width);
 }
 
-/* Node 257:841: от заголовка "Мои кейсы" до первой карточки — 32px, а не
-   стандартный зазор между карточками (48px). */
-.hero-title + .project-card {
-  margin-top: calc(32px - var(--space-2xl));
+/* Node 66286:583: на главной заголовки карточек кейсов — стиль H2,
+   Literata Regular 22/32, цвет text/title (как названия карточек опыта).
+   Базовый .project-title (components.css) — это H1 страницы кейса, 26/34. */
+.projects .project-title {
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 32px;
+  color: var(--text-title);
+}
+
+/* Node 66309:591: от заголовка "Кейсы" до первой карточки 32px — на 8px
+   меньше зазора между карточками (40px). У заголовка паддинг 8px по бокам. */
+.section-title + .project-card {
+  margin-top: calc(var(--space-md) - var(--space-lg));
+}
+
+.projects .section-title {
+  padding: 0 var(--space-3xs);
 }
 
 /* ---- Футер (node 130:420) ----
@@ -545,7 +913,7 @@ main {
   display: flex;
   justify-content: center;
   width: 100%;
-  margin-top: var(--space-2xl);
+  margin-top: 64px; /* node 66332:433: от последнего блока до футера 64px */
   padding: var(--space-sm) var(--page-padding-x);
 }
 
@@ -586,21 +954,43 @@ main {
     gap: var(--space-sm);
   }
 
+  /* Мобильного кадра для нового hero (node 66309:504) нет: фото уходит
+     над заголовком, а не сжимает текст сбоку. */
+  .hero-intro-row {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+  }
+
+  .hero-avatar-wrap {
+    padding: 0;
+  }
+
   .hero-experience {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  /* В макете шапка только десктопная (аватар слева от текста); на узком
-     экране 100px аватара + 24px зазора оставляли бы заголовку ~130px —
-     слова 32px-размера не влезали бы, поэтому снова друг под другом. */
-  .hero-summary br {
-    display: none;
+  /* Карточки опыта складываются «колодой» (паттерн stacked sections):
+     каждая прилипает под шапкой со сдвигом --stack-offset × номер, следующая
+     наезжает сверху, а накрытая плавно уменьшается от верхнего края
+     (transform-origin 50% 0%). --stack-top (низ шапки + зазор) и масштаб
+     ставит script.js. Колода — flex-столбец, а не grid: sticky-элементам
+     нужна высота по контенту. padding-bottom — запас прокрутки, чтобы
+     последняя карточка успела встать на место. */
+  .hero-experience[data-stacked-deck] {
+    --stack-offset: 16px;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: calc(var(--stack-count, 4) * var(--stack-offset));
   }
 
-  /* Вертикальные отступы те же 48px, что и на широких экранах (аватарка и
-     кнопка не жмутся к краю блока), по бокам — 32px, как и везде. */
-  .hero {
-    padding: var(--space-2xl) var(--space-md);
+  .hero-experience[data-stacked-deck] .hero-experience__card {
+    position: sticky;
+    top: calc(var(--stack-top, 88px) + var(--stack-index, 0) * var(--stack-offset));
+    /* Слои колоды читаются за счёт цвета: фон накрытой карточки
+       осветляется к белому на 25% за каждый слой поверх неё
+       (--stack-whiten ставит script.js). Без тени и прозрачности. */
+    transform-origin: 50% 0%;
+    background: color-mix(in srgb, #fff var(--stack-whiten, 0%), var(--bg-accent));
   }
 
   :root {
@@ -625,7 +1015,8 @@ main {
   }
 
   .site-header {
-    padding: 24px 32px;
+    padding-left: 32px;
+    padding-right: 32px;
   }
 
   .header-inner {

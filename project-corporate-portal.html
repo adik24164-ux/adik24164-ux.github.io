@@ -7,28 +7,41 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;500&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="tokens.css?v=202609241834">
-<link rel="stylesheet" href="components.css?v=202609241834">
-<link rel="stylesheet" href="styles.css?v=202609241834">
-<link rel="stylesheet" href="case-study.css?v=202609241834">
+<link rel="stylesheet" href="tokens.css?v=202610192000">
+<link rel="stylesheet" href="components.css?v=202610192000">
+<link rel="stylesheet" href="styles.css?v=202610192310">
+<link rel="stylesheet" href="case-study.css?v=202610192200">
 </head>
 <body>
 
-<header class="site-header">
+<header class="site-header site-header--compact is-scrolled">
   <div class="wrap header-inner">
-    <a href="index.html" class="brand">Anastasiya Viskunova</a>
-    <nav class="header-nav">
-      <a href="https://t.me/A_Kid87" target="_blank" rel="noopener" class="btn-ghost">Написать мне</a>
-      <a href="https://drive.google.com/uc?export=download&id=1QcS99iipnfwIYSbTbYK9-jQPuCBYrVnY" class="btn-ghost" target="_blank" rel="noopener">Скачать CV</a>
+    <div class="brand-mark">
+      <button type="button" class="menu-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="siteMenu" aria-label="Открыть меню">
+        <span class="menu-toggle__icon" aria-hidden="true"><span class="menu-toggle__bar"></span><span class="menu-toggle__bar"></span><span class="menu-toggle__bar"></span></span>
+      </button>
+      <a href="index.html" class="brand-signature-link" aria-label="На главную">
+        <svg class="brand-signature" viewBox="1 1 120 64" overflow="visible" fill="none" aria-hidden="true" focusable="false"><path d="M74.6364 1.00003C72.175 4.00341 67.667 10.0008 62.037 17.1592C55.37 25.6363 47.1296 35.7417 38.8516 44.4314C36.6099 46.7845 34.3655 49.0339 32.1488 51.119C23.1805 59.5548 14.6661 65.3021 8.6253 64.3579C-1.10613 62.8368 -1.10104 51.4439 6.245 46.8326C16.5867 40.3407 25.4202 45.0625 32.1488 51.119C36.3568 54.9067 39.7415 59.2164 42.157 61.6317C48.4346 67.9092 56.1187 63.9108 59.6109 61.6317C63.1228 59.3399 65.816 56.6196 67.8158 53.6904C73.9477 44.7087 73.5585 33.7629 70.2531 27.1818C69.1122 24.9102 66.3189 20.95 62.037 17.1592C56.2989 12.0791 47.8875 7.3032 37.197 7.3032C23.9655 7.3032 14.9276 19.8658 23.9655 31.601C28.0486 36.9026 33.2269 41.1365 38.8516 44.4314C48.2706 49.9491 58.9413 52.8337 67.8158 53.6904C71.392 54.0357 74.6766 54.0516 77.47 53.7779C76.7765 48.2499 83.2451 42.5487 86.0052 46.7686C88.468 50.5339 84.5435 53.0847 77.47 53.7779C77.7291 55.8432 78.9879 57.8843 81.8134 59.3748C86.1875 61.6823 86.7343 56.4443 91.1083 59.3748C93.4934 60.9728 96.7282 60.5631 99.5117 59.389C101.833 58.4098 103.84 56.899 104.779 55.5775C107.513 51.729 100.739 47.4287 98.4002 51.9946C96.5514 55.6032 97.832 58.0358 99.5117 59.389C100.301 60.0252 101.179 60.4227 101.861 60.5918C106.943 61.8511 111.341 54.4776 121 57.9142" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+      </a>
+      <nav class="site-menu" id="siteMenu" hidden>
+        <a href="index.html#experience" class="site-menu__link">Опыт в проектах</a>
+        <a href="index.html#projects" class="site-menu__link">Кейсы</a>
+        <a href="index.html#process" class="site-menu__link">Как я работаю</a>
+      </nav>
+    </div>
+    <nav class="header-nav header-nav--buttons">
+      <a href="https://drive.google.com/uc?export=download&id=1QcS99iipnfwIYSbTbYK9-jQPuCBYrVnY" class="btn" target="_blank" rel="noopener">Скачать CV</a>
+      <a href="https://t.me/A_Kid87" target="_blank" rel="noopener" class="btn">Написать мне</a>
     </nav>
   </div>
 </header>
+
 
 <main class="case-main">
 
   <div class="case-back-wrap">
     <a href="index.html" class="case-back">
-      <img src="assets/icon-arrow-left.svg" alt="">
+      <svg class="case-back__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M11.9745 7.41406L8.22446 11.1641H19.1639V12.6641H8.22446L11.9745 16.4141L10.9139 17.4746L5.35336 11.9141L10.9139 6.35352L11.9745 7.41406Z" fill="currentColor"/></svg>
       На главную
     </a>
   </div>
@@ -314,13 +327,13 @@
 
   <nav class="case-bottom-nav" aria-label="Навигация по кейсу">
     <a href="index.html" class="case-nav-link">
-      <img src="assets/icon-arrow-left.svg" alt="">
+      <svg class="case-nav-link__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M11.9745 7.41406L8.22446 11.1641H19.1639V12.6641H8.22446L11.9745 16.4141L10.9139 17.4746L5.35336 11.9141L10.9139 6.35352L11.9745 7.41406Z" fill="currentColor"/></svg>
       На главную
     </a>
     <span class="case-nav-divider" aria-hidden="true"></span>
     <a href="project-edo-onboarding.html" class="case-nav-link case-nav-link--next">
       К следующему кейсу
-      <img src="assets/icon-arrow-left.svg" alt="" class="case-nav-link__icon">
+      <svg class="case-nav-link__arrow case-nav-link__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M11.9745 7.41406L8.22446 11.1641H19.1639V12.6641H8.22446L11.9745 16.4141L10.9139 17.4746L5.35336 11.9141L10.9139 6.35352L11.9745 7.41406Z" fill="currentColor"/></svg>
     </a>
   </nav>
 
@@ -329,8 +342,12 @@
 
 <footer class="site-footer">
   <div class="wrap header-inner">
-    <a href="index.html" class="brand">Anastasiya Viskunova</a>
-    <nav class="header-nav">
+    <nav class="header-nav footer-nav" aria-label="Разделы">
+      <a href="index.html#experience" class="btn-ghost">Опыт в проектах</a>
+      <a href="index.html#projects" class="btn-ghost">Кейсы</a>
+      <a href="index.html#process" class="btn-ghost">Как я работаю</a>
+    </nav>
+    <nav class="header-nav footer-nav" aria-label="Связаться">
       <a href="https://t.me/A_Kid87" target="_blank" rel="noopener" class="btn-ghost">Написать мне</a>
       <a href="https://drive.google.com/uc?export=download&id=1QcS99iipnfwIYSbTbYK9-jQPuCBYrVnY" class="btn-ghost" target="_blank" rel="noopener">Скачать CV</a>
     </nav>
@@ -353,7 +370,15 @@
   </div>
 </div>
 
-<script src="script.js?v=202609241834"></script>
-<script src="case-study.js?v=202609241834"></script>
+<div class="avatar-modal" id="avatarModal" hidden>
+  <div class="avatar-modal__backdrop" data-close></div>
+  <div class="avatar-modal__dialog" role="dialog" aria-modal="true" aria-label="Фото Анастасии Вискуновой">
+    <button type="button" class="avatar-modal__close" data-close aria-label="Закрыть">×</button>
+    <img class="avatar-modal__img" src="assets/avatar.png" alt="Анастасия Вискунова">
+  </div>
+</div>
+
+<script src="script.js?v=202610192100"></script>
+<script src="case-study.js?v=202610190100"></script>
 </body>
 </html>

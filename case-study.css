@@ -13,8 +13,15 @@
    нет, взято ближайшее по духу значение вместо ввода новой переменной).
    ========================================================================== */
 
+/* Node 285:638: на страницах кейсов шапка сразу компактная (72px), от неё до
+   ссылки «На главную» 72px, от последнего блока до футера тоже 72px. */
 .case-main {
   gap: 48px;
+  padding-top: 72px;
+}
+
+.case-main + .site-footer {
+  margin-top: 72px;
 }
 
 /* ---- Кнопка "Назад" (node 52:313) ----
@@ -33,22 +40,28 @@
   align-items: center;
   height: 40px;
   gap: var(--space-3xs);
-  color: var(--btn-primary-bg-hover);
+  /* Node 285:646: серая, как ссылки в футере и пункты бургер-меню (Ghost из
+     UI Kit): text/tertiary в покое, text/primary на hover/press. Стрелка —
+     встроенный SVG с fill: currentColor, перекрашивается вместе с текстом. */
+  color: var(--text-tertiary);
   font-family: var(--font-body);
   font-weight: var(--text-p1-primary-weight);
   font-size: var(--text-p1-primary-size);
   line-height: var(--text-p1-primary-line);
   text-decoration: none;
+  transition: color 0.15s ease;
 }
 
-.case-back img {
+.case-back__icon {
   width: 24px;
   height: 24px;
   display: block;
+  flex: none;
 }
 
-.case-back:hover {
-  opacity: 0.75;
+.case-back:hover,
+.case-back:active {
+  color: var(--btn-ghost-color-hover);
 }
 
 /* ---- Интро проекта (node 58:426) ----
@@ -198,24 +211,24 @@
   font-size: var(--text-p1-primary-size);
   line-height: var(--text-p1-primary-line);
   white-space: nowrap;
+  /* Все ссылки — серые, как Ghost из UI Kit (оранжевого в ссылках и
+     кнопках больше нет): text/tertiary в покое, text/primary на
+     hover/press. Стрелка Behance и иконки App Store / Google Play — встроенные SVG с fill: currentColor, темнеют вместе с текстом. */
+  color: var(--text-tertiary);
+  transition: color 0.15s ease;
 }
 
-.case-app-link img {
+.case-app-link__icon,
+.case-app-link__arrow {
   width: 24px;
   height: 24px;
   display: block;
+  flex: none;
 }
 
-.case-app-link:hover {
-  opacity: 0.75;
-}
-
-.case-app-link--behance {
-  color: var(--btn-primary-bg-press);
-}
-
-.case-app-link--store {
-  color: var(--text-tertiary);
+.case-app-link:hover,
+.case-app-link:active {
+  color: var(--btn-ghost-color-hover);
 }
 
 .case-meta-value {
@@ -704,26 +717,32 @@
   align-items: center;
   height: 40px;
   gap: var(--space-3xs);
-  color: var(--btn-primary-bg-hover);
+  /* Как ссылка «На главную» вверху (.case-back): серая text/tertiary в
+     покое, text/primary на hover/press. Стрелки — встроенный SVG с
+     fill: currentColor, перекрашиваются вместе с текстом. */
+  color: var(--text-tertiary);
   font-family: var(--font-body);
   font-weight: 500;
   font-size: var(--text-p1-primary-size);
   line-height: var(--text-p1-primary-line);
   text-decoration: none;
+  transition: color 0.15s ease;
 }
 
-.case-nav-link img {
+.case-nav-link__arrow {
   width: 24px;
   height: 24px;
   display: block;
+  flex: none;
 }
 
 .case-nav-link__icon {
   transform: scaleX(-1);
 }
 
-.case-nav-link:hover {
-  opacity: 0.75;
+.case-nav-link:hover,
+.case-nav-link:active {
+  color: var(--btn-ghost-color-hover);
 }
 
 .case-nav-divider {

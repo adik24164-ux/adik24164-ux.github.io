@@ -25,18 +25,10 @@
   --text-stat-number: #000000;   /* цифры в статистике */
   --icon-badge-bg: #525662;      /* фон кружка со стрелкой в кнопке (primary/default) */
 
-  /* ---- Кнопка primary: варианты hover/press (из компонента "button", node 30:153) ---- */
-  --btn-primary-bg-hover: #ff4623;
-  --btn-primary-bg-press: #ff2b03;
-  --btn-primary-icon-bg-hover: #ff8770;
-  --btn-primary-icon-bg-press: #ff6548;
-
-  /* ---- Кнопка-ссылка (ghost nav): hover/press ----
-     В макете этот вариант — инстанс secondary/icon=off с переопределённым
-     серым цветом текста; explicit hover/press для серой версии в Figma не
-     заданы (у компонента есть только hover/press для базового оранжевого
-     secondary), поэтому здесь взято согласованное с общей палитрой
-     затемнение до text-primary. */
+  /* ---- Ссылки и Ghost-кнопки: hover/press ----
+     Все ссылки на сайте и в резюме серые (text/tertiary) и темнеют до
+     text/primary при наведении — как Ghost в UI Kit. Оранжевых
+     hover/press-цветов больше нет (удалены 19.10.2026). */
   --btn-ghost-color-hover: #1e2025;
 
   /* ---- Шрифты ---- */
@@ -59,10 +51,7 @@
   --text-brand-size: 15px;
   --text-brand-line: 22px;                 /* Literata Medium — бренд-имя */
 
-  --text-hero-title-size: 32px;            /* Literata Medium — "Привет! Я Анастасия..." (H1) */
   --text-stat-number-size: 24px;           /* Literata Regular — "16 лет" / номер шага "как я работаю" */
-  --text-project-title-size: 28px;         /* Literata Regular — заголовок карточки проекта / H1 кейса */
-
   --text-p1-selection-size: 14px;          /* Montserrat SemiBold — заголовки карточек "как я работаю" */
   --text-p1-selection-line: 20px;
   --text-p1-selection-weight: 600;
@@ -90,6 +79,6 @@
   --radius-illustration: 32px;
 
   /* ---- Layout ---- */
-  --content-width: 800px;      /* ширина колонки контента */
+  --content-width: 800px;      /* ширина колонки контента (и шапки, node 66314:719) */
   --page-padding-x: 107px;     /* внешние поля шапки/футера на десктопе */
 }

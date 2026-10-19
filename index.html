@@ -4,59 +4,73 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Анастасия Вискунова — продуктовый дизайнер</title>
+<script>
+// Подпись в шапке «пишется» при каждой загрузке главной (script.js); на
+// кейсах этого скрипта нет — там подпись сразу готовая. Класс ставится до
+// отрисовки, чтобы подпись не мелькнула целиком перед анимацией.
+try { if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("sig-intro"); } catch (e) {}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;500&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="tokens.css?v=202609241834">
-<link rel="stylesheet" href="components.css?v=202609241834">
-<link rel="stylesheet" href="styles.css?v=202609241834">
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,500;1,500&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css?v=202610192000">
+<link rel="stylesheet" href="components.css?v=202610192000">
+<link rel="stylesheet" href="styles.css?v=202610192310">
 </head>
 <body>
 
 <header class="site-header">
   <div class="wrap header-inner">
-    <span class="brand">Anastasiya Viskunova</span>
-    <nav class="header-nav">
-      <a href="https://t.me/A_Kid87" target="_blank" rel="noopener" class="btn-ghost">Написать мне</a>
-      <a href="https://drive.google.com/uc?export=download&id=1QcS99iipnfwIYSbTbYK9-jQPuCBYrVnY" class="btn-ghost" target="_blank" rel="noopener">Скачать CV</a>
+    <div class="brand-mark">
+      <button type="button" class="menu-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="siteMenu" aria-label="Открыть меню">
+        <span class="menu-toggle__icon" aria-hidden="true"><span class="menu-toggle__bar"></span><span class="menu-toggle__bar"></span><span class="menu-toggle__bar"></span></span>
+      </button>
+      <a href="index.html" class="brand-signature-link" aria-label="На главную">
+        <svg class="brand-signature" viewBox="1 1 120 64" overflow="visible" fill="none" aria-hidden="true" focusable="false"><path d="M74.6364 1.00003C72.175 4.00341 67.667 10.0008 62.037 17.1592C55.37 25.6363 47.1296 35.7417 38.8516 44.4314C36.6099 46.7845 34.3655 49.0339 32.1488 51.119C23.1805 59.5548 14.6661 65.3021 8.6253 64.3579C-1.10613 62.8368 -1.10104 51.4439 6.245 46.8326C16.5867 40.3407 25.4202 45.0625 32.1488 51.119C36.3568 54.9067 39.7415 59.2164 42.157 61.6317C48.4346 67.9092 56.1187 63.9108 59.6109 61.6317C63.1228 59.3399 65.816 56.6196 67.8158 53.6904C73.9477 44.7087 73.5585 33.7629 70.2531 27.1818C69.1122 24.9102 66.3189 20.95 62.037 17.1592C56.2989 12.0791 47.8875 7.3032 37.197 7.3032C23.9655 7.3032 14.9276 19.8658 23.9655 31.601C28.0486 36.9026 33.2269 41.1365 38.8516 44.4314C48.2706 49.9491 58.9413 52.8337 67.8158 53.6904C71.392 54.0357 74.6766 54.0516 77.47 53.7779C76.7765 48.2499 83.2451 42.5487 86.0052 46.7686C88.468 50.5339 84.5435 53.0847 77.47 53.7779C77.7291 55.8432 78.9879 57.8843 81.8134 59.3748C86.1875 61.6823 86.7343 56.4443 91.1083 59.3748C93.4934 60.9728 96.7282 60.5631 99.5117 59.389C101.833 58.4098 103.84 56.899 104.779 55.5775C107.513 51.729 100.739 47.4287 98.4002 51.9946C96.5514 55.6032 97.832 58.0358 99.5117 59.389C100.301 60.0252 101.179 60.4227 101.861 60.5918C106.943 61.8511 111.341 54.4776 121 57.9142" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+      </a>
+      <nav class="site-menu" id="siteMenu" hidden>
+        <a href="index.html#experience" class="site-menu__link">Опыт в проектах</a>
+        <a href="index.html#projects" class="site-menu__link">Кейсы</a>
+        <a href="index.html#process" class="site-menu__link">Как я работаю</a>
+      </nav>
+    </div>
+    <nav class="header-nav header-nav--buttons">
+      <a href="https://drive.google.com/uc?export=download&id=1QcS99iipnfwIYSbTbYK9-jQPuCBYrVnY" class="btn" target="_blank" rel="noopener">Скачать CV</a>
+      <a href="https://t.me/A_Kid87" target="_blank" rel="noopener" class="btn">Написать мне</a>
     </nav>
   </div>
 </header>
 
+
 <main>
 
   <section class="hero reveal">
-    <img class="hero-deco hero-deco--group" src="assets/hero-deco-group.svg" alt="" aria-hidden="true">
-    <img class="hero-deco hero-deco--group-left" src="assets/hero-deco-group-left-wide.svg" alt="" aria-hidden="true">
-    <!-- Node 219:2322: на экранах от 1600px завитки крупнее и по-другому
-         скомпонованы (не просто увеличенная копия) — отдельные картинки,
-         переключаются с обычными через display в styles.css. -->
-    <img class="hero-deco hero-deco--group-wide" src="assets/hero-deco-group-wide.svg" alt="" aria-hidden="true">
-    <img class="hero-deco hero-deco--group-left-wide" src="assets/hero-deco-group-left-wide.svg" alt="" aria-hidden="true">
-    <div class="hero-deco hero-deco--arrow" aria-hidden="true">
-      <img src="assets/hero-deco-arrow.svg" alt="">
-    </div>
-
     <div class="hero-inner">
       <div class="hero-main">
         <div class="hero-intro">
-          <div class="hero-top">
-            <span class="avatar" id="avatarTrigger" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Открыть фото крупнее">
-              <img src="assets/avatar.png" alt="Анастасия Вискунова">
-            </span>
-            <h1 class="hero-title">
-              <span>Привет!</span>
-              <span>Я Анастасия, продуктовый дизайнер</span>
-            </h1>
+          <div class="hero-intro-row">
+          <div class="hero-title">
+            <span class="hero-title__hello">Привет!</span>
+            <span class="hero-title__row"><span class="hero-title__name">Я Анастасия, дизайнер</span><span class="hero-title__badge hero-title__badge--flip"><span class="hero-title__badge-word hero-title__badge-word--1">продукта</span><span class="hero-title__badge-word hero-title__badge-word--2">UX/UI</span></span></span>
+          </div>
+          <div class="hero-avatar-wrap">
+          <span class="avatar avatar-trigger hero-avatar" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Открыть фото крупнее">
+            <img src="assets/avatar.png" alt="Анастасия Вискунова">
+          </span>
+          </div>
           </div>
 
-          <p class="hero-summary">Проектирую сложные B2B-продукты: электронный документооборот <br>(ЭДО/КЭДО), корпоративные порталы и дизайн-системы для Web и Mobile. <br>Веду полный цикл от Discovery и гипотез до тестов и метрик</p>
+          <div class="hero-summary">
+            <p>Проектирую сложные B2B-продукты: электронный документооборот (ЭДО/КЭДО), корпоративные порталы, Saas-финтех и дизайн-системы для Web и Mobile.</p>
+          </div>
         </div>
 
+        <div class="hero-experience-block" id="experience">
+        <h2 class="section-title">Опыт в проектах</h2>
         <div class="hero-experience">
           <div class="hero-experience__card">
             <div class="hero-experience__top">
-              <span class="hero-experience__icon"><img src="assets/hero-icon-nopaper.png" alt="" aria-hidden="true"></span>
+              <span class="hero-experience__icon"><img src="assets/hero-icon-nopaper.svg" alt="" aria-hidden="true"></span>
               <p class="hero-experience__name">Nopaper</p>
             </div>
             <div class="hero-experience__info">
@@ -64,9 +78,10 @@
               <p class="hero-experience__dates">2020 - 2026</p>
             </div>
           </div>
-          <div class="hero-experience__card">
+          <div class="hero-experience__card hero-experience__card--artsofte">
+            <span class="hero-experience__deco-wrap"><img class="hero-experience__deco" src="assets/card-deco-artsofte.svg" alt="" aria-hidden="true"></span>
             <div class="hero-experience__top">
-              <span class="hero-experience__icon"><img src="assets/hero-icon-artsofte.png" alt="" aria-hidden="true"></span>
+              <span class="hero-experience__icon"><img src="assets/hero-icon-artsofte.svg" alt="" aria-hidden="true"></span>
               <p class="hero-experience__name">Artsofte</p>
             </div>
             <div class="hero-experience__info">
@@ -74,7 +89,8 @@
               <p class="hero-experience__dates">2024 - 2026</p>
             </div>
           </div>
-          <div class="hero-experience__card">
+          <div class="hero-experience__card hero-experience__card--abanking">
+            <span class="hero-experience__deco-wrap"><img class="hero-experience__deco" src="assets/card-deco-abanking.svg" alt="" aria-hidden="true"></span>
             <div class="hero-experience__top">
               <span class="hero-experience__icon hero-experience__icon--abanking"><img src="assets/hero-icon-abanking.svg" alt="" aria-hidden="true"></span>
               <p class="hero-experience__name">Дизайн-система Abanking</p>
@@ -86,7 +102,11 @@
           </div>
           <div class="hero-experience__card">
             <div class="hero-experience__top">
-              <span class="hero-experience__icon hero-experience__icon--banks"><img src="assets/hero-icon-banks.png" alt="" aria-hidden="true"></span>
+              <span class="hero-experience__icon hero-experience__icon--banks">
+                <span class="hero-experience__icon-item hero-experience__icon-item--globe"><img src="assets/hero-icon-banks-globe.svg" alt="" aria-hidden="true"></span>
+                <span class="hero-experience__icon-item hero-experience__icon-item--union"><img src="assets/hero-icon-banks-union.svg" alt="" aria-hidden="true"></span>
+                <span class="hero-experience__icon-item hero-experience__icon-item--abanking"><img src="assets/hero-icon-abanking.svg" alt="" aria-hidden="true"></span>
+              </span>
               <p class="hero-experience__name">Банки: Россия, Союз, Abanking</p>
             </div>
             <div class="hero-experience__info">
@@ -95,18 +115,101 @@
             </div>
           </div>
         </div>
+        </div>
       </div>
-
-      <a href="https://t.me/A_Kid87" target="_blank" rel="noopener" class="btn">
-        Написать мне
-        <span class="btn__icon"><img src="assets/icon-arrow-right.svg" alt=""></span>
-      </a>
     </div>
+  </section>
+
+  <section class="projects" id="projects">
+
+    <h2 class="section-title reveal-up">Кейсы</h2>
+
+    <article class="project-card reveal">
+      <a href="project-corporate-portal.html" class="project-card__image">
+        <img src="assets/project-1.png" alt="Скриншот корпоративного портала на планшете">
+      </a>
+      <div class="project-card__body">
+        <div class="project-card__header">
+          <div class="project-card__heading">
+            <p class="project-meta">Senior designer &nbsp;◦&nbsp; 2025–2026</p>
+            <h2 class="project-title"><a href="project-corporate-portal.html" class="project-title-link">Корпоративный портал</a></h2>
+          </div>
+          <div class="tags">
+            <span class="tag">#Desktop</span>
+            <span class="tag">#Mobile_App</span>
+            <span class="tag">#B2E</span>
+            <span class="tag">#MVP</span>
+            <span class="tag">#Lowcode</span>
+          </div>
+          <p class="project-desc">
+            Разработала MVP корпоративного портала на low-code платформе, который заменил
+            громоздкий Bitrix24 и решил проблемы неактуальных данных, функциональной
+            избыточности и несоответствия бизнес-процессам. Проект включает desktop-версию
+            и отдельное мобильное приложение. Целевой эффект: снижение количества
+            переключений между разделами на 20–30%, согласование отпусков — с нескольких
+            дней до нескольких часов.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <article class="project-card reveal">
+      <a href="project-edo-onboarding.html" class="project-card__image">
+        <img src="assets/project-2-overlay.png" alt="Экран онбординга мобильного приложения ЭДО в руке пользователя">
+      </a>
+      <div class="project-card__body">
+        <div class="project-card__header">
+          <div class="project-card__heading">
+            <p class="project-meta">Senior designer &nbsp;◦&nbsp; 2023</p>
+            <h2 class="project-title"><a href="project-edo-onboarding.html" class="project-title-link">Улучшение первой пользовательской сессии в приложении мобильного ЭДО</a></h2>
+          </div>
+          <div class="tags">
+            <span class="tag">#Mobile_App</span>
+            <span class="tag">#B2B</span>
+            <span class="tag">#B2C</span>
+            <span class="tag">#ЭДО</span>
+            <span class="tag">#CJM</span>
+            <span class="tag">#VoC</span>
+          </div>
+          <p class="project-desc">
+            Самостоятельно проанализировала воронку конверсии первой пользовательской сессии
+            на основе обращений в техподдержку, улучшила экраны выпуска электронной подписи,
+            добившись роста конверсии выпуска подписи с 20,5% до 39,7%
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <article class="project-card reveal">
+      <a href="project-streaming-signing.html" class="project-card__image">
+        <img src="assets/project-3-overlay.png" alt="Экран потокового подписания документа на телефоне">
+      </a>
+      <div class="project-card__body">
+        <div class="project-card__header">
+          <div class="project-card__heading">
+            <p class="project-meta">Senior designer &nbsp;◦&nbsp; 2023</p>
+            <h2 class="project-title"><a href="project-streaming-signing.html" class="project-title-link">Потоковое подписание документа</a></h2>
+          </div>
+          <div class="tags">
+            <span class="tag">#Mobile_App</span>
+            <span class="tag">#ЭДО</span>
+            <span class="tag">#B2B</span>
+            <span class="tag">#CJM</span>
+            <span class="tag">#UX-test</span>
+          </div>
+          <p class="project-desc">
+            Сделала подписание НЭП в Nopaper прозрачным и контролируемым: убрала блокирующий
+            loader, добавила фоновый прогресс-бар и навигацию через список. Повторное
+            UX-тестирование подтвердило — 100% пользователей правильно понимают новый интерфейс
+          </p>
+        </div>
+      </div>
+    </article>
 
   </section>
 
-  <section class="process">
-    <h2 class="process-title hero-title">Как я работаю</h2>
+  <section class="process" id="process">
+    <h2 class="process-title section-title">Как я работаю</h2>
     <div class="process-steps">
       <div class="process-steps__track">
         <img class="process-line" src="assets/deco-process-line.svg" alt="" aria-hidden="true">
@@ -164,113 +267,17 @@
     </div>
   </section>
 
-  <section class="projects" id="projects">
-
-    <h2 class="hero-title">Мои кейсы</h2>
-
-    <article class="project-card reveal">
-      <a href="project-corporate-portal.html" class="project-card__image">
-        <img src="assets/project-1.png" alt="Скриншот корпоративного портала на планшете">
-      </a>
-      <div class="project-card__body">
-        <div class="project-card__header">
-          <div class="project-card__heading">
-            <p class="project-meta">Senior designer &nbsp;◦&nbsp; 2025–2026</p>
-            <h2 class="project-title"><a href="project-corporate-portal.html" class="project-title-link">Корпоративный портал</a></h2>
-          </div>
-          <div class="tags">
-            <span class="tag">#Desktop</span>
-            <span class="tag">#Mobile_App</span>
-            <span class="tag">#B2E</span>
-            <span class="tag">#MVP</span>
-            <span class="tag">#Lowcode</span>
-          </div>
-          <p class="project-desc">
-            Разработала MVP корпоративного портала на low-code платформе, который заменил
-            громоздкий Bitrix24 и решил проблемы неактуальных данных, функциональной
-            избыточности и несоответствия бизнес-процессам. Проект включает desktop-версию
-            и отдельное мобильное приложение. Целевой эффект: снижение количества
-            переключений между разделами на 20–30%, согласование отпусков — с нескольких
-            дней до нескольких часов.
-          </p>
-        </div>
-        <a href="project-corporate-portal.html" class="btn">
-          Узнать больше
-          <span class="btn__icon"><img src="assets/icon-arrow-right.svg" alt=""></span>
-        </a>
-      </div>
-    </article>
-
-    <article class="project-card reveal">
-      <a href="project-edo-onboarding.html" class="project-card__image">
-        <img src="assets/project-2-overlay.png" alt="Экран онбординга мобильного приложения ЭДО в руке пользователя">
-      </a>
-      <div class="project-card__body">
-        <div class="project-card__header">
-          <div class="project-card__heading">
-            <p class="project-meta">Senior designer &nbsp;◦&nbsp; 2023</p>
-            <h2 class="project-title"><a href="project-edo-onboarding.html" class="project-title-link">Улучшение первой пользовательской сессии в приложении мобильного ЭДО</a></h2>
-          </div>
-          <div class="tags">
-            <span class="tag">#Mobile_App</span>
-            <span class="tag">#B2B</span>
-            <span class="tag">#B2C</span>
-            <span class="tag">#ЭДО</span>
-            <span class="tag">#CJM</span>
-            <span class="tag">#VoC</span>
-          </div>
-          <p class="project-desc">
-            Самостоятельно проанализировала воронку конверсии первой пользовательской сессии
-            на основе обращений в техподдержку, улучшила экраны выпуска электронной подписи,
-            добившись роста конверсии выпуска подписи с 20,5% до 39,7%
-          </p>
-        </div>
-        <a href="project-edo-onboarding.html" class="btn">
-          Узнать больше
-          <span class="btn__icon"><img src="assets/icon-arrow-right.svg" alt=""></span>
-        </a>
-      </div>
-    </article>
-
-    <article class="project-card reveal">
-      <a href="project-streaming-signing.html" class="project-card__image">
-        <img src="assets/project-3-overlay.png" alt="Экран потокового подписания документа на телефоне">
-      </a>
-      <div class="project-card__body">
-        <div class="project-card__header">
-          <div class="project-card__heading">
-            <p class="project-meta">Senior designer &nbsp;◦&nbsp; 2023</p>
-            <h2 class="project-title"><a href="project-streaming-signing.html" class="project-title-link">Потоковое подписание документа</a></h2>
-          </div>
-          <div class="tags">
-            <span class="tag">#Mobile_App</span>
-            <span class="tag">#ЭДО</span>
-            <span class="tag">#B2B</span>
-            <span class="tag">#CJM</span>
-            <span class="tag">#UX-test</span>
-          </div>
-          <p class="project-desc">
-            Сделала подписание НЭП в Nopaper прозрачным и контролируемым: убрала блокирующий
-            loader, добавила фоновый прогресс-бар и навигацию через список. Повторное
-            UX-тестирование подтвердило — 100% пользователей правильно понимают новый интерфейс
-          </p>
-        </div>
-        <a href="project-streaming-signing.html" class="btn">
-          Узнать больше
-          <span class="btn__icon"><img src="assets/icon-arrow-right.svg" alt=""></span>
-        </a>
-      </div>
-    </article>
-
-  </section>
-
 
 </main>
 
 <footer class="site-footer reveal">
   <div class="wrap header-inner">
-    <span class="brand">Anastasiya Viskunova</span>
-    <nav class="header-nav">
+    <nav class="header-nav footer-nav" aria-label="Разделы">
+      <a href="index.html#experience" class="btn-ghost">Опыт в проектах</a>
+      <a href="index.html#projects" class="btn-ghost">Кейсы</a>
+      <a href="index.html#process" class="btn-ghost">Как я работаю</a>
+    </nav>
+    <nav class="header-nav footer-nav" aria-label="Связаться">
       <a href="https://t.me/A_Kid87" target="_blank" rel="noopener" class="btn-ghost">Написать мне</a>
       <a href="https://drive.google.com/uc?export=download&id=1QcS99iipnfwIYSbTbYK9-jQPuCBYrVnY" class="btn-ghost" target="_blank" rel="noopener">Скачать CV</a>
     </nav>
@@ -285,6 +292,6 @@
   </div>
 </div>
 
-<script src="script.js?v=202609241834"></script>
+<script src="script.js?v=202610192100"></script>
 </body>
 </html>
