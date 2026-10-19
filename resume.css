@@ -572,13 +572,42 @@ img {
   color: var(--text-secondary);
 }
 
-/* Ссылки внутри пунктов и выделенное начало пункта — тёмные (primary) */
+/* Ссылки внутри пунктов и выделенное начало пункта — тёмные (primary).
+   Ссылки подчёркнуты всегда, а не только при наведении: в резюме (и в
+   PDF) иначе не понять, что текст кликабельный. На hover подчёркивание
+   становится плотнее. */
 .resume-main .resume-list a,
 .resume-main .resume-list strong,
 .resume-main .resume-job__project a,
 .resume-main .resume-job__links a {
   font-weight: 500;
   color: var(--text-primary);
+}
+
+.resume-main .resume-links a,
+.resume-main .resume-list a,
+.resume-main .resume-job__project a,
+.resume-main .resume-job__links a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(30, 32, 37, 0.35);
+  transition: text-decoration-color 0.15s ease;
+}
+
+.resume-main .resume-links a:hover,
+.resume-main .resume-list a:hover,
+.resume-main .resume-job__project a:hover,
+.resume-main .resume-job__links a:hover {
+  color: var(--text-primary);
+  text-decoration-color: currentColor;
+}
+
+/* Название проекта-ссылки (корпоративный портал) — тем же начертанием,
+   что и соседние названия проектов (SemiBold), отличается только
+   подчёркиванием. */
+.resume-main .resume-job__project a {
+  font-weight: 600;
 }
 
 .resume-main .resume-list strong {
@@ -706,5 +735,30 @@ img {
 
   .resume-section-title {
     break-after: avoid;
+  }
+
+  /* Основное резюме: первое место работы длиннее страницы A4, и запрет
+     разрыва переносил его целиком на следующую страницу, оставляя пустую
+     половину листа. Разрешаем рвать место работы между проектами, но не
+     внутри пункта списка и не отрывая компанию/должность от текста. */
+  .resume-main .resume-job:first-child {
+    break-inside: auto;
+  }
+
+  /* Короткие места работы (все, кроме первого) целиком помещаются на
+     страницу — их не рвём, иначе компания оставалась одна внизу листа. */
+  .resume-main .resume-job:not(:first-child) {
+    break-inside: avoid;
+  }
+
+  .resume-main .resume-job__head,
+  .resume-main .resume-job__project {
+    break-after: avoid;
+  }
+
+  .resume-main .resume-list li,
+  .resume-main .resume-p,
+  .resume-main .resume-edu-row {
+    break-inside: avoid;
   }
 }
