@@ -8,12 +8,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;500;600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="tokens.css?v=202610191600">
-<link rel="stylesheet" href="resume.css?v=202610191400">
+<link rel="stylesheet" href="tokens.css?v=202610200300">
+<link rel="stylesheet" href="resume.css?v=202610200200">
 </head>
 <body>
 
 <div class="resume-page">
+  <nav class="resume-topbar" aria-label="Навигация">
+    <a href="index.html" class="resume-topbar__back">← Портфолио</a>
+    <button type="button" class="resume-topbar__pdf" onclick="window.print()">Скачать PDF ↓</button>
+  </nav>
+
   <div class="resume">
 
     <div class="resume-header">
@@ -72,9 +77,12 @@
         <div class="resume-jobs">
 
           <article class="resume-job">
-            <p class="resume-job__meta">
-              <span>Artsofte</span><span class="resume-job__meta-sep"></span><span>Product Designer</span><span class="resume-job__meta-sep"></span><span>2020 – н.в.</span>
-            </p>
+            <p class="resume-job__dates">2020 – н.в.</p>
+            <div class="resume-job__main">
+              <div class="resume-job__head">
+                <h3 class="resume-job__company">Artsofte</h3>
+                <p class="resume-job__role">Product Designer</p>
+              </div>
 
             <p class="resume-p">Команда CoreTeamManufacture: IT-директор, дизайнер продукта, аналитик, менеджер проектов, тестировщик, 2 low-code специалиста.</p>
 
@@ -111,33 +119,46 @@
                 <li>Спроектировала MVP портал на замену Bitrix24 — desktop-версию и мобильное приложение, выстроила информационную архитектуру вокруг реальных бизнес-процессов.</li>
               </ul>
             </div>
+            </div>
           </article>
 
           <article class="resume-job">
-            <p class="resume-job__meta">
-              <span>Artsofte</span><span class="resume-job__meta-sep"></span><span>UX/UI designer</span><span class="resume-job__meta-sep"></span><span>2017 – 2020</span>
-            </p>
+            <p class="resume-job__dates">2017 – 2020</p>
+            <div class="resume-job__main">
+              <div class="resume-job__head">
+                <h3 class="resume-job__company">Artsofte</h3>
+                <p class="resume-job__role">UX/UI designer</p>
+              </div>
             <div class="resume-job__entry">
               <p class="resume-job__project resume-job__project--plain">Проектная разработка для банков: МДМ-Банк, Банк Союз (Инго Банк), Абанкинг, 2017 – 2020</p>
               <p class="resume-p">Совместно с командой дизайнеров проектировала ключевые разделы банковских личных кабинетов и мобильных приложений: главный экран, кредиты, вклады, счета. Отвечала за полный жизненный цикл банковских продуктов — от открытия и просмотра до продления и закрытия. Для Банка «Союз» разработала UI-kit.</p>
             </div>
-          </article>
-
-          <article class="resume-job">
-            <p class="resume-job__meta">
-              <span>Artsofte</span><span class="resume-job__meta-sep"></span><span>Web-designer</span><span class="resume-job__meta-sep"></span><span>2013 – 2017</span>
-            </p>
-            <div class="resume-job__entry">
-              <p class="resume-job__project resume-job__project--plain">Проектная разработка корпоративных сайтов и интернет-магазинов, 2013 – 2017</p>
-              <p class="resume-p">В составе команды дизайнеров проектировала корпоративные сайты для сети отелей и e-commerce проектов: Золотое Яблоко, Леопак, Аптеки. Дополнительно разрабатывала логотипы, фотореалистичные иконки, визитки, бэйджи и листовки.</p>
             </div>
           </article>
 
           <article class="resume-job">
-            <p class="resume-job__meta">
-              <span>Аргумент и другие рекламные агентства</span><span class="resume-job__meta-sep"></span><span>Graphic Designer</span><span class="resume-job__meta-sep"></span><span>2010 – 2013</span>
-            </p>
+            <p class="resume-job__dates">2013 – 2017</p>
+            <div class="resume-job__main">
+              <div class="resume-job__head">
+                <h3 class="resume-job__company">Artsofte</h3>
+                <p class="resume-job__role">Web-designer</p>
+              </div>
+            <div class="resume-job__entry">
+              <p class="resume-job__project resume-job__project--plain">Проектная разработка корпоративных сайтов и интернет-магазинов, 2013 – 2017</p>
+              <p class="resume-p">В составе команды дизайнеров проектировала корпоративные сайты для сети отелей и e-commerce проектов: Золотое Яблоко, Леопак, Аптеки. Дополнительно разрабатывала логотипы, фотореалистичные иконки, визитки, бэйджи и листовки.</p>
+            </div>
+            </div>
+          </article>
+
+          <article class="resume-job">
+            <p class="resume-job__dates">2010 – 2013</p>
+            <div class="resume-job__main">
+              <div class="resume-job__head">
+                <h3 class="resume-job__company">Аргумент и другие рекламные агентства</h3>
+                <p class="resume-job__role">Graphic Designer</p>
+              </div>
             <p class="resume-p">Начала карьеру в полиграфии: занималась дизайном, предпечатной подготовкой, печатью и постпечатной обработкой. Работала от широкоформатной продукции до визиток, листовок, флаеров, календарей и сувенирки. Этот опыт дал мне понимание полного производственного цикла, внимательность к деталям и цене ошибки.</p>
+            </div>
           </article>
 
         </div>

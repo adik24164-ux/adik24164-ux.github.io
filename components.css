@@ -94,7 +94,7 @@
   padding: var(--space-3xs) var(--space-xs);
   border-radius: var(--radius-tag);
   background: var(--bg-tag);
-  color: var(--text-tag);
+  color: var(--text-tertiary);
   font-family: var(--font-body);
   font-size: var(--text-p1-secondary-size);
   font-weight: var(--text-p1-secondary-weight);
@@ -436,7 +436,7 @@
   font-weight: var(--text-p1-secondary-weight);
   font-size: var(--text-p1-secondary-size);
   line-height: var(--text-p1-secondary-line);
-  color: var(--text-meta);
+  color: var(--text-tertiary);
 }
 
 /* Заголовок вверху страницы кейса (<h1 class="project-title">) — стиль H1
@@ -462,6 +462,18 @@
   font-weight: var(--text-p1-long-weight);
   font-size: var(--text-p1-long-size);
   line-height: var(--text-p1-long-line);
-  color: var(--text-desc);
+  color: var(--text-secondary);
   width: 100%;
+}
+
+/* Крестик закрытия в окнах просмотра (фото по клику на аватарку, просмотр
+   иллюстраций, видео в кейсах) — иконка Icon/Close из UI Kit вместо
+   символа «×»; цвет берёт из color кнопки (fill: currentColor). */
+.avatar-modal__close svg,
+.lightbox__close svg,
+.video-modal__close svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+  flex: none;
 }

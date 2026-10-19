@@ -7,12 +7,25 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;500;600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="tokens.css?v=202610191600">
-<link rel="stylesheet" href="resume.css?v=202610191400">
+<link rel="stylesheet" href="tokens.css?v=202610200400">
+<link rel="stylesheet" href="resume.css?v=202610200500">
 </head>
-<body>
+<body class="resume-main">
 
 <div class="resume-page">
+  <nav class="resume-topbar" aria-label="Действия с резюме">
+    <a href="assets/Viskunova_Anastasia_CV.pdf" class="resume-topbar__download" download="Viskunova_Anastasia_CV.pdf" data-pdf-download>
+      <span class="resume-topbar__download-label">Скачать PDF</span>
+      <span class="resume-topbar__icon" aria-hidden="true">
+        <svg class="resume-topbar__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" focusable="false"><path d="M7.5859 12.543L11.3359 16.293L11.3359 5.35352L12.8359 5.35352L12.8359 16.293L16.5859 12.543L17.6465 13.6035L12.0859 19.1641L6.5254 13.6035L7.5859 12.543Z" fill="currentColor"/></svg>
+        <svg class="resume-topbar__spinner" width="24" height="24" viewBox="0 0 24 24" fill="none" focusable="false"><circle cx="12" cy="12" r="7.25" stroke="currentColor" stroke-width="1.5" opacity="0.25"/><path d="M12 4.75a7.25 7.25 0 0 1 7.25 7.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </span>
+    </a>
+    <a href="index.html" class="resume-topbar__close" aria-label="Закрыть резюме" data-resume-close>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M6.80078 16.1563L7.33105 15.626L11.043 11.9131L6.80078 7.6709L7.86133 6.61035L12.1035 10.8525L15.8164 7.14063L16.3467 6.61035L17.4072 7.6709L16.877 8.20117L13.1641 11.9131L17.4072 16.1562L16.3467 17.2168L12.1035 12.9736L8.3916 16.6865L7.86133 17.2168L6.80078 16.1563Z" fill="currentColor"/></svg>
+    </a>
+  </nav>
+
   <div class="resume">
 
     <div class="resume-header">
@@ -24,7 +37,7 @@
             <div class="resume-tags-inline">
               <span>B2B, B2C SaaS</span>
               <span class="resume-tags-inline__sep"></span>
-              <span>CRM</span>
+              <span>ЭДО/КЭДО</span>
               <span class="resume-tags-inline__sep"></span>
               <span>App, Desktop</span>
               <span class="resume-tags-inline__sep"></span>
@@ -49,6 +62,7 @@
         <div class="resume-links">
           <a href="https://t.me/A_Kid87" target="_blank" rel="noopener">Telegram</a>
           <a href="https://adik24164-ux.github.io/index.html" target="_blank" rel="noopener">Портфолио</a>
+          <a href="https://ekaterinburg.hh.ru/resume/36e8bacaff00a4e2520039ed1f736563726574" target="_blank" rel="noopener">hh</a>
         </div>
       </div>
 
@@ -61,7 +75,7 @@
 
       <section class="resume-section">
         <h2 class="resume-section-title">О себе</h2>
-        <p class="resume-p">Продуктовый дизайнер, 5+ лет в B2B-продуктах со сложной предметной областью: электронный документооборот, кадровый ЭДО, электронная подпись. Веду фичи от гипотезы до замера метрик: почти вдвое подняла конверсию выпуска ЭП и вдвое увеличила число подписанных документов за сессию. Построила мобильную дизайн-систему с нуля на токенах. Использую AI-инструменты для аналитики, прототипирования и автоматизации работы с дизайн-системой.</p>
+        <p class="resume-p">Продуктовый дизайнер, 5+ лет в B2B-продуктах со сложной предметной областью: электронный документооборот, кадровый ЭДО, электронная подпись. Проектирую сложные процессы с несколькими ролями, статусами и бизнес-логикой: от CJM и гипотез до UI в проде. Проверяю решения на пользователях и аргументирую их перед бизнесом, аналитикой и разработкой. В работе опираюсь на AI-инструменты: собираю интерактивные прототипы в Claude Code, чтобы быстро проверять гипотезы.</p>
       </section>
 
       <section class="resume-section">
@@ -71,11 +85,12 @@
         <div class="resume-jobs">
 
           <article class="resume-job">
-            <p class="resume-job__meta">
-              <span>Artsofte</span><span class="resume-job__meta-sep"></span><span>Product Designer</span><span class="resume-job__meta-sep"></span><span>2020 – н.в.</span>
-            </p>
-
-            <p class="resume-p">Команда CoreTeamManufacture: IT-директор, дизайнер продукта, аналитик, менеджер проектов, тестировщик, 2 low-code специалиста.</p>
+            <p class="resume-job__dates">2020 – н.в.</p>
+            <div class="resume-job__main">
+              <div class="resume-job__head">
+                <h3 class="resume-job__company">Artsofte</h3>
+                <p class="resume-job__role">Product Designer</p>
+              </div>
 
             <div class="resume-job__entry">
               <p class="resume-job__project"><a href="project-corporate-portal.html">Корпоративный портал на low-code платформе Artsofte, 2024 – н.в.</a></p>
@@ -88,7 +103,6 @@
 
             <div class="resume-job__entry">
               <p class="resume-job__project resume-job__project--plain">Сервис мобильного документооборота Nopaper, 2020 – н.в.</p>
-              <p class="resume-p">Команда Nopaper: директор продукта, продакт-менеджер, дизайнер продукта, 2 аналитика, 2 frontend-разработчика, 3 backend-разработчика, 2 тестировщика</p>
               <p class="resume-p">Полностью переработала 1 версию мобильного приложения, спроектировала десктоп. Добавила КЭДО процессы в виде шаблонов + функционал планирования отпуска. Самые главные метрики продукта это Activation и Conversion Rate, поэтому проработала, исследовала и улучшила 2 основных сценария:</p>
               <ul class="resume-list">
                 <li><a href="project-edo-onboarding.html">Улучшение первой пользовательской сессии в приложении мобильного ЭДО</a>. По воронке нашла шаг, на котором терялась большая часть пользователей. Улучшила экраны перед сканированием паспорта и лица, опираясь на обращения в техподдержку и UJM. Конверсия выпуска ЭП выросла с 20,5% до 39,7%.</li>
@@ -112,33 +126,46 @@
                 <li>Занималась миграцией части токенов дизайн-системы внутри Figma и далее перепривязкой токенов к компонентам другой библиотеки при помощи AI-агента</li>
               </ul>
             </div>
+            </div>
           </article>
 
           <article class="resume-job">
-            <p class="resume-job__meta">
-              <span>Artsofte</span><span class="resume-job__meta-sep"></span><span>UX/UI designer</span><span class="resume-job__meta-sep"></span><span>2017 – 2020</span>
-            </p>
+            <p class="resume-job__dates">2017 – 2020</p>
+            <div class="resume-job__main">
+              <div class="resume-job__head">
+                <h3 class="resume-job__company">Artsofte</h3>
+                <p class="resume-job__role">UX/UI designer</p>
+              </div>
             <div class="resume-job__entry">
-              <p class="resume-job__project resume-job__project--plain">Проектная разработка для банков: МДМ-Банк, Банк Союз (Инго Банк), Абанкинг, 2017 – 2020</p>
+              <p class="resume-job__project resume-job__project--plain">Проектная разработка для банков: МДМ-Банк, Банк Союз (Инго Банк), Абанкинг</p>
               <p class="resume-p">Совместно с командой дизайнеров проектировала ключевые разделы банковских личных кабинетов и мобильных приложений: главный экран, кредиты, вклады, счета. Отвечала за полный жизненный цикл банковских продуктов — от открытия и просмотра до продления и закрытия. Для Банка «Союз» разработала UI-kit.</p>
             </div>
-          </article>
-
-          <article class="resume-job">
-            <p class="resume-job__meta">
-              <span>Artsofte</span><span class="resume-job__meta-sep"></span><span>Web-designer</span><span class="resume-job__meta-sep"></span><span>2013 – 2017</span>
-            </p>
-            <div class="resume-job__entry">
-              <p class="resume-job__project resume-job__project--plain">Проектная разработка корпоративных сайтов и интернет-магазинов, 2013 – 2017</p>
-              <p class="resume-p">В составе команды дизайнеров проектировала корпоративные сайты для сети отелей и e-commerce проектов: Золотое Яблоко, Леопак, Аптеки. Дополнительно разрабатывала логотипы, фотореалистичные иконки, визитки, бэйджи и листовки.</p>
             </div>
           </article>
 
           <article class="resume-job">
-            <p class="resume-job__meta">
-              <span>Аргумент и другие рекламные агентства</span><span class="resume-job__meta-sep"></span><span>Graphic Designer</span><span class="resume-job__meta-sep"></span><span>2010 – 2013</span>
-            </p>
+            <p class="resume-job__dates">2013 – 2017</p>
+            <div class="resume-job__main">
+              <div class="resume-job__head">
+                <h3 class="resume-job__company">Artsofte</h3>
+                <p class="resume-job__role">Web-designer</p>
+              </div>
+            <div class="resume-job__entry">
+              <p class="resume-job__project resume-job__project--plain">Проектная разработка корпоративных сайтов и интернет-магазинов</p>
+              <p class="resume-p">В составе команды дизайнеров проектировала корпоративные сайты для сети отелей и e-commerce проектов: Золотое Яблоко, Леопак, Аптеки. Дополнительно разрабатывала логотипы, фотореалистичные иконки, визитки, бэйджи и листовки.</p>
+            </div>
+            </div>
+          </article>
+
+          <article class="resume-job">
+            <p class="resume-job__dates">2010 – 2013</p>
+            <div class="resume-job__main">
+              <div class="resume-job__head">
+                <h3 class="resume-job__company">Аргумент и другие рекламные агентства</h3>
+                <p class="resume-job__role">Graphic Designer</p>
+              </div>
             <p class="resume-p">Начала карьеру в полиграфии: занималась дизайном, предпечатной подготовкой, печатью и постпечатной обработкой. Работала от широкоформатной продукции до визиток, листовок, флаеров, календарей и сувенирки. Этот опыт дал мне понимание полного производственного цикла, внимательность к деталям и цене ошибки.</p>
+            </div>
           </article>
 
         </div>
@@ -188,6 +215,16 @@
       </section>
 
       <section class="resume-section">
+        <h2 class="resume-section-title">Чего бы хотелось</h2>
+        <p class="resume-p">Хочу больше самостоятельности в проектах и ответственности не только за макет, но и за то, каким решение в итоге доходит до пользователя.</p>
+        <ul class="resume-list">
+          <li><strong>Отвечать за внедрение.</strong> Самой дорабатывать фронт, чтобы дизайн-ревью оставалось на стороне дизайна. Вести фичу целиком — от дизайна до разработки. Быть консультантом для разработчиков: когда прототип или фича собраны быстро, помогать проверить и довести их до нужного качества.</li>
+          <li><strong>Отвечать за видение и направление развития.</strong> Не рисовать концепты, которые реализуют через год-два, а планировать на ближайшие 3 месяца, максимум на полгода. Формулировать одну общую цель, к которой идёт вся команда, и делать её наглядной.</li>
+        </ul>
+        <p class="resume-p">Интересны гостех, финтех, медтех, ЭДО/КЭДО, цифровизация и автоматизация реального сектора экономики — хочется делать продукты, которые приносят пользу стране и людям.</p>
+      </section>
+
+      <section class="resume-section">
         <h2 class="resume-section-title">Образование</h2>
         <div class="resume-edu-list">
           <p class="resume-edu-row"><strong>2004 — 2010</strong> <span>Уральский государственный архитектурно-художественный университет имени Н.С. Алфёрова, Екатеринбург, графический дизайн</span></p>
@@ -202,5 +239,6 @@
   </div>
 </div>
 
+<script src="resume.js?v=202610200500"></script>
 </body>
 </html>

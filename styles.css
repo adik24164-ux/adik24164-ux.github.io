@@ -890,7 +890,7 @@ main {
   font-weight: 400;
   font-size: 22px;
   line-height: 32px;
-  color: var(--text-title);
+  color: var(--text-primary);
 }
 
 /* Node 66309:591: от заголовка "Кейсы" до первой карточки 32px — на 8px
