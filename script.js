@@ -606,3 +606,8 @@
   setMode();
   window.addEventListener('resize', setMode);
 })();
+
+// Safari на iPhone не применяет :active (состояние нажатия кнопок), пока
+// на странице нет ни одного обработчика касаний. Пустой пассивный
+// обработчик включает :active и ничего не меняет в прокрутке.
+document.addEventListener('touchstart', function () {}, { passive: true });

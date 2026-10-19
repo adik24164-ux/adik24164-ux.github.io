@@ -27,6 +27,12 @@ img {
   max-width: 100%;
 }
 
+/* Серая подсветка нажатия на телефоне — убираем, как и на сайте. */
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
 .resume-page {
   display: flex;
   flex-direction: column;

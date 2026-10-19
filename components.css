@@ -35,11 +35,31 @@
   transition: background-color 0.2s ease, color 0.2s ease, outline-color 0.2s ease;
 }
 
-.btn:hover,
+/* Hover — только там, где есть мышь: на телефоне «наведение» залипает
+   после касания, и кнопка оставалась тёмной. Нажатие (press, как в UI
+   Kit) — сразу чёрное, без перехода: короткое касание не успевало пройти
+   0.2s, кнопка выглядела тёмно-серой с заметной рамкой. */
+@media (hover: hover) {
+  .btn:hover {
+    background: var(--bg-inversion);
+    color: var(--text-white);
+    outline-color: var(--bg-inversion);
+  }
+}
+
 .btn:active {
   background: var(--bg-inversion);
   color: var(--text-white);
   outline-color: var(--bg-inversion);
+  transition: none;
+}
+
+/* Серая подсветка нажатия Safari/Chrome на телефоне поверх кнопок и
+   ссылок — убираем, состояние нажатия рисуют сами стили. */
+a,
+button,
+[role="button"] {
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* ---- Кнопка: прозрачная ссылка-кнопка (шапка/футер) ----
