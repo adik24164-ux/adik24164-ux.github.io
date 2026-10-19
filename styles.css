@@ -1035,6 +1035,40 @@ main {
   }
 }
 
+/* Шапка на телефоне (node 66370:1186 "Header app"): всегда одна и та же,
+   компактная — без большого начального состояния и без сжатия при
+   прокрутке (правила ниже перекрывают и .is-scrolled). Высота 72px:
+   паддинг 16/20, подпись 75×40, всё в одну строку; кнопки — как в макете,
+   14/22 и паддинг 9/16 (а не увеличенные телефонные), между ними 16px. */
+@media (max-width: 640px) {
+  .site-header,
+  .site-header.is-scrolled {
+    padding: 16px 20px;
+    transition: none;
+  }
+
+  .site-header .header-inner {
+    flex-wrap: nowrap;
+  }
+
+  .site-header .brand-signature-link,
+  .site-header.is-scrolled .brand-signature-link {
+    width: 75px;
+    height: 40px;
+    transition: none;
+  }
+
+  .site-header .header-nav.header-nav--buttons {
+    gap: var(--space-xs);
+  }
+
+  .site-header .header-nav--buttons .btn {
+    padding: 9px 16px;
+    font-size: 14px;
+    line-height: 22px;
+  }
+}
+
 @media (max-width: 360px) {
   :root {
     --radius-illustration: 16px;
