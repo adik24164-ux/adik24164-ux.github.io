@@ -149,6 +149,26 @@
   .case-highlight {
     padding: var(--space-xs) var(--space-sm);
   }
+
+  /* Колода sticky-карточек при скролле — тот же приём, что у «Опыт в
+     проектах» на главной (script.js, initStackedDeck): карточки прилипают
+     под шапкой со сдвигом --stack-offset × номер, следующая наезжает
+     сверху, накрытая уменьшается и светлеет к белому за счёт --stack-whiten
+     (без тени/прозрачности). padding-bottom — запас прокрутки, чтобы
+     последняя карточка успела встать на место. */
+  .case-highlights__list[data-stacked-deck] {
+    --stack-offset: 16px;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: calc(var(--stack-count, 3) * var(--stack-offset));
+  }
+
+  .case-highlights__list[data-stacked-deck] .case-highlight {
+    position: sticky;
+    top: calc(var(--stack-top, 88px) + var(--stack-index, 0) * var(--stack-offset));
+    transform-origin: 50% 0%;
+    background: color-mix(in srgb, #fff var(--stack-whiten, 0%), var(--bg-accent));
+  }
 }
 
 /* Блок роли/платформы/аудитории стоит под иллюстрацией (node 200:373), прямым

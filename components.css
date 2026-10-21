@@ -220,162 +220,47 @@ button,
   justify-content: center;
 }
 
-/* ---- Как я работаю (процесс) ----
-   Карточки фиксированной ширины 260px (node 147:251) — при 5 штуках
-   ряд (1364px) шире стандартной ширины контента (800px). В макете ряд
-   уходит за правый край кадра, начинаясь вровень с заголовком слева.
-   Раньше это делалось через 100vw + translateX(-50%), но расчёт сбивал
-   выравнивание, так как проценты у left считаются от родителя (.process,
-   800px), а не от вьюпорта — сетка ("breakout grid") не имеет этой
-   проблемы: средняя колонка = обычная 800px-колонка контента (в неё
-   встаёт заголовок), боковые — резиновые (0 или сколько угодно места
-   больше 800px), а .process-steps растянут от начала средней колонки до
-   самого правого края — гарантированно вровень с заголовком слева. */
+/* ---- Как я работаю ----
+   Вертикальный список: заголовок пункта, под ним описание — приём с
+   daria-guzii.netlify.app/. Без подложек — боковой паддинг 8px одинаковый
+   у заголовка секции и у каждого пункта, для выключки в одну линию.
+   У первого пункта перед заголовком — иконка-искра. */
 .process {
-  position: relative;
-  display: grid;
-  grid-template-columns:
-    minmax(0, 1fr)
-    minmax(0, var(--content-width))
-    minmax(0, 1fr);
-  row-gap: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-md);
   width: 100%;
+  max-width: var(--content-width);
 }
 
-/* Node 248:470/257:842: заголовки разделов набраны тем же стилем, что и
-   приветствие в hero ("Привет! Я Анастасия...") — переиспользуем
-   .hero-title, а не заводим отдельный класс под то же самое. */
 .process-title {
-  grid-column: 2;
+  padding-inline: var(--space-3xs);
 }
 
-.process-steps {
-  /* Растянут на всю сетку (обе резиновые колонки-отступа) — карточки
-     при скролле уходят за реальный край экрана и слева, и справа, а не
-     упираются в невидимую границу на месте края контентной колонки. */
-  grid-column: 1 / 4;
-  /* Ряд обрезается на том же расстоянии от края экрана, что и карточка
-     hero (node 172:550) — 20px, а не по самому краю. Паддинг main на
-     десктопе 10px, поэтому не хватает ещё 10px; на ≤900px (там паддинг
-     32px) margin отрицательный — см. styles.css. */
-  margin-left: 10px;
-  margin-right: 10px;
-  overflow-x: auto;
-  overflow-y: visible;
-  scrollbar-width: none;
-  cursor: grab;
-  /* Пальцем ряд листает сам браузер (нативная прокрутка с родной инерцией
-     и, на iOS, упругой оттяжкой на краях) — свой JS-драг на тач-экранах
-     срывался: жест отменялся и ряд почти не двигался. JS (script.js)
-     обслуживает только мышь. */
-  touch-action: pan-x pan-y;
-  -webkit-overflow-scrolling: touch;
-  /* Без этого перетаскивание мышью выделяло текст в карточках вместо
-     скролла — приходилось кликать по несколько раз, чтобы просто ухватить
-     ряд. */
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-.process-steps::-webkit-scrollbar {
-  display: none;
-}
-
-/* Сама лента карточек (без учёта padding-left/right, которые script.js
-   добавляет на .process-steps для выравнивания с краями hero-блока) —
-   именно в этой системе координат размещена соединяющая линия со
-   стрелками (node 249:644), поэтому линия — child этого блока, а не
-   .process-steps, чей padding иначе сдвинул бы её. */
-.process-steps__track {
-  position: relative;
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: flex-start;
-  gap: var(--space-xs);
-  /* Явная ширина по контенту, а не "по умолчанию как у блока" (100% от
-     .process-steps) — карточки всё равно не сжимаются (flex:0 0 300px)
-     и физически шире, но нечёткая ширина трека сбивала расчёт scrollWidth
-     в script.js, от которого зависит точка выравнивания в конце скролла. */
-  width: max-content;
-}
-
-/* Координаты 1:1 из Figma (node 249:644), в той же системе координат,
-   что и колонки (0/316/632/948/1264 — считает script.js через реальные
-   позиции). z-index поднимает линию над карточками (без него, как
-   первый ребёнок трека с z-index:auto, она рисовалась бы под ними). */
-.process-line {
-  position: absolute;
-  z-index: 2;
-  left: 300px;
-  top: 99px;
-  width: 1099px;
-  height: 169.5px;
-  max-width: none;
-  pointer-events: none;
-}
-
-/* Курсор меняется на "зажато" во время перетаскивания мышью (script.js),
-   как в лайтбоксе картинок. Никакого scroll-snap — с ним карточка после
-   отпускания резко доскакивала до выравнивания, и это выглядело дёргано;
-   ряд просто плавно катится туда, куда его потянули. */
-.process-steps.is-dragging {
-  cursor: grabbing;
-}
-
-/* ---- Шаг процесса (node 248:468) ----
-   Раньше каждый шаг был одной голубой карточкой с номером; теперь номер
-   убран, а заголовок стоит НАД карточкой(-ами) — колонка сама без фона,
-   фон и скругление только у вложенных .process-step__card. У "Погружаюсь
-   в контекст" и "Проектирую и тестирую" внутри по две карточки (сценарий
-   для нового продукта и для улучшения существующего), у остальных — одна;
-   высоты колонок из-за этого разные, поэтому ряд выравнивается по верху
-   (align-items:flex-start у трека), а не растягивается. */
-.process-step {
+.process-list {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  flex: 0 0 300px;
-  width: 300px;
-  gap: var(--space-xs);
-  text-align: left;
-}
-
-/* Node 248:473: заголовок шага сменился с крупного Literata на маленький
-   прописной "лейбл" — Montserrat SemiBold, разрядка, серый (text/tertiary),
-   как рубрика над карточками, а не как подзаголовок. */
-.process-step__title {
+  gap: var(--space-sm);
+  width: 100%;
   margin: 0;
-  width: 100%;
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 12px;
-  line-height: 20px;
-  letter-spacing: 1.92px;
-  text-transform: uppercase;
-  color: var(--text-tertiary);
+  padding: 0;
+  list-style: none;
 }
 
-.process-step__variants {
+.process-item {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
-  width: 100%;
-}
-
-.process-step__card {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
   gap: var(--space-3xs);
   width: 100%;
-  padding: var(--space-sm) var(--space-md);
-  border-radius: 24px;
-  background: var(--bg-accent);
+  padding-inline: var(--space-3xs);
 }
 
-.process-step__label {
+.process-item__title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3xs);
   margin: 0;
-  width: 100%;
   font-family: var(--font-body);
   font-weight: var(--text-p1-selection-weight);
   font-size: var(--text-p1-selection-size);
@@ -383,9 +268,14 @@ button,
   color: var(--text-primary);
 }
 
-.process-step__desc {
+.process-item__icon {
+  flex: none;
+  width: 24px;
+  height: 25px;
+}
+
+.process-item__desc {
   margin: 0;
-  width: 100%;
   font-family: var(--font-body);
   font-weight: var(--text-p1-long-weight);
   font-size: var(--text-p1-long-size);
@@ -405,10 +295,15 @@ button,
   padding-bottom: var(--space-md);
 }
 
+/* Node 66353:663/681/701: обложка кейса в макете шире текстовой колонки —
+   вылетает на 45px за край карточки с каждой стороны (890px при колонке
+   800px). На узких экранах вылет сняли бы отдельным media-правилом (упёрся
+   бы в край экрана), см. styles.css. */
 .project-card__image {
   display: block;
   position: relative;
-  width: 100%;
+  width: calc(100% + 90px);
+  margin-inline: -45px;
   aspect-ratio: 720 / 444;
   border-radius: var(--radius-illustration);
   overflow: hidden;
@@ -423,7 +318,7 @@ button,
 }
 
 .project-card__image:hover img {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
 .project-card__body {

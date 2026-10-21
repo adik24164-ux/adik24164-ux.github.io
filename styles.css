@@ -18,11 +18,9 @@ body {
   font-family: var(--font-body);
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
-  /* .process-steps растянута почти до края экрана (components.css), а
-     пружинка/оттяжка при перетаскивании двигает её ещё и через
-     transform — вместе это может на пару пикселей вытолкнуть блок за
-     реальную границу окна и включить горизонтальный скролл всей
-     страницы. Настоящего контента там нет, поэтому просто обрезаем. */
+  /* Декоративные элементы (вылет обложки кейса, закорючки на карточках
+     опыта) нарочно шире своего контейнера — страхуемся от случайного
+     горизонтального скролла. */
   overflow-x: hidden;
 }
 
@@ -147,6 +145,13 @@ a {
 /* Пока script.js не подготовил анимацию «письма» подписи, линию не
    показываем — иначе она на миг мелькнула бы целиком. */
 .sig-intro .brand-signature path {
+  opacity: 0;
+}
+
+/* Пока script.js не подготовил анимацию прорисовки декоративных линий на
+   карточках опыта (Artsofte, Abanking), линии не показываем — иначе
+   мелькнули бы целиком. */
+.deco-intro .hero-experience__deco path {
   opacity: 0;
 }
 
@@ -723,6 +728,22 @@ main {
   transform: rotate(60deg);
 }
 
+/* Node 66373:568 "Vector 54": вторая, тонкая чёрная линия той же закорючки
+   (в Figma у Artsofte их две — толстая белая и тонкая чёрная поверх неё).
+   Позиция/размер — тем же способом 1:1 из Figma, что и у первой линии. */
+.hero-experience__card--artsofte .hero-experience__deco-wrap--outline {
+  left: 64.691px;
+  top: -332.404px;
+  width: 553.136px;
+  height: 618.245px;
+}
+
+.hero-experience__card--artsofte .hero-experience__deco--outline {
+  width: 517.696px;
+  height: 339.814px;
+  transform: rotate(60deg);
+}
+
 .hero-experience__card--abanking .hero-experience__deco-wrap {
   left: 236px;
   top: 164px;
@@ -878,7 +899,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-lg); /* между карточками 40px (+ их паддинг 32px): по просьбе +8px к макету (node 66286:575: 32px) */
+  gap: var(--space-2xl); /* между карточками 48px (+ их паддинг 32px): по просьбе ещё +8px (было 40px, node 66286:575: 32px) */
   width: 100%;
   max-width: var(--content-width);
 }
@@ -934,18 +955,16 @@ main {
     padding-right: var(--space-md);
   }
 
-  /* На этой ширине у сетки .process нет своих резиновых зазоров (контент
-     и так занимает всё место между паддингами main), поэтому пробивать
-     через grid-column нечего — ряд карточек упирался бы в паддинг main
-     (32px). Отрицательный margin доводит границу до тех же 20px от края
-     экрана, что и у карточки hero (node 172:550). */
-  .process-steps {
-    margin-left: calc(20px - var(--space-md));
-    margin-right: calc(20px - var(--space-md));
-  }
-
   :root {
     --radius-illustration: 28px;
+  }
+
+  /* Вылет обложки кейса (см. components.css) рассчитан на свободные поля
+     десктопа (107px). На планшете/мобильном поля меньше — вылет снят,
+     обложка снова по ширине карточки. */
+  .project-card__image {
+    width: 100%;
+    margin-inline: 0;
   }
 }
 
@@ -995,15 +1014,6 @@ main {
 
   :root {
     --radius-illustration: 24px;
-  }
-
-  /* Линия decoration в "Как я работаю" зафиксирована в пикселях под
-     десктопную раскладку карточек (components.css) и не следит за
-     реальным текстом. На этой ширине абзацы в карточках растут (16px
-     P1-шрифт вместо 14px — см. ниже), и дуги линии залезали прямо на
-     текст — опущена на 20px, чтобы чуть отступить от него. */
-  .process-line {
-    top: 119px;
   }
 }
 
@@ -1144,37 +1154,3 @@ main {
   }
 }
 
-/* Карточки "Как я работаю" (node 248:468) появляются по очереди слева
-   направо при скролле: наблюдается сам .process-steps, а не каждая
-   карточка — is-visible на контейнере включает transition у детей, у
-   каждой карточки свой transition-delay. nth-of-type, а не nth-child —
-   в ряду первым ребёнком стоит картинка линии (.process-line), и обычный
-   nth-child сдвинул бы нумерацию карточек на один. Линия едет вместе с
-   ними без собственной задержки — тот же подъезд снизу, что и у блока. */
-.process-step,
-.process-line {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-
-.process-steps.is-visible .process-step,
-.process-steps.is-visible .process-line {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.process-step:nth-of-type(1) { transition-delay: 0s; }
-.process-step:nth-of-type(2) { transition-delay: 0.08s; }
-.process-step:nth-of-type(3) { transition-delay: 0.16s; }
-.process-step:nth-of-type(4) { transition-delay: 0.24s; }
-.process-step:nth-of-type(5) { transition-delay: 0.32s; }
-
-@media (prefers-reduced-motion: reduce) {
-  .process-step,
-  .process-line {
-    transition: none;
-    opacity: 1;
-    transform: none;
-  }
-}

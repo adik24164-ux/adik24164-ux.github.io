@@ -47,8 +47,8 @@
   --text-brand-line: 22px;                 /* Literata Medium — бренд-имя */
 
   --text-stat-number-size: 24px;           /* Literata Regular — "16 лет" / номер шага "как я работаю" */
-  --text-p1-selection-size: 14px;          /* Montserrat SemiBold — заголовки карточек "как я работаю" */
-  --text-p1-selection-line: 20px;
+  --text-p1-selection-size: 14px;          /* Montserrat SemiBold — заголовки пунктов "как я работаю" */
+  --text-p1-selection-line: 22px;
   --text-p1-selection-weight: 600;
 
   /* ---- Отступы (spacing scale) ---- */

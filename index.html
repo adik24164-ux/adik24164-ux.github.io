@@ -4,18 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Анастасия Вискунова — продуктовый дизайнер</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <script>
-// Подпись в шапке «пишется» при каждой загрузке главной (script.js); на
-// кейсах этого скрипта нет — там подпись сразу готовая. Класс ставится до
-// отрисовки, чтобы подпись не мелькнула целиком перед анимацией.
-try { if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("sig-intro"); } catch (e) {}
+// Подпись в шапке и декоративные линии на карточках опыта «пишутся» при
+// каждой загрузке главной (script.js); на кейсах этого скрипта нет — там
+// подпись сразу готовая. Классы ставятся до отрисовки, чтобы линии не
+// мелькнули целиком перед анимацией.
+try { if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("sig-intro", "deco-intro"); } catch (e) {}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,500;1,500&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="tokens.css?v=202610200300">
-<link rel="stylesheet" href="components.css?v=202610201000">
-<link rel="stylesheet" href="styles.css?v=202610200800">
+<link rel="stylesheet" href="tokens.css?v=202610220900">
+<link rel="stylesheet" href="components.css?v=202610221300">
+<link rel="stylesheet" href="styles.css?v=202610221100">
 </head>
 <body>
 
@@ -79,7 +84,8 @@ try { if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.docu
             </div>
           </div>
           <div class="hero-experience__card hero-experience__card--artsofte">
-            <span class="hero-experience__deco-wrap"><img class="hero-experience__deco" src="assets/card-deco-artsofte.svg" alt="" aria-hidden="true"></span>
+            <span class="hero-experience__deco-wrap"><svg class="hero-experience__deco" aria-hidden="true" preserveAspectRatio="none" overflow="visible" style="display: block;" width="468.486" height="398.253" viewBox="0 0 468.486 398.253" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.526 349.769C10.526 349.769 69.3911 181.989 138.471 181.115C207.551 180.242 132.131 399.954 163.192 386.505C194.253 373.057 223.687 204.783 254.748 150.99C285.809 97.1975 246.021 399.954 297.789 319.264C349.558 238.575 335.415 74.7469 463.448 9.95504" stroke="white" stroke-width="22.3143"/></svg></span>
+            <span class="hero-experience__deco-wrap hero-experience__deco-wrap--outline"><svg class="hero-experience__deco hero-experience__deco--outline" aria-hidden="true" preserveAspectRatio="none" overflow="visible" style="display: block;" width="519.028" height="341.1" viewBox="0 0 519.028 341.1" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.927262 340.729C0.927262 340.729 68.2108 172.948 147.17 172.075C226.129 171.202 168.312 331.788 201.536 337.259C234.76 342.73 244.574 195.743 280.077 141.95C315.58 88.1568 270.101 390.913 329.273 310.224C388.445 229.534 372.28 65.7063 518.623 0.914389" stroke-width="2" stroke="black"/></svg></span>
             <div class="hero-experience__top">
               <span class="hero-experience__icon"><img src="assets/hero-icon-artsofte.svg" alt="" aria-hidden="true"></span>
               <p class="hero-experience__name">Artsofte</p>
@@ -90,7 +96,7 @@ try { if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.docu
             </div>
           </div>
           <div class="hero-experience__card hero-experience__card--abanking">
-            <span class="hero-experience__deco-wrap"><img class="hero-experience__deco" src="assets/card-deco-abanking.svg" alt="" aria-hidden="true"></span>
+            <span class="hero-experience__deco-wrap"><svg class="hero-experience__deco" aria-hidden="true" preserveAspectRatio="none" overflow="visible" style="display: block;" width="254.815" height="128.548" viewBox="0 0 254.815 128.548" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M105.222 125.23C263.324 144.154 216.437 40.9077 201.882 43.4629C189.978 45.5529 244.238 86.835 252.993 54.6806C265.653 8.18868 129.305 -49.3791 0.711762 80.9246" stroke="#080808" stroke-width="2"/></svg></span>
             <div class="hero-experience__top">
               <span class="hero-experience__icon hero-experience__icon--abanking"><img src="assets/hero-icon-abanking.svg" alt="" aria-hidden="true"></span>
               <p class="hero-experience__name">Дизайн-система Abanking</p>
@@ -209,62 +215,33 @@ try { if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.docu
   </section>
 
   <section class="process" id="process">
-    <h2 class="process-title section-title">Как я работаю</h2>
-    <div class="process-steps">
-      <div class="process-steps__track">
-        <img class="process-line" src="assets/deco-process-line.svg" alt="" aria-hidden="true">
-        <div class="process-step">
-          <h3 class="process-step__title">Погружаюсь в контекст</h3>
-          <div class="process-step__variants">
-            <div class="process-step__card">
-              <p class="process-step__label">Новый продукт</p>
-              <p class="process-step__desc">При помощи AI-агента (Claude Code + Figma MCP): делаю сбор требований, анализ конкурентов, UX-аудит, приоритизацию фич и упаковку в PRD</p>
-            </div>
-            <div class="process-step__card">
-              <p class="process-step__label">Улучшение зрелого продукта</p>
-              <p class="process-step__desc">Изучаю бизнес-задачу через данные: обращения в поддержку, воронки, интервью со стейкхолдерами. Ищу то, что реально мешает бизнесу и пользователю.</p>
-            </div>
-          </div>
-        </div>
-        <div class="process-step">
-          <h3 class="process-step__title">Исследую</h3>
-          <div class="process-step__variants">
-            <div class="process-step__card">
-              <p class="process-step__desc">Анализирую данные, конкурентов, строю CJM/UJM и формулирую гипотезы с измеримым прогнозом эффекта.</p>
-            </div>
-          </div>
-        </div>
-        <div class="process-step">
-          <h3 class="process-step__title">Проектирую и тестирую</h3>
-          <div class="process-step__variants">
-            <div class="process-step__card">
-              <p class="process-step__label">Новый продукт</p>
-              <p class="process-step__desc">Claude Code + Figma MCP: sitemap, wireframes, экраны и ДС. Собираю живой прототип и проверяю гипотезы</p>
-            </div>
-            <div class="process-step__card">
-              <p class="process-step__label">Улучшение зрелого продукта</p>
-              <p class="process-step__desc">Собираю кликабельные прототипы (Claude Code + Figma MCP), провожу UX-тесты, проверяю гипотезы</p>
-            </div>
-          </div>
-        </div>
-        <div class="process-step">
-          <h3 class="process-step__title">Запускаю и измеряю</h3>
-          <div class="process-step__variants">
-            <div class="process-step__card">
-              <p class="process-step__desc">После релиза возвращаюсь к метрикам, сравниваю «было/стало» и смотрю, что реально сработало</p>
-            </div>
-          </div>
-        </div>
-        <div class="process-step">
-          <h3 class="process-step__title">Рефлексирую и итерирую</h3>
-          <div class="process-step__variants">
-            <div class="process-step__card">
-              <p class="process-step__desc">Фиксирую, что получилось, а что нет. Любое решение — гипотеза, которую можно и нужно пересмотреть</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <h2 class="process-title section-title reveal-up">Как я работаю</h2>
+    <ul class="process-list">
+      <li class="process-item reveal-up">
+        <p class="process-item__title"><img class="process-item__icon" src="assets/icon-sparkle-ai.svg" alt="" aria-hidden="true">AI как часть процесса</p>
+        <p class="process-item__desc">Собираю кликабельные прототипы в Claude Code и работаю с Figma через MCP: проверяю гипотезы на живом интерфейсе, а не на статичных макетах.</p>
+      </li>
+      <li class="process-item reveal-up">
+        <p class="process-item__title">Веду продукт с нуля</p>
+        <p class="process-item__desc">Прохожу весь путь от CJM до релиза: корпоративный портал, система подписания документов, дизайн-система для банкинга.</p>
+      </li>
+      <li class="process-item reveal-up">
+        <p class="process-item__title">Работаю со сложной логикой</p>
+        <p class="process-item__desc">ЭДО, банковские и HR-процессы — превращаю регламенты, данные и ограничения в понятный интерфейс, нахожу баланс между пользователем, бизнесом и технологиями.</p>
+      </li>
+      <li class="process-item reveal-up">
+        <p class="process-item__title">Опираюсь на метрики</p>
+        <p class="process-item__desc">Связываю дизайн-решения с продуктовыми метриками: конверсией, активацией, временем до первого результата — и проверяю эффект после релиза.</p>
+      </li>
+      <li class="process-item reveal-up">
+        <p class="process-item__title">Довожу решение до релиза</p>
+        <p class="process-item__desc">Работаю в связке с продактами, аналитиками и разработчиками: готовлю макеты и спецификации и сопровождаю реализацию.</p>
+      </li>
+      <li class="process-item reveal-up">
+        <p class="process-item__title">Строю дизайн-системы</p>
+        <p class="process-item__desc">Компоненты, variants, состояния — собираю адаптивные интерфейсы для Web, iOS и Android.</p>
+      </li>
+    </ul>
   </section>
 
 
@@ -292,6 +269,6 @@ try { if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.docu
   </div>
 </div>
 
-<script src="script.js?v=202610201000"></script>
+<script src="script.js?v=202610221200"></script>
 </body>
 </html>

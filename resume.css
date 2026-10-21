@@ -43,12 +43,19 @@ button {
 }
 
 /* ---- Панель над листом ---- */
+/* Node 66361:438 "topbar": полупрозрачный голубоватый фон с блюром (чтобы
+   читалась поверх контента, когда на мобильном панель станет фиксированной
+   у края экрана), паддинг только по бокам 16px — высоту задаёт контент. */
 .resume-topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   max-width: 800px;
+  padding: 0 16px;
+  background: rgba(230, 241, 245, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .resume-topbar__back {
@@ -454,21 +461,20 @@ button {
    ========================================================================== */
 
 /* Панель (node 66361:438): справа «Скачать PDF» со стрелкой вниз и крестик
-   закрытия, между ними 40px. Обе — Ghost из UI Kit: text/tertiary, на hover
-   text/primary; иконки 24px, fill: currentColor. Пока PDF грузится
-   (.is-loading ставит resume.js), стрелка сменяется лоадером. */
+   закрытия, между ними 40px. «Скачать PDF» — текст text/primary (тёмный),
+   иконки 24px, fill: currentColor. Пока PDF грузится (.is-loading ставит
+   resume.js), стрелка сменяется лоадером. */
 .resume-main .resume-topbar {
   justify-content: flex-end;
   gap: 40px;
 }
 
-.resume-topbar__download,
-.resume-topbar__close {
+.resume-topbar__download {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   padding: 8px 0;
-  color: var(--text-tertiary);
+  color: var(--text-primary);
   font-family: var(--font-body);
   font-weight: 500;
   font-size: 14px;
@@ -477,9 +483,25 @@ button {
   transition: color 0.15s ease;
 }
 
-.resume-topbar__download:hover,
-.resume-topbar__close:hover {
+.resume-topbar__download:hover {
   color: var(--btn-ghost-color-hover);
+}
+
+/* Крестик (node 66509:4093): не ghost-ссылка, а тёмный полупрозрачный
+   кружок (паддинг 8px вокруг иконки 24px = 40×40) с белой иконкой поверх. */
+.resume-topbar__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: var(--radius-pill);
+  background: rgba(18, 20, 23, 0.4);
+  color: var(--text-white);
+  transition: background-color 0.15s ease;
+}
+
+.resume-topbar__close:hover {
+  background: rgba(18, 20, 23, 0.6);
 }
 
 .resume-topbar__close svg,
@@ -676,13 +698,19 @@ button {
 
 /* ---- Планшет и телефон ---- */
 @media (max-width: 720px) {
+  /* Панель фиксируется у верхнего края экрана (не уезжает при скролле) —
+     56px сверху = её высота (40px) + 16px воздуха до листа. */
   .resume-page {
-    padding: 16px 0 0;
+    padding: 56px 0 0;
     gap: 12px;
   }
 
   .resume-topbar {
-    padding: 0 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
   }
 
   .resume {
