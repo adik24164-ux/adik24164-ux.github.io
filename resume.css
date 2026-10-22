@@ -487,21 +487,24 @@ button {
   color: var(--btn-ghost-color-hover);
 }
 
-/* Крестик (node 66509:4093): не ghost-ссылка, а тёмный полупрозрачный
-   кружок (паддинг 8px вокруг иконки 24px = 40×40) с белой иконкой поверх. */
+/* Крестик (node 66509:4093): не ghost-ссылка, а кружок с чёрной обводкой
+   2px (паддинг 4px вокруг иконки 24px), без заливки — тёмная иконка
+   поверх. На hover — по аналогии с .btn: заливается тёмным, иконка белеет. */
 .resume-topbar__close {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 8px;
+  padding: 4px;
   border-radius: var(--radius-pill);
-  background: rgba(18, 20, 23, 0.4);
-  color: var(--text-white);
-  transition: background-color 0.15s ease;
+  border: 2px solid #000;
+  background: transparent;
+  color: var(--text-primary);
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .resume-topbar__close:hover {
-  background: rgba(18, 20, 23, 0.6);
+  background: var(--bg-inversion);
+  color: var(--text-white);
 }
 
 .resume-topbar__close svg,
@@ -714,7 +717,7 @@ button {
   }
 
   .resume {
-    padding: 32px 20px 40px;
+    padding: 32px 24px 40px;
     border-radius: 20px 20px 0 0;
     box-shadow: none;
   }
