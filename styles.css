@@ -415,11 +415,23 @@ main {
   }
 }
 
+.brand-mark,
+.header-nav--buttons,
 .hero-title,
 .hero-summary,
 .hero-experience-block .section-title,
 .hero-experience__card {
   animation: heroFlyInUp 0.8s ease-in both;
+}
+
+/* Шапка влетает первой (на всех страницах с .site-header, не только на
+   главной) — лого/бургер чуть раньше кнопок CV/Telegram. */
+.brand-mark {
+  animation-delay: 0s;
+}
+
+.header-nav--buttons {
+  animation-delay: 0.08s;
 }
 
 .hero-title {
@@ -454,6 +466,8 @@ main {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .brand-mark,
+  .header-nav--buttons,
   .hero-title,
   .hero-summary,
   .hero-experience-block .section-title,
