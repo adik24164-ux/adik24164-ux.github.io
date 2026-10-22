@@ -37,7 +37,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 0;
   width: 100%;
   padding: 24px 24px 80px;
 }
@@ -45,14 +45,14 @@ button {
 /* ---- Панель над листом ---- */
 /* Node 66361:438 "topbar": полупрозрачный голубоватый фон с блюром (чтобы
    читалась поверх контента, когда на мобильном панель станет фиксированной
-   у края экрана), паддинг только по бокам 16px — высоту задаёт контент. */
+   у края экрана), паддинг 16px по кругу. */
 .resume-topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   max-width: 800px;
-  padding: 0 16px;
+  padding: 16px;
   background: rgba(230, 241, 245, 0.5);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -702,7 +702,7 @@ button {
      56px сверху = её высота (40px) + 16px воздуха до листа. */
   .resume-page {
     padding: 56px 0 0;
-    gap: 12px;
+    gap: 0;
   }
 
   .resume-topbar {
