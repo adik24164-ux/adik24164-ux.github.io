@@ -561,34 +561,41 @@ main {
    пользователя, по образцу React-компонента TextFlip). Размер — по
    более широкой пилюле "продукта" из инспектора Figma (195×50), чтобы
    пилюля не "прыгала" при смене слова; паддинг — у каждого слова свой
-   (буквально из Figma), т.к. они не совпадают. */
+   (буквально из Figma), т.к. они не совпадают. Размеры — в переменных:
+   на мобильном (ниже) текст бейджа мельче (H0 28/36 вместо 32/40),
+   подложка должна подтягиваться пропорционально вместе с ним. */
+:root {
+  --hero-badge-h: 50px;
+  --hero-badge-w-1: 195px; /* "продукта" */
+  --hero-badge-w-2: 141px; /* "UX/UI" */
+}
+
 .hero-title__badge--flip {
   position: relative;
-  height: 50px;
+  height: var(--hero-badge-h);
   overflow: hidden;
   animation: hero-badge-width 6s ease-in-out infinite;
 }
 
-/* Ширина пилюли плавно подтягивается под слово — 195px у "продукта",
-   141px у "UX/UI" (node 66309:512/514, H0) (буквально из Figma) — переход идёт в те же точки
-   0-45/50-95/100%, что и у затухания текста, чтобы пилюля двигалась
-   ровно тогда, когда слово и так полупрозрачно. */
+/* Ширина пилюли плавно подтягивается под слово (node 66309:512/514, H0) —
+   переход идёт в те же точки 0-45/50-95/100%, что и у затухания текста,
+   чтобы пилюля двигалась ровно тогда, когда слово и так полупрозрачно. */
 @keyframes hero-badge-width {
   0%, 45% {
-    width: 195px;
+    width: var(--hero-badge-w-1);
   }
   50%, 95% {
-    width: 141px;
+    width: var(--hero-badge-w-2);
   }
   100% {
-    width: 195px;
+    width: var(--hero-badge-w-1);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .hero-title__badge--flip {
     animation: none;
-    width: 195px;
+    width: var(--hero-badge-w-1);
   }
 }
 
@@ -914,10 +921,12 @@ main {
   color: var(--text-primary);
 }
 
-/* Node 66309:591: от заголовка "Кейсы" до первой карточки 32px — на 8px
-   меньше зазора между карточками (40px). У заголовка паддинг 8px по бокам. */
+/* Node 66309:591: от заголовка "Кейсы" до первой карточки 32px — столько
+   же, сколько у "Опыт в проектах" (.hero-experience-block, gap:32px) —
+   меньше зазора между самими карточками (48px). У заголовка паддинг 8px
+   по бокам. */
 .section-title + .project-card {
-  margin-top: calc(var(--space-md) - var(--space-lg));
+  margin-top: calc(var(--space-md) - var(--space-2xl));
 }
 
 .projects .section-title {
@@ -996,7 +1005,7 @@ main {
      нужна высота по контенту. padding-bottom — запас прокрутки, чтобы
      последняя карточка успела встать на место. */
   .hero-experience[data-stacked-deck] {
-    --stack-offset: 16px;
+    --stack-offset: 8px;
     display: flex;
     flex-direction: column;
     padding-bottom: calc(var(--stack-count, 4) * var(--stack-offset));
@@ -1017,16 +1026,16 @@ main {
   }
 }
 
-/* Мобильная раскладка (Figma node 109:670): единый отступ страницы 32px,
+/* Мобильная раскладка (Figma node 109:670): единый отступ страницы 24px,
    шапка/футер переносят nav на новую строку вместо сжатия в одну. */
 @media (max-width: 480px) {
   main {
-    padding: 0 32px;
+    padding: 0 24px;
   }
 
   .site-header {
-    padding-left: 32px;
-    padding-right: 32px;
+    padding-left: 24px;
+    padding-right: 24px;
   }
 
   .header-inner {
@@ -1035,7 +1044,7 @@ main {
   }
 
   .site-footer {
-    padding: 24px 32px;
+    padding: 24px 24px;
   }
 
   /* Текст карточки проекта (node 113:914) должен идти вровень с левым
@@ -1115,6 +1124,55 @@ main {
     --text-p1-selection-size: 16px;
     --text-p1-selection-line: 22px;
     --text-brand-size: 17px;
+  }
+}
+
+/* Шкала заголовков UI Kit на смартфоне — на ступень мельче, чем на
+   десктопе, но та же пара начертание/вес у каждого уровня:
+   H0 Literata Medium 28/36 — .hero-title (десктоп 32/40)
+   H1 Literata Medium 24/32 — .section-title и H1 страницы кейса (.project-title,
+     десктоп у обоих 26/34)
+   H2 Literata Regular 20/30 — заголовок карточки кейса в списке
+     (.projects .project-title, десктоп 22/32) */
+@media (max-width: 640px) {
+  .hero-title {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  .section-title,
+  .project-title {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .projects .project-title {
+    font-size: 20px;
+    line-height: 30px;
+  }
+
+  /* Пилюля "продукта/UX/UI" подтягивается вместе с текстом H0 (28/36
+     вместо 32/40) — те же пропорции (× 0.875), иначе подложка остаётся
+     десктопного размера и торчит за уменьшившимся словом. */
+  :root {
+    --hero-badge-h: 44px;
+    --hero-badge-w-1: 171px;
+    --hero-badge-w-2: 123px;
+  }
+
+  .hero-title__badge-word {
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+
+  .hero-title__badge-word--1 {
+    padding-top: 0;
+    padding-bottom: 9px;
+  }
+
+  .hero-title__badge-word--2 {
+    padding-top: 4px;
+    padding-bottom: 5px;
   }
 }
 

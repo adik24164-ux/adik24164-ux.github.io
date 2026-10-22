@@ -317,8 +317,14 @@ button,
   transition: transform 0.3s ease-out;
 }
 
-.project-card__image:hover img {
-  transform: scale(1.02);
+/* Эффект только на десктопной ширине (тот же порог 900px, что у вылета
+   обложки выше) — не на (hover: hover): DevTools-режим "Отзывчивое
+   устройство" не меняет hover/pointer на обычной мыши, поэтому эффект всё
+   равно срабатывал бы при наведении на любой ширине. */
+@media (hover: hover) and (min-width: 901px) {
+  .project-card__image:hover img {
+    transform: scale(1.02);
+  }
 }
 
 .project-card__body {
